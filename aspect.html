@@ -1,0 +1,611 @@
+<!-- MARKETING SECTION WITH 3D BOXES & TYPING ANIMATION -->
+<div id="marketing-section" style="position: relative; width: 100%; height: 100vh; overflow: hidden; background: linear-gradient(135deg, #050a10 0%, #0d1f33 50%, #071424 100%);">
+
+<style>
+    /* ===== PALETA DE COLORES ===== */
+    #marketing-section {
+        --primary: #050a10;
+        --secondary: #0d1f33;
+        --accent: #00b4d8;
+        --accent-light: #90e0ef;
+        --text: #e0e6ed;
+        --text-muted: #8b95a5;
+        --white: #ffffff;
+    }
+
+    /* RESET & BASE */
+    #marketing-section * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* ===== TEXT CONTAINER - TOP SECTION ===== */
+    .text-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 180px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        overflow: hidden;
+        background: linear-gradient(to bottom, rgba(5, 10, 16, 0.95) 0%, rgba(5, 10, 16, 0.7) 60%, transparent 100%);
+    }
+
+    .text-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 900px;
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    /* Main title with typing effect */
+    .main-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: var(--white);
+        letter-spacing: -0.02em;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 40px rgba(0, 180, 216, 0.3);
+        position: relative;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+
+    /* Subtitle */
+    .subtitle {
+        font-size: 1.3rem;
+        color: var(--accent-light);
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        opacity: 0.9;
+        text-transform: uppercase;
+        position: relative;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+
+    /* Animated words container */
+    .word {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .word.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, -50%) translateY(0);
+    }
+
+    .word.exit-up {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateY(-40px);
+    }
+
+    .word.enter-up {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateY(40px);
+    }
+
+    /* Typing effect - character by character */
+    .typing-text {
+        display: inline;
+        white-space: pre-wrap;
+    }
+
+    .char {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: charReveal 0.1s forwards;
+        text-shadow: 0 0 20px rgba(0, 180, 216, 0.5);
+    }
+
+    @keyframes charReveal {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Blinking cursor */
+    .cursor {
+        display: inline-block;
+        width: 3px;
+        height: 1em;
+        background: var(--accent);
+        margin-left: 5px;
+        animation: cursorBlink 1s infinite;
+        box-shadow: 0 0 10px var(--accent);
+    }
+
+    @keyframes cursorBlink {
+        0%, 49% { opacity: 1; }
+        50%, 100% { opacity: 0; }
+    }
+
+    /* Text glow effect */
+    .word.active::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        border-radius: 2px;
+        animation: glowLine 2s ease-in-out infinite;
+    }
+
+    @keyframes glowLine {
+        0%, 100% { opacity: 0.4; width: 60px; }
+        50% { opacity: 1; width: 100px; box-shadow: 0 0 10px var(--accent); }
+    }
+
+    /* Decorative elements */
+    .decorative-line {
+        position: absolute;
+        width: 100px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        opacity: 0.6;
+    }
+
+    .decorative-line.left {
+        left: calc(50% - 400px);
+        top: 50%;
+    }
+
+    .decorative-line.right {
+        right: calc(50% - 400px);
+        top: 50%;
+    }
+
+    /* SCENE CONTAINER WITH PERSPECTIVE */
+    .scene {
+        position: absolute;
+        inset: 0;
+        perspective: 1200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* CAMERA (FIXED ANGLE) */
+    .camera {
+        transform-style: preserve-3d;
+        transform: rotateX(-28deg) rotateY(32deg);
+    }
+
+    /* BOX CONTAINER */
+    .box {
+        position: absolute;
+        transform-style: preserve-3d;
+    }
+
+    /* HINGE: holds individual faces */
+    .hinge {
+        position: absolute;
+        transform-style: preserve-3d;
+    }
+
+    /* FACE: basic 3D surface */
+    .face {
+        position: absolute;
+        backface-visibility: visible;
+        box-sizing: border-box;
+        background: var(--secondary);
+        border: 0.6px solid var(--text-muted);
+        box-shadow: 
+            inset 0 0 20px rgba(0, 180, 216, 0.1),
+            0 0 10px rgba(0, 180, 216, 0.05);
+        transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    /* Credit link */
+    .credit {
+        position: absolute;
+        bottom: 12px;
+        right: 16px;
+        font-size: 10px;
+        font-weight: 400;
+        letter-spacing: 0.3px;
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: color 0.2s ease;
+        z-index: 100;
+        pointer-events: auto;
+        backdrop-filter: blur(4px);
+        background: rgba(5, 10, 16, 0.6);
+        padding: 4px 10px;
+        border-radius: 4px;
+        border: 1px solid rgba(144, 224, 239, 0.2);
+        font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+
+    .credit:hover {
+        color: var(--accent-light);
+        border-color: var(--accent);
+    }
+
+    /* Smooth rendering */
+    .camera, .box, .hinge, .face {
+        will-change: transform, background, border, box-shadow;
+    }
+
+    /* Optional: subtle glow effect on active boxes */
+    .face.active {
+        box-shadow: 
+            inset 0 0 30px rgba(0, 180, 216, 0.25),
+            0 0 20px rgba(0, 180, 216, 0.15);
+        border-color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .main-title {
+            font-size: 2.2rem;
+            height: 60px;
+        }
+        .subtitle {
+            font-size: 1rem;
+            height: 35px;
+        }
+        .text-container {
+            height: 140px;
+        }
+    }
+</style>
+
+<!-- TEXT CONTAINER WITH MARKETING TITLES -->
+<div class="text-container">
+    <div class="text-wrapper">
+        <div class="decorative-line left"></div>
+        <div class="decorative-line right"></div>
+        
+        <div class="main-title" id="mainTitle">
+            <span class="word active" data-index="0"></span>
+            <span class="word" data-index="1"></span>
+            <span class="word" data-index="2"></span>
+            <span class="word" data-index="3"></span>
+            <span class="word" data-index="4"></span>
+            <span class="word" data-index="5"></span>
+        </div>
+        
+        <div class="subtitle" id="subtitle">
+            <span class="word active" data-index="0"></span>
+            <span class="word" data-index="1"></span>
+            <span class="word" data-index="2"></span>
+            <span class="word" data-index="3"></span>
+            <span class="word" data-index="4"></span>
+            <span class="word" data-index="5"></span>
+        </div>
+    </div>
+</div>
+
+<div class="scene">
+    <div class="camera" id="cameraRoot"></div>
+</div>
+
+<a class="credit" href="https://calculatequick.com" target="_blank" rel="noopener noreferrer">calculatequick.com</a>
+
+</div>
+
+<script>
+(function() {
+    // ==================== TITLES DATA ====================
+    const titlesData = [
+        { main: "Marketing Digital", subtitle: "Transformamos tu marca" },
+        { main: "Estrategias 3D", subtitle: "Innovación y resultados" },
+        { main: "Branding Creativo", subtitle: "Presencia digital" },
+        { main: "Social Media", subtitle: "Engagement real" },
+        { main: "Growth Hacking", subtitle: "Crecimiento exponencial" },
+        { main: "Content Marketing", subtitle: "Impacto medible" }
+    ];
+
+    const section = document.getElementById('marketing-section');
+    const mainTitleWords = section.querySelectorAll('#mainTitle .word');
+    const subtitleWords = section.querySelectorAll('#subtitle .word');
+    
+    let currentIndex = 0;
+    let isTyping = false;
+    const titleDuration = 5000; // Tiempo total por título (incluye escritura)
+    const typingSpeed = 80; // Velocidad de escritura (ms por caracter)
+    const cursorDelay = 1500; // Tiempo que el cursor parpadea después de escribir
+
+    // ==================== TYPING FUNCTION ====================
+    function createTypingText(text) {
+        const chars = text.split('');
+        let html = '<span class="typing-text">';
+        chars.forEach((char, index) => {
+            html += `<span class="char" style="animation-delay: ${index * typingSpeed}ms">${char}</span>`;
+        });
+        html += '</span><span class="cursor"></span>';
+        return html;
+    }
+
+    function typeTitle(index) {
+        isTyping = true;
+        const data = titlesData[index];
+        
+        // Crear efecto de escritura en título principal
+        const mainWord = mainTitleWords[index];
+        mainWord.innerHTML = createTypingText(data.main);
+        
+        // Subtítulo con escritura más rápida
+        const subWord = subtitleWords[index];
+        subWord.innerHTML = createTypingText(data.subtitle);
+        subWord.querySelectorAll('.char').forEach((char, i) => {
+            char.style.animationDelay = `${i * 50}ms`; // Más rápido
+        });
+        
+        // Después de escribir, esperar y cambiar al siguiente
+        const longestText = Math.max(data.main.length, data.subtitle.length);
+        const totalTypingTime = longestText * typingSpeed + cursorDelay;
+        
+        setTimeout(() => {
+            isTyping = false;
+            changeTitle();
+        }, totalTypingTime);
+    }
+
+    function changeTitle() {
+        if (isTyping) return;
+        
+        const nextIndex = (currentIndex + 1) % titlesData.length;
+        
+        // Animación de salida
+        mainTitleWords[currentIndex].classList.remove('active');
+        mainTitleWords[currentIndex].classList.add('exit-up');
+        
+        subtitleWords[currentIndex].classList.remove('active');
+        subtitleWords[currentIndex].classList.add('exit-up');
+        
+        // Preparar siguiente
+        setTimeout(() => {
+            mainTitleWords[currentIndex].classList.remove('exit-up');
+            subtitleWords[currentIndex].classList.remove('exit-up');
+            
+            mainTitleWords[nextIndex].classList.remove('enter-up');
+            subtitleWords[nextIndex].classList.remove('enter-up');
+            
+            mainTitleWords[nextIndex].classList.add('enter-up');
+            subtitleWords[nextIndex].classList.add('enter-up');
+            
+            // Trigger reflow
+            void mainTitleWords[nextIndex].offsetWidth;
+            
+            mainTitleWords[nextIndex].classList.remove('enter-up');
+            subtitleWords[nextIndex].classList.remove('enter-up');
+            
+            mainTitleWords[nextIndex].classList.add('active');
+            subtitleWords[nextIndex].classList.add('active');
+            
+            currentIndex = nextIndex;
+            typeTitle(currentIndex);
+        }, 500);
+    }
+
+    // Iniciar con el primer título
+    setTimeout(() => {
+        typeTitle(0);
+    }, 500);
+
+    // ==================== 3D BOX ANIMATION ====================
+    (function() {
+        const BOX_SIZE = 120;
+        const SCALE_RATIO = 0.44;
+        const BOX_COUNT = 6;
+        const START_INDEX = -2;
+        
+        const BASE_SPEED = 0.000115;
+        const LID_SWEEP = 270;
+        const LID_DURATION = 0.40;
+        const WALL_DELAY = 0.38;
+        const WALL_DURATION = 0.30;
+        
+        const FADE_IN_START = 1.5;
+        const FADE_IN_RATE = 2.0;
+        const FADE_OUT_START = 0.7;
+        const FADE_OUT_RATE = 1.1;
+
+        const cameraContainer = section.querySelector('#cameraRoot');
+        if (!cameraContainer) return;
+        
+        const boxes = [];
+        
+        function createElem(className) {
+            const el = document.createElement('div');
+            if (className) el.className = className;
+            return el;
+        }
+        
+        function createFace() {
+            const face = createElem('face');
+            face.style.width = `${BOX_SIZE}px`;
+            face.style.height = `${BOX_SIZE}px`;
+            return face;
+        }
+        
+        function createBoxInstance(indexVal) {
+            const boxDiv = createElem('box');
+            
+            const floor = createFace();
+            floor.style.left = `${-BOX_SIZE / 2}px`;
+            floor.style.top = `${-BOX_SIZE / 2}px`;
+            floor.style.transform = 'rotateX(90deg)';
+            boxDiv.appendChild(floor);
+            
+            function createWall(hingeTransform, hasChildLid = false) {
+                const hinge = createElem('hinge');
+                hinge.style.transform = hingeTransform;
+                const wall = createFace();
+                wall.style.left = `${-BOX_SIZE / 2}px`;
+                wall.style.top = `${-BOX_SIZE}px`;
+                wall.style.transformOrigin = 'center bottom';
+                if (hasChildLid) {
+                    wall.style.transformStyle = 'preserve-3d';
+                }
+                hinge.appendChild(wall);
+                boxDiv.appendChild(hinge);
+                return wall;
+            }
+            
+            const half = BOX_SIZE / 2;
+            const frontWall = createWall(`translateZ(${half}px)`);
+            const backWall = createWall(`translateZ(${-half}px) rotateY(180deg)`, true);
+            const leftWall = createWall(`translateX(${-half}px) rotateY(-90deg)`);
+            const rightWall = createWall(`translateX(${half}px) rotateY(90deg)`);
+            
+            const lid = createFace();
+            lid.style.left = '0';
+            lid.style.top = `${-BOX_SIZE}px`;
+            lid.style.transformOrigin = 'center bottom';
+            lid.style.background = `linear-gradient(135deg, var(--secondary), var(--primary))`;
+            lid.style.border = `1px solid var(--accent)`;
+            backWall.appendChild(lid);
+            
+            return {
+                el: boxDiv,
+                index: indexVal,
+                floor: floor,
+                lid: lid,
+                walls: [frontWall, backWall, leftWall, rightWall]
+            };
+        }
+        
+        for (let i = 0; i < BOX_COUNT; i++) {
+            const idx = START_INDEX + i;
+            const boxData = createBoxInstance(idx);
+            cameraContainer.appendChild(boxData.el);
+            boxes.push(boxData);
+        }
+        
+        function clamp(value) {
+            return Math.min(1, Math.max(0, value));
+        }
+        
+        function lidEase(t) {
+            if (t <= 0) return 0;
+            if (t >= 1) return 1;
+            return (1 - Math.cos(t * Math.PI)) / 2;
+        }
+        
+        function styleFaceAlpha(faceElement, alpha, isLid = false, isFloor = false) {
+            const baseBg = isLid ? `linear-gradient(135deg, var(--secondary), var(--primary))` : 'var(--secondary)';
+            const borderColor = isLid ? `var(--accent)` : `var(--text-muted)`;
+            const glowColor = `rgba(0, 180, 216, ${0.15 * alpha})`;
+            
+            faceElement.style.background = baseBg;
+            faceElement.style.border = `0.6px solid ${borderColor}`;
+            faceElement.style.opacity = alpha;
+            
+            if (alpha > 0.3) {
+                faceElement.style.boxShadow = `
+                    inset 0 0 ${15 + 20 * alpha}px ${glowColor},
+                    0 0 ${8 + 12 * alpha}px ${glowColor}
+                `;
+            } else {
+                faceElement.style.boxShadow = 'none';
+            }
+            
+            if (alpha > 0.7) {
+                faceElement.classList.add('active');
+            } else {
+                faceElement.classList.remove('active');
+            }
+        }
+        
+        let phase = 0.15;
+        let lastTimestamp = 0;
+        const direction = 1;
+        
+        function updateAnimation(nowMs) {
+            if (!lastTimestamp) {
+                lastTimestamp = nowMs;
+                requestAnimationFrame(updateAnimation);
+                return;
+            }
+            
+            let delta = Math.min(100, nowMs - lastTimestamp);
+            if (delta > 0) {
+                const phaseStep = delta * BASE_SPEED * direction;
+                phase = (phase + phaseStep) % 1.0;
+            }
+            lastTimestamp = nowMs;
+            
+            const t = phase;
+            
+            for (let k = 0; k < boxes.length; k++) {
+                const box = boxes[k];
+                const depth = box.index - t;
+                
+                const scaleVal = Math.pow(SCALE_RATIO, depth);
+                box.el.style.transform = `scale3d(${scaleVal}, ${scaleVal}, ${scaleVal})`;
+                
+                let rawProgress = -depth;
+                let progress = clamp(rawProgress);
+                
+                const lidProgressVal = clamp(progress / LID_DURATION);
+                const lidAngle = 90 - LID_SWEEP * lidEase(lidProgressVal);
+                box.lid.style.transform = `rotateX(${lidAngle}deg)`;
+                
+                let wallProgress = clamp((progress - WALL_DELAY) / WALL_DURATION);
+                const wallAngle = -90 * wallProgress * wallProgress;
+                for (let j = 0; j < box.walls.length; j++) {
+                    box.walls[j].style.transform = `rotateX(${wallAngle}deg)`;
+                }
+                
+                let alpha = 1.0;
+                if (depth > FADE_IN_START) {
+                    let fadeFactor = (depth - FADE_IN_START) * FADE_IN_RATE;
+                    alpha = Math.max(0, 1 - fadeFactor);
+                }
+                if (depth < -FADE_OUT_START) {
+                    let fadeFactor = (-depth - FADE_OUT_START) * FADE_OUT_RATE;
+                    alpha = Math.max(0, 1 - fadeFactor);
+                }
+                
+                styleFaceAlpha(box.floor, alpha, false, true);
+                styleFaceAlpha(box.lid, alpha, true, false);
+                for (let w = 0; w < 4; w++) {
+                    styleFaceAlpha(box.walls[w], alpha, false, false);
+                }
+            }
+            
+            requestAnimationFrame(updateAnimation);
+        }
+        
+        requestAnimationFrame(updateAnimation);
+        
+        setTimeout(() => {
+            for (let b of boxes) {
+                styleFaceAlpha(b.floor, 1, false, true);
+                styleFaceAlpha(b.lid, 1, true, false);
+                for (let w of b.walls) styleFaceAlpha(w, 1, false, false);
+                b.lid.style.transform = `rotateX(90deg)`;
+                for (let w of b.walls) w.style.transform = `rotateX(0deg)`;
+            }
+        }, 10);
+    })();
+})();
+</script>

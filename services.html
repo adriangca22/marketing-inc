@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Servicios Creativos 3D | Marketing, Diseño, Render, Community Manager</title>
+    <!-- Google Fonts para tipografía moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (Free CDN) para iconos premium -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos base para el contenedor de la sección - CORREGIDO: sin altura fija */
+        .services-container {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 10% 30%, #0B0C10, #050608);
+            min-height: auto; /* CAMBIADO: ya no fuerza 100vh */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem 8rem 2rem; /* AUMENTADO: padding abajo de 8rem */
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Fondo con partículas sutiles estilo 3D abstracto */
+        .services-container::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+            top: 0;
+            left: 0;
+        }
+
+        /* contenedor principal */
+        .services-section {
+            max-width: 1400px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Título principal "Nuestros Servicios" con efecto 3D */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+        .section-header h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFFFFF, #A5F0FF, #6C63FF);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            letter-spacing: -0.02em;
+            position: relative;
+            display: inline-block;
+        }
+        /* decoración subrayado brillante */
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #6C63FF, #FF6584, #6C63FF);
+            border-radius: 4px;
+            box-shadow: 0 0 12px #ff6584;
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { opacity: 0.6; width: 80px; box-shadow: 0 0 5px #FF6584; }
+            50% { opacity: 1; width: 110px; box-shadow: 0 0 18px #FF6584, 0 0 5px #6C63FF; }
+            100% { opacity: 0.6; width: 80px; box-shadow: 0 0 5px #FF6584; }
+        }
+        .section-header p {
+            color: #B0B3C0;
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            font-weight: 400;
+            letter-spacing: -0.2px;
+        }
+
+        /* Grid de cards - 4 cards con diseño responsivo */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+            align-items: stretch;
+        }
+
+        /* Cada card con efecto 3D real + ANIMACIÓN DE BRILLO */
+        .service-card {
+            background: rgba(18, 22, 35, 0.75);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            width: 100%;
+            max-width: 320px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            box-shadow: 0 20px 35px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(108, 99, 255, 0.1) inset;
+            cursor: default;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: perspective(1200px) translateZ(0) rotateX(0deg) rotateY(0deg);
+            overflow: hidden;
+        }
+        
+        /* ANIMACIÓN DE BRILLO SOBRE LAS CARDS */
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 180%;
+            height: 200%;
+            background: linear-gradient(
+                115deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.25) 45%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0.25) 55%,
+                transparent 70%
+            );
+            transform: rotate(25deg);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            pointer-events: none;
+            z-index: 2;
+            animation: shineAnimation 3.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* keyframes para el deslizamiento del brillo */
+        @keyframes shineAnimation {
+            0% {
+                transform: rotate(25deg) translateX(-120%) translateY(-20%);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            30% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 0.9;
+            }
+            70% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: rotate(25deg) translateX(100%) translateY(20%);
+                opacity: 0;
+            }
+        }
+        
+        /* hover acelera el brillo */
+        .service-card:hover::before {
+            animation: shineAnimation 1.8s ease-in-out forwards;
+            opacity: 0.8;
+        }
+        
+        /* Mantener la card con posición relativa para los hijos */
+        .service-card > * {
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Efecto 3D al hover: levita + rotación suave y sombra intensa */
+        .service-card:hover {
+            transform: perspective(1200px) translateZ(25px) rotateX(3deg) rotateY(5deg);
+            background: rgba(25, 30, 45, 0.9);
+            border-color: rgba(108, 99, 255, 0.8);
+            box-shadow: 0 35px 50px -20px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(255, 101, 132, 0.3) inset;
+        }
+        
+        /* efecto de luz adicional en hover */
+        .service-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 2rem;
+            background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.08), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .service-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Icono circular con gradiente y sombra 3D */
+        .icon-wrapper {
+            background: linear-gradient(145deg, #1E243F, #13182C);
+            width: 85px;
+            height: 85px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            transform: translateZ(20px);
+            transition: all 0.3s;
+            box-shadow: 0 15px 20px -10px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1);
+            border: 1px solid rgba(108, 99, 255, 0.5);
+        }
+
+        .service-card:hover .icon-wrapper {
+            transform: translateZ(35px) scale(1.02);
+            box-shadow: 0 20px 25px -12px black, inset 0 0 8px rgba(108,99,255,0.4);
+            border-color: #FF6584;
+        }
+
+        .icon-wrapper i {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #F0F3FF, #B9B4FF);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        /* Títulos y texto */
+        .service-card h3 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(115deg, #FFFFFF, #D9D9FF);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .service-description {
+            color: #C5C9E0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 1rem 0 1.5rem;
+            font-weight: 400;
+        }
+
+        /* Etiqueta sutil o badge */
+        .tech-badge {
+            display: inline-block;
+            background: rgba(108, 99, 255, 0.2);
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: #B8AEFF;
+            border: 0.5px solid rgba(108,99,255,0.4);
+            transition: 0.2s;
+        }
+
+        .service-card:hover .tech-badge {
+            background: rgba(255, 101, 132, 0.25);
+            color: #FFD9E2;
+            border-color: #FF6584;
+        }
+
+        /* Botón sutil con efecto elevación */
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(20, 24, 40, 0.8);
+            border-radius: 50px;
+            color: #D0D4FF;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(108, 99, 255, 0.4);
+            transition: all 0.25s;
+            backdrop-filter: blur(5px);
+        }
+
+        .card-link i {
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+        }
+
+        .card-link:hover {
+            background: #6C63FF;
+            color: white;
+            border-color: #FF6584;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(108, 99, 255, 0.3);
+        }
+
+        .card-link:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 700px) {
+            .services-container {
+                padding: 2rem 1.2rem 6rem 1.2rem; /* MÁS PADDING ABAJO EN MÓVIL */
+            }
+            .section-header h2 {
+                font-size: 2.3rem;
+            }
+            .service-card {
+                max-width: 100%;
+                transform: perspective(800px) translateZ(0);
+            }
+            .service-card:hover {
+                transform: perspective(800px) translateZ(15px) rotateX(2deg) rotateY(3deg);
+            }
+            .service-card::before {
+                animation-duration: 5s;
+            }
+        }
+
+        /* perspectiva global */
+        .cards-grid {
+            perspective: 800px;
+            margin-bottom: 2rem; /* ESPACIO EXTRA ABAJO DEL GRID */
+        }
+
+        /* efecto de entrada suave animación */
+        @keyframes float-up {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) perspective(600px) rotateX(5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) perspective(600px) rotateX(0);
+            }
+        }
+
+        .service-card {
+            animation: float-up 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+            opacity: 0;
+        }
+
+        /* delays para cada card (efecto cascada) */
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        /* decoración flotante 3D extra (círculos) */
+        .bg-shape {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(108,99,255,0.1), transparent);
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .shape-1 { top: 10%; left: -5%; }
+        .shape-2 { bottom: 5%; right: -2%; background: radial-gradient(circle, rgba(255,101,132,0.1), transparent);}
+        
+        /* Detalle extra: texto de "Nuestros Servicios" mejorado */
+        .highlight-text {
+            background: linear-gradient(120deg, #F0F3FF, #A98EFF);
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        /* NUEVO: Aseguramos que el último elemento tenga espacio */
+        .services-section > div:last-child {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- DIV CONTENEDOR PRINCIPAL -->
+    <div class="services-container">
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div>
+
+        <div class="services-section">
+            <div class="section-header">
+                <h2>Nuestros Servicios</h2>
+                <p>Soluciones creativas con tecnología 3D y gestión profesional | <span class="highlight-text">Innovación y resultados</span></p>
+            </div>
+            <div class="cards-grid">
+                <!-- Card 1: Marketing Digital -->
+                <div class="service-card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Marketing</h3>
+                    <div class="service-description">
+                        Estrategias data-driven, growth hacking y campañas de alto impacto. Elevamos tu presencia digital con análisis 3D predictivo.
+                    </div>
+                    <span class="tech-badge"><i class="fas fa-bullhorn"></i> SEO · ADS · Analytics</span>
+                    <a href="#" class="card-link">Descubrir <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Card 2: Diseño Web & UI/UX 3D -->
+                <div class="service-card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Diseño Web</h3>
+                    <div class="service-description">
+                        Creación de sitios web modernos, interactivos y totalmente responsivos. Experiencias inmersivas con animaciones y efectos 3D.
+                    </div>
+                    <span class="tech-badge"><i class="fab fa-react"></i> React · Three.js · UX</span>
+                    <a href="#" class="card-link">Explorar <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Card 3: Gráfico / Motion & Branding 3D -->
+                <div class="service-card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Gráfico</h3>
+                    <div class="service-description">
+                        Identidad visual, ilustración, motion graphics y piezas gráficas con profundidad 3D. Diseño que cautiva y comunica.
+                    </div>
+                    <span class="tech-badge"><i class="fas fa-crown"></i> Branding · Motion · UI</span>
+                    <a href="#" class="card-link">Ver más <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Card 4: Render 3D + Community Manager -->
+                <div class="service-card">
+                    <div class="icon-wrapper" style="position: relative;">
+                        <div style="display: flex; gap: 10px; align-items: center; justify-content: center;">
+                            <i class="fas fa-cube"></i>
+                            <i class="fas fa-users" style="font-size: 2rem;"></i>
+                        </div>
+                    </div>
+                    <h3>Render 3D + CM</h3>
+                    <div class="service-description">
+                        Visualización fotorrealista de productos/arquitectura y gestión profesional de comunidad. Potencia tu marca con contenido 3D y engagement 24/7.
+                    </div>
+                    <span class="tech-badge"><i class="fas fa-vr-cardboard"></i> 3D Studio · Blender · Social Manager</span>
+                    <a href="#" class="card-link">Cotizar <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3.5rem;">
+                <span style="color: #6C7A9E; font-size: 0.85rem; background: rgba(0,0,0,0.3); padding: 0.3rem 1rem; border-radius: 30px; backdrop-filter: blur(2px);"><i class="fas fa-sun"></i> Efecto brillo dinámico · 3D Interactivo</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para efecto parallax 3D con seguimiento de mouse -->
+    <script>
+        (function() {
+            const cards = document.querySelectorAll('.service-card');
+            
+            cards.forEach(card => {
+                // efecto de inclinación 3D en movimiento
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateY = ((x - centerX) / centerX) * 8;
+                    const rotateX = ((centerY - y) / centerY) * 5;
+                    
+                    card.style.transform = `perspective(1200px) translateZ(12px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1200px) translateZ(0) rotateX(0deg) rotateY(0deg)';
+                });
+            });
+            
+            // Si es dispositivo táctil, desactivamos el seguimiento para mantener fluidez
+            if ('ontouchstart' in window) {
+                cards.forEach(card => {
+                    card.removeEventListener('mousemove', () => {});
+                    card.style.transform = '';
+                });
+            }
+            
+            console.log("✨ Efecto brillo + animación 3D activado sobre las cards | Título: Nuestros Servicios");
+        })();
+    </script>
+</body>
+</html>
