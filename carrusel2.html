@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Carrusel Web Images</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+/* RESET Y BASE */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+overflow-x: hidden;
+width: 100%;
+max-width: 100vw;
+}
+
+body {
+font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+background: linear-gradient(135deg, #0a0e1a 0%, #0f172a 100%);
+min-height: 100vh;
+color: #fff;
+overflow-x: hidden;
+}
+
+/* CONTENEDOR PRINCIPAL */
+#webGalleryContainer {
+width: 100%;
+max-width: 1400px;
+margin: 0 auto;
+padding: 1rem 1rem 3rem;
+position: relative;
+overflow: hidden;
+}
+
+/* SECCIÓN DE TÍTULO - LETRAS MÁS JUNTAS */
+.carousel-header {
+text-align: center;
+margin-bottom: 0.8rem; /* Reducido de 1.2rem a 0.8rem */
+padding: 0 1rem;
+}
+
+.section-tag {
+display: inline-block;
+background: rgba(0, 180, 216, 0.12);
+border: 1px solid rgba(0, 180, 216, 0.3);
+padding: 0.3rem 1.2rem; /* Ligeramente más compacto */
+border-radius: 50px;
+font-size: 0.7rem; /* Un poco más pequeño */
+color: #00b4d8;
+margin-bottom: 0.4rem; /* Reducido de 0.6rem a 0.4rem */
+text-transform: uppercase;
+letter-spacing: 1.5px; /* Ligera reducción */
+font-weight: 500;
+}
+
+.section-title {
+font-size: clamp(1.5rem, 4vw, 2.2rem);
+font-weight: 700;
+letter-spacing: -0.02em;
+background: linear-gradient(135deg, #fff, #90e0ef);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+line-height: 1.2; /* Líneas más juntas */
+margin-bottom: 0.2rem; /* Espacio reducido con subtítulo */
+}
+
+.section-subtitle {
+color: rgba(200, 215, 240, 0.6);
+font-size: 0.8rem; /* Ligeramente más pequeño */
+max-width: 500px;
+margin: 0 auto 0; /* Eliminado margen superior */
+line-height: 1.3; /* Líneas más juntas */
+}
+
+/* ESCENA 3D */
+.scene {
+display: grid;
+overflow: hidden;
+perspective: 58em;
+width: 100%;
+height: 600px;
+margin: 0 auto;
+place-items: center;
+position: relative;
+contain: layout style paint;
+}
+
+.carousel3d {
+display: grid;
+place-self: center;
+transform-style: preserve-3d;
+animation: spinAround 75s linear infinite;
+will-change: transform;
+pointer-events: none;
+position: relative;
+width: 100%;
+height: 100%;
+}
+
+@keyframes spinAround {
+from { transform: rotateY(0deg); }
+to { transform: rotateY(360deg); }
+}
+
+.scene:hover .carousel3d {
+animation-play-state: paused;
+}
+
+.card {
+--w: 32em;
+grid-area: 1 / 1;
+width: var(--w);
+aspect-ratio: 16 / 10;
+object-fit: cover;
+border-radius: 1.5rem;
+backface-visibility: hidden;
+box-shadow: 0 25px 40px -18px rgba(0, 0, 0, 0.6),
+0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+cursor: pointer;
+pointer-events: auto;
+transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+transform: rotateY(calc(var(--i) * var(--ba))) translateZ(calc(-1 * (0.5 * var(--w) + 0.8em) / tan(0.5 * var(--ba))));
+position: absolute;
+left: 50%;
+top: 50%;
+margin-left: calc(var(--w) / -2);
+margin-top: calc((var(--w) * 10 / 16) / -2);
+contain: layout;
+}
+
+.card:hover {
+filter: brightness(1.08) contrast(1.03);
+box-shadow: 0 35px 50px -20px rgba(0, 180, 216, 0.4), 0 0 0 2px rgba(0, 180, 216, 0.5) inset;
+transform: rotateY(calc(var(--i) * var(--ba))) translateZ(calc(-1 * (0.5 * var(--w) + 0.8em) / tan(0.5 * var(--ba)))) scale(1.02);
+z-index: 10;
+}
+
+/* RESPONSIVE CARRUSEL */
+@media (max-width: 1300px) { .card { --w: 28em; } .scene { perspective: 50em; height: 540px; } }
+@media (max-width: 1100px) { .card { --w: 24em; } .scene { perspective: 44em; height: 480px; } }
+@media (max-width: 900px) { .card { --w: 20em; } .scene { perspective: 38em; height: 420px; } }
+@media (max-width: 700px) { .card { --w: 17em; } .scene { perspective: 32em; height: 360px; } }
+@media (max-width: 550px) { .card { --w: 14em; } .scene { perspective: 28em; height: 320px; } }
+@media (max-width: 450px) { .card { --w: 12em; } .scene { perspective: 24em; height: 280px; } }
+
+/* HINT */
+.carousel-hint {
+text-align: center;
+margin-top: 0.8rem; /* Reducido */
+color: rgba(200, 220, 250, 0.5);
+font-size: 0.7rem;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 0.7rem;
+}
+
+/* LIGHTBOX - POPUP CENTRADO CON OVERLAY SOBRE LA IMAGEN */
+.lightbox {
+position: fixed;
+top: 0; left: 0;
+width: 100%; height: 100%;
+background: rgba(2, 6, 18, 0.98);
+backdrop-filter: blur(24px);
+z-index: 99999;
+display: flex;
+align-items: center;
+justify-content: center;
+visibility: hidden;
+opacity: 0;
+transition: visibility 0s 0.3s, opacity 0.35s ease;
+overflow: auto;
+}
+
+.lightbox.active {
+visibility: visible;
+opacity: 1;
+transition: visibility 0s, opacity 0.35s ease;
+}
+
+.lightbox-container {
+position: relative;
+width: 100%;
+max-width: 90vw;
+max-height: 90vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+animation: scaleIn 0.38s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+padding: 2rem;
+}
+
+@keyframes scaleIn {
+from { transform: scale(0.94); opacity: 0; }
+to { transform: scale(1); opacity: 1; }
+}
+
+/* Contenedor de imagen con overlay */
+.image-overlay-container {
+position: relative;
+display: inline-block;
+max-width: 85vw;
+max-height: 65vh;
+border-radius: 16px;
+overflow: hidden;
+box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8);
+}
+
+.lightbox-img {
+width: auto;
+height: auto;
+max-width: 85vw;
+max-height: 65vh;
+object-fit: contain;
+display: block;
+aspect-ratio: auto;
+}
+
+/* OVERLAY DE DESCRIPCIÓN SOBRE LA IMAGEN */
+.image-info-overlay {
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.6) 60%, transparent 100%);
+padding: 1.5rem 1.8rem 1.2rem 1.8rem;
+transform: translateY(0);
+transition: transform 0.3s ease;
+backdrop-filter: blur(2px);
+}
+
+.image-overlay-container:hover .image-info-overlay {
+transform: translateY(0);
+}
+
+.overlay-title {
+font-size: 1.2rem;
+font-weight: 600;
+display: flex;
+align-items: center;
+gap: 0.7rem;
+color: #fff;
+margin-bottom: 0.4rem;
+text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.overlay-title i {
+color: #00b4d8;
+font-size: 1.1rem;
+}
+
+.overlay-desc {
+font-size: 0.85rem;
+color: rgba(255, 255, 255, 0.85);
+line-height: 1.4;
+text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+margin-bottom: 0.6rem;
+}
+
+.overlay-visit-link {
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+background: linear-gradient(135deg, #00b4d8, #0077b6);
+color: white;
+padding: 0.4rem 1.2rem;
+border-radius: 50px;
+text-decoration: none;
+font-size: 0.75rem;
+font-weight: 500;
+transition: all 0.3s ease;
+border: none;
+cursor: pointer;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+margin-top: 0.2rem;
+}
+
+.overlay-visit-link:hover {
+transform: translateY(-2px);
+box-shadow: 0 4px 12px rgba(0, 180, 216, 0.4);
+background: linear-gradient(135deg, #0096c7, #0077b6);
+}
+
+/* Ocultar el project-info antiguo */
+.project-info {
+display: none;
+}
+
+.nav-btn {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background: rgba(15, 25, 45, 0.8);
+backdrop-filter: blur(12px);
+border: 1px solid rgba(0, 180, 216, 0.4);
+width: 56px;
+height: 56px;
+border-radius: 50%;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.3s ease;
+color: rgba(255, 255, 255, 0.9);
+font-size: 1.5rem;
+z-index: 1010;
+box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.nav-btn:hover {
+background: rgba(0, 180, 216, 0.9);
+color: white;
+border-color: rgba(0, 200, 255, 0.8);
+transform: translateY(-50%) scale(1.1);
+box-shadow: 0 10px 30px rgba(0, 180, 216, 0.5);
+}
+
+.prev-lightbox { left: 30px; }
+.next-lightbox { right: 30px; }
+
+.close-lightbox {
+position: absolute;
+top: 30px; right: 30px;
+background: rgba(220, 50, 70, 0.85);
+backdrop-filter: blur(12px);
+border: 1px solid rgba(255, 100, 120, 0.5);
+width: 48px; height: 48px;
+border-radius: 50%;
+font-size: 1.3rem;
+cursor: pointer;
+color: rgba(255, 255, 255, 0.95);
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.3s ease;
+z-index: 1010;
+box-shadow: 0 8px 24px rgba(220, 50, 70, 0.4);
+}
+
+.close-lightbox:hover {
+background: rgba(220, 50, 70, 1);
+transform: rotate(90deg) scale(1.1);
+box-shadow: 0 10px 30px rgba(220, 50, 70, 0.6);
+}
+
+.counter {
+position: absolute;
+bottom: 30px; right: 30px;
+background: rgba(5, 10, 20, 0.85);
+backdrop-filter: blur(12px);
+padding: 0.5rem 1.2rem;
+border-radius: 30px;
+color: rgba(200, 220, 250, 0.9);
+font-size: 0.85rem;
+border: 1px solid rgba(0, 180, 255, 0.3);
+pointer-events: none;
+font-weight: 600;
+letter-spacing: 0.5px;
+}
+
+/* RESPONSIVE LIGHTBOX */
+@media (max-width: 900px) {
+.lightbox-container { padding: 1.5rem; }
+.image-overlay-container { max-width: 90vw; max-height: 60vh; }
+.lightbox-img { max-width: 90vw; max-height: 60vh; }
+.nav-btn { width: 50px; height: 50px; font-size: 1.3rem; }
+.prev-lightbox { left: 15px; }
+.next-lightbox { right: 15px; }
+.close-lightbox { width: 44px; height: 44px; font-size: 1.1rem; top: 20px; right: 20px; }
+.counter { bottom: 20px; right: 20px; font-size: 0.8rem; }
+.image-info-overlay { padding: 1rem 1.5rem 0.8rem 1.5rem; }
+.overlay-title { font-size: 1rem; }
+.overlay-desc { font-size: 0.75rem; }
+}
+
+@media (max-width: 600px) {
+.lightbox-container { padding: 1rem; max-width: 95vw; }
+.image-overlay-container { max-width: 95vw; max-height: 55vh; }
+.lightbox-img { max-width: 95vw; max-height: 55vh; }
+.nav-btn { width: 44px; height: 44px; font-size: 1.1rem; }
+.prev-lightbox { left: 10px; }
+.next-lightbox { right: 10px; }
+.close-lightbox { width: 40px; height: 40px; font-size: 1rem; top: 15px; right: 15px; }
+.counter { bottom: 15px; right: 15px; font-size: 0.75rem; padding: 0.4rem 1rem; }
+.image-info-overlay { padding: 0.8rem 1.2rem 0.6rem 1.2rem; }
+.overlay-title { font-size: 0.9rem; gap: 0.4rem; }
+.overlay-desc { font-size: 0.7rem; }
+.overlay-visit-link { font-size: 0.7rem; padding: 0.3rem 1rem; }
+}
+
+@media (max-width: 400px) {
+.image-overlay-container { max-height: 50vh; }
+.lightbox-img { max-height: 50vh; }
+.image-info-overlay { padding: 0.6rem 1rem 0.5rem 1rem; }
+.overlay-title { font-size: 0.8rem; }
+.overlay-desc { font-size: 0.65rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- CONTENEDOR PRINCIPAL -->
+<div id="webGalleryContainer">
+
+<div class="carousel-header">
+<div class="section-tag"><i class="fas fa-code"></i> Portafolio Web</div>
+<h2 class="section-title">Sitios WEB & Experiencias Digitales</h2>
+<p class="section-subtitle">Click en cualquier imagen para vista completa</p>
+</div>
+
+<!-- CARRUSEL 3D -->
+<div class="scene">
+<div class="carousel3d" id="webCarousel"></div>
+</div>
+
+<div class="carousel-hint">
+<i class="fas fa-mouse-pointer"></i> Click para ampliar
+<i class="fas fa-arrows-spin"></i> Pausa al pasar el mouse
+</div>
+
+</div>
+
+<!-- LIGHTBOX MODAL - POPUP CENTRADO CON OVERLAY EN IMAGEN -->
+<div id="lightbox" class="lightbox">
+<div class="lightbox-container">
+<div class="image-overlay-container">
+<img id="lightboxImg" class="lightbox-img" alt="Vista ampliada">
+<div class="image-info-overlay" id="imageOverlay">
+<div class="overlay-title">
+<i id="overlayIcon" class="fas fa-globe"></i>
+<span id="overlayTitle">Proyecto Web</span>
+</div>
+<div id="overlayDesc" class="overlay-desc">Descripción del sitio web</div>
+<a id="overlayVisitLink" href="#" target="_blank" rel="noopener noreferrer" class="overlay-visit-link" style="display: none;">
+<i class="fas fa-external-link-alt"></i> Visitar Sitio
+</a>
+</div>
+</div>
+<button id="closeLightboxBtn" class="close-lightbox"><i class="fas fa-times"></i></button>
+<button id="prevLightboxBtn" class="nav-btn prev-lightbox"><i class="fas fa-chevron-left"></i></button>
+<button id="nextLightboxBtn" class="nav-btn next-lightbox"><i class="fas fa-chevron-right"></i></button>
+<div id="imageCounter" class="counter">1 / 12</div>
+</div>
+</div>
+
+<script>
+// ================= CONFIGURACIÓN: WEB IMAGES =================
+const webImages = [
+'./img/web (1).png', './img/web (2).png', './img/web (3).jpg',
+'./img/web (4).png', './img/web (4).jpg', './img/web (5).png',
+'./img/web (5).jpg', './img/web (6).png', './img/web (6).jpg',
+'./img/webs.jpg', './img/web (7).png', './img/web (7).jpg'
+];
+
+const webLinks = [
+'https://www.apple.com', 'https://www.microsoft.com', 'https://www.spotify.com',
+'https://www.netflix.com', 'https://www.amazon.com', 'https://www.google.com',
+'https://www.figma.com', 'https://www.notion.so', 'https://www.canva.com',
+'https://www.airbnb.com', 'https://www.uber.com', 'https://www.shopify.com'
+];
+
+const webMetadata = [
+{ title: "Apple Store", desc: "Experiencia premium y diseño minimalista.", icon: "fab fa-apple" },
+{ title: "Microsoft 365", desc: "Plataforma corporativa de alta productividad.", icon: "fab fa-microsoft" },
+{ title: "Spotify Web", desc: "Streaming musical inmersivo y personalizado.", icon: "fab fa-spotify" },
+{ title: "Netflix UI", desc: "Sistema de streaming con interfaz adaptativa.", icon: "fab fa-netflix" },
+{ title: "Amazon Shop", desc: "E-commerce global optimizado para conversión.", icon: "fab fa-amazon" },
+{ title: "Google Suite", desc: "Herramientas colaborativas en la nube.", icon: "fab fa-google" },
+{ title: "Figma Hub", desc: "Diseño colaborativo en tiempo real.", icon: "fab fa-figma" },
+{ title: "Notion.so", desc: "Espacio de trabajo todo-en-uno.", icon: "fas fa-tasks" },
+{ title: "Canva Creativo", desc: "Diseño accesible para todos.", icon: "fab fa-canva" },
+{ title: "Airbnb Viajes", desc: "Booking experiencial con UI limpia.", icon: "fab fa-airbnb" },
+{ title: "Uber Mobility", desc: "App-like web con mapa interactivo.", icon: "fab fa-uber" },
+{ title: "Shopify Plus", desc: "Tiendas profesionales de alto rendimiento.", icon: "fab fa-shopify" }
+];
+
+const TOTAL_IMAGES = webImages.length;
+let currentIndex = 0;
+let isLightboxOpen = false;
+
+function buildWebCarousel() {
+const container = document.getElementById('webCarousel');
+if (!container) return;
+
+const N = TOTAL_IMAGES;
+container.style.setProperty('--n', N);
+container.style.setProperty('--ba', `calc(1turn / ${N})`);
+
+let html = '';
+for (let i = 0; i < N; i++) {
+html += `<img class="card" src="${webImages[i]}" alt="Web Project ${i+1}" data-index="${i}" style="--i: ${i}" loading="lazy" draggable="false">`;
+}
+container.innerHTML = html;
+
+document.querySelectorAll('#webCarousel .card').forEach(card => {
+const idx = parseInt(card.dataset.index);
+card.addEventListener('click', (e) => {
+e.stopPropagation();
+openLightbox(idx);
+});
+});
+}
+
+function updateOverlayInfo(index) {
+const data = webMetadata[index % webMetadata.length];
+const link = webLinks[index % webLinks.length];
+
+document.getElementById('overlayTitle').textContent = data.title;
+document.getElementById('overlayDesc').textContent = data.desc;
+document.getElementById('overlayIcon').className = data.icon;
+
+const visitBtn = document.getElementById('overlayVisitLink');
+if (link && link !== '#') {
+visitBtn.style.display = 'inline-flex';
+visitBtn.href = link;
+} else {
+visitBtn.style.display = 'none';
+}
+}
+
+function openLightbox(index) {
+if (isLightboxOpen) return;
+currentIndex = index;
+updateLightboxImage();
+updateOverlayInfo(currentIndex);
+document.getElementById('lightbox').classList.add('active');
+isLightboxOpen = true;
+document.body.style.overflow = 'hidden';
+const carousel = document.querySelector('.carousel3d');
+if (carousel) carousel.style.animationPlayState = 'paused';
+}
+
+function closeLightbox() {
+if (!isLightboxOpen) return;
+document.getElementById('lightbox').classList.remove('active');
+isLightboxOpen = false;
+document.body.style.overflow = '';
+const carousel = document.querySelector('.carousel3d');
+if (carousel) carousel.style.animationPlayState = 'running';
+setTimeout(() => {
+if (!isLightboxOpen) document.getElementById('lightboxImg').src = '';
+}, 300);
+}
+
+function updateLightboxImage() {
+const imgUrl = webImages[currentIndex];
+const imgElement = document.getElementById('lightboxImg');
+const placeholderImg = new Image();
+placeholderImg.onload = () => {
+imgElement.src = imgUrl;
+document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${TOTAL_IMAGES}`;
+};
+placeholderImg.src = imgUrl;
+imgElement.src = imgUrl;
+document.getElementById('imageCounter').textContent = `${currentIndex + 1} / ${TOTAL_IMAGES}`;
+}
+
+function nextImage() {
+currentIndex = (currentIndex + 1) % TOTAL_IMAGES;
+updateLightboxImage();
+updateOverlayInfo(currentIndex);
+}
+
+function prevImage() {
+currentIndex = (currentIndex - 1 + TOTAL_IMAGES) % TOTAL_IMAGES;
+updateLightboxImage();
+updateOverlayInfo(currentIndex);
+}
+
+// Event Listeners
+document.getElementById('prevLightboxBtn')?.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
+document.getElementById('nextLightboxBtn')?.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
+document.getElementById('closeLightboxBtn')?.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); });
+
+document.getElementById('lightbox')?.addEventListener('click', (e) => {
+if (e.target === document.getElementById('lightbox')) closeLightbox();
+});
+
+document.addEventListener('keydown', (e) => {
+if (!isLightboxOpen) return;
+if (e.key === 'Escape') closeLightbox();
+if (e.key === 'ArrowRight') nextImage();
+if (e.key === 'ArrowLeft') prevImage();
+});
+
+let touchStartX = 0, touchEndX = 0;
+const lightboxEl = document.getElementById('lightbox');
+lightboxEl?.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+lightboxEl?.addEventListener('touchend', (e) => {
+if (!isLightboxOpen) return;
+touchEndX = e.changedTouches[0].screenX;
+const diff = touchEndX - touchStartX;
+if (Math.abs(diff) > 50) diff > 0 ? prevImage() : nextImage();
+}, { passive: true });
+
+// Inicializar
+buildWebCarousel();
+window.addEventListener('load', () => {
+const carousel3d = document.querySelector('.carousel3d');
+if (carousel3d) carousel3d.style.animationPlayState = 'running';
+});
+</script>
+</body>
+</html>
