@@ -157,9 +157,6 @@
             transition: all 0.3s ease;
         }
 
-       
-
-      
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 30px rgba(0, 180, 216, 0.6);
@@ -211,7 +208,6 @@
             margin-top: 0.5rem;
         }
 
-       
         @media (max-width: 768px) {
             .nav-btn { width: 44px; height: 44px; font-size: 1.4rem; }
             .prev-btn { left: 12px; }
@@ -276,11 +272,6 @@
             .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
             .footer-bottom { flex-direction: column; text-align: center; }
         }
-        /* ============================================
-   CHROMA LAB SECTION - Estilo interactivo OKLCH
-   ============================================ */
-
-
     </style>
 </head>
 <body>
@@ -290,7 +281,7 @@
             <a href="#" class="logo">
                 <div class="logo-icon">◈</div>
                 <div class="logo-text">
-                    <span class="logo-main">me cogieron porculox</span>
+                    <span class="logo-main">Eco.Node</span>
                     <span class="logo-sub">Design & Digital</span>
                 </div>
             </a>
@@ -308,83 +299,58 @@
             </div>
         </nav>
     </header>
-<div id="carousel-container" style="overflow: hidden; height: 100vh; width: 100%;">
-    <iframe 
-        src="hero.html" 
-        style="width: 100%; height: 100vh; border: none; overflow: hidden;"
-        scrolling="no"
-        frameborder="0"
-    ></iframe>
-</div>
- <div id="carousel-container" style="width: 100%; overflow: hidden; margin: 0; padding: 0;">
-    <iframe 
-        src="services.html" 
-        title="Sección de Servicios"
-        loading="lazy"
-        style="
-            width: 100%; 
-            height: 850px; /* Reducido para eliminar espacio vacío */
-            min-height: auto;
-            border: none; 
-            display: block;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-        "
-        scrolling="no"
-        frameborder="0">
-    </iframe>
-</div>
-<div id="carousel-container" style="overflow: hidden; height: 100vh; width: 100%;">
-    <iframe 
-        src="carousel.html" 
-        style="width: 100%; height: 100vh; border: none; overflow: hidden;"
-        scrolling="no"
-        frameborder="0"
-    ></iframe>
-</div>
- 
-    <!-- CARRUSEL 2: PÁGINAS WEB - TÍTULOS MUY CERCA -->
-<div id="carousel-container" style="width: 100%; overflow: hidden; margin: 0; padding: 0;">
-    <iframe
-        src="carrusel2.html"
-        title="Sección de Servicios"
-        loading="lazy"
-        style="
-            width: 100%;
-            height: 680px;
-            border: none;
-            display: block;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-            background: transparent;
-        "
-        scrolling="no"
-        frameborder="0"
-        allow="fullscreen">
-    </iframe>
-</div>
-
-   
- <div id="carousel-container" style="width: 100%; overflow: hidden; margin: 0; padding: 0;">
-    <iframe 
-        src="aspect.html" 
-        title="Sección de Servicios"
-        loading="lazy"
-        style="
-            width: 100%; 
-            height: 850px; /* Reducido para eliminar espacio vacío */
-            min-height: auto;
-            border: none; 
-            display: block;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-        "
-        scrolling="no"
-        frameborder="0">
-    </iframe>
+    
+    <div id="carousel-container" style="overflow: hidden; height: 100vh; width: 100%;">
+        <iframe 
+            src="hero.html" 
+            style="width: 100%; height: 100vh; border: none; overflow: hidden;"
+            scrolling="no"
+            frameborder="0"
+        ></iframe>
+    </div>
+    
+    <div id="carousel-container" style="width: 100%; overflow: hidden; margin: 0; padding: 0;">
+        <iframe 
+            src="services.html" 
+            title="Sección de Servicios"
+            loading="lazy"
+            style="width: 100%; height: 850px; min-height: auto; border: none; display: block; overflow: hidden; margin: 0; padding: 0;"
+            scrolling="no"
+            frameborder="0">
+        </iframe>
+    </div>
+    
+    <div id="carousel-container" style="overflow: hidden; height: 100vh; width: 100%;">
+        <iframe 
+            src="carousel.html" 
+            style="width: 100%; height: 100vh; border: none; overflow: hidden;"
+            scrolling="no"
+            frameborder="0"
+        ></iframe>
+    </div>
+    
+    <div id="carousel-container" style="width: 100%; overflow: hidden; margin: 0; padding: 0;">
+        <iframe
+            src="carrusel2.html"
+            title="Sección de Servicios"
+            loading="lazy"
+            style="width: 100%; height: 680px; border: none; display: block; overflow: hidden; margin: 0; padding: 0; background: transparent;"
+            scrolling="no"
+            frameborder="0"
+            allow="fullscreen">
+        </iframe>
+    </div>
+    
+    <div id="carousel-container" style="width: 100%; overflow: hidden; margin: 0; padding: 0;">
+        <iframe 
+            src="aspect.html" 
+            title="Sección de Servicios"
+            loading="lazy"
+            style="width: 100%; height: 850px; min-height: auto; border: none; display: block; overflow: hidden; margin: 0; padding: 0;"
+            scrolling="no"
+            frameborder="0">
+        </iframe>
+    </div>
     
     <footer id="contacto">
         <div class="footer-content">
@@ -407,5 +373,77 @@
         </div>
     </footer>
 
+    <!-- Script para scroll del header y rotación del cubo en hero.html -->
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
 
-   
+        // Función para inyectar estilo de rotación uniforme en el iframe de hero.html
+        // Esperamos a que el iframe cargue y modificamos su contenido para mejorar la rotación del cubo
+        const heroIframe = document.querySelector('#carousel-container iframe');
+        if (heroIframe) {
+            heroIframe.addEventListener('load', function() {
+                try {
+                    const iframeDoc = heroIframe.contentDocument || heroIframe.contentWindow.document;
+                    if (iframeDoc) {
+                        // Buscar el style existente o crear uno nuevo para modificar la animación del cubo
+                        const style = iframeDoc.createElement('style');
+                        style.textContent = `
+                            /* Mejorar la rotación del cubo para que sea más uniforme y suave */
+                            .cube {
+                                animation: rotateUniform 20s infinite linear !important;
+                                transform-style: preserve-3d;
+                            }
+                            
+                            @keyframes rotateUniform {
+                                0% {
+                                    transform: rotateX(0deg) rotateY(0deg);
+                                }
+                                100% {
+                                    transform: rotateX(360deg) rotateY(360deg);
+                                }
+                            }
+                            
+                            /* Asegurar que todas las caras tengan transiciones suaves */
+                            .face {
+                                transition: all 0.1s ease;
+                                backface-visibility: visible;
+                            }
+                            
+                            /* Optimizar el rendimiento de la animación */
+                            .cube-container {
+                                will-change: transform;
+                            }
+                        `;
+                        iframeDoc.head.appendChild(style);
+                        
+                        // También buscar y modificar cualquier clase de animación existente
+                        const existingStyle = iframeDoc.querySelector('style');
+                        if (existingStyle && existingStyle.innerHTML.includes('@keyframes rotate')) {
+                            // Reemplazar la animación existente
+                            existingStyle.innerHTML = existingStyle.innerHTML.replace(
+                                /@keyframes rotate\s*\{[^}]*\}/g,
+                                `@keyframes rotateUniform {
+                                    0% { transform: rotateX(0deg) rotateY(0deg); }
+                                    100% { transform: rotateX(360deg) rotateY(360deg); }
+                                }`
+                            );
+                        }
+                        
+                        console.log('✅ Rotación del cubo actualizada a movimiento uniforme constante');
+                    }
+                } catch(e) {
+                    console.log('No se pudo modificar el iframe (cross-origin), la rotación ya está configurada en hero.html');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
