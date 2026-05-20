@@ -575,7 +575,7 @@
             else if (phase === 1) {
                 // PAUSA para que se vea bien la penúltima imagen
                 const elapsed = timestamp - pauseStartTime;
-                if (elapsed < 800) {  // 0.8 segundos de pausa
+                if (elapsed < 400) {  // 0.8 segundos de pausa
                     requestAnimationFrame(animateCubeSequential);
                 } else {
                     // Pausa terminada, pasar DIRECTAMENTE a giro vertical (sin completar horizontal)
@@ -590,13 +590,13 @@
                 const elapsed = timestamp - startTime;
                 if (elapsed < verticalDuration) {
                     const progress = elapsed / verticalDuration;
-                    const xRotation = progress * 720;
+                    const xRotation = progress * 780;
                     cubeElement.style.transform = `rotateX(${xRotation}deg) rotateY(${-360 * interruptPoint}deg)`;
                     requestAnimationFrame(animateCubeSequential);
                 } else {
                     // Terminó la fase vertical, iniciar modo aleatorio continuo
                     // Primero aseguramos que termine en X=720, Y=-252
-                    cubeElement.style.transform = `rotateX(720deg) rotateY(${-360 * interruptPoint}deg)`;
+                    cubeElement.style.transform = `rotateX(780deg) rotateY(${-360 * interruptPoint}deg)`;
                     startRandomMode();
                 }
             }
