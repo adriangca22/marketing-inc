@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>me cogieron porculox - Design & Digital | Estudio Creativo</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text span:first-child {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo-text span:last-child {
+            font-size: 10px;
+            color: #00d4ff;
+            letter-spacing: 2px;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 50px 50px;
+            position: relative;
+            background: transparent;
+        }
+
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            gap: 50px;
+            position: relative;
+            z-index: 15;
+        }
+
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .hero-text h1 {
+            font-size: 64px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .hero-text h1 .highlight {
+            color: #00d4ff;
+        }
+
+        .hero-text p {
+            font-size: 16px;
+            color: #8b95a5;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: #000;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            padding: 12px 25px;
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.15);
+            transform: translateY(-2px);
+            border-color: #00d4ff;
+        }
+
+        .availability-badge {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 25;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 10px 22px;
+            border-radius: 60px;
+            border-left: 3px solid #00d4ff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+            pointer-events: none;
+        }
+
+        .availability-badge i {
+            color: #00d4ff;
+            font-size: 0.9rem;
+        }
+
+        .availability-badge .badge-text {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .cube-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+        }
+        
+        .cube-container {
+            width: 320px;
+            height: 320px;
+            perspective: 1000px;
+            position: relative;
+            transform: translateY(-25px);
+        }
+
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            /* Transición suave para la animación continua aleatoria */
+            transition: transform 0.05s linear;
+        }
+
+        .face {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            background: #000000;
+            backdrop-filter: none;
+            border: none;
+            box-shadow: none;
+            border-radius: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .face img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0.96;
+            transition: opacity 0.3s;
+            background: transparent;
+            filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
+        }
+
+        .face:hover img {
+            opacity: 1;
+        }
+
+        .front { transform: rotateY(0deg) translateZ(160px); }
+        .back { transform: rotateY(180deg) translateZ(160px); }
+        .right { transform: rotateY(90deg) translateZ(160px); }
+        .left { transform: rotateY(-90deg) translateZ(160px); }
+        .top { transform: rotateX(90deg) translateZ(160px); }
+        .bottom { transform: rotateX(-90deg) translateZ(160px); }
+
+        #webgl-canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            display: block;
+            background: #000000;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-text h1 {
+                font-size: 48px;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .cube-wrapper {
+                justify-content: center;
+                margin-top: 30px;
+            }
+            .cube-container {
+                width: 260px;
+                height: 260px;
+                transform: translateY(-15px);
+            }
+            .face {
+                width: 260px;
+                height: 260px;
+            }
+            .front { transform: rotateY(0deg) translateZ(130px); }
+            .back { transform: rotateY(180deg) translateZ(130px); }
+            .right { transform: rotateY(90deg) translateZ(130px); }
+            .left { transform: rotateY(-90deg) translateZ(130px); }
+            .top { transform: rotateX(90deg) translateZ(130px); }
+            .bottom { transform: rotateX(-90deg) translateZ(130px); }
+            .availability-badge {
+                bottom: 20px;
+                right: 20px;
+                padding: 8px 18px;
+            }
+            .availability-badge .badge-text {
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+            .hero {
+                padding: 100px 20px 30px;
+            }
+            .hero-text h1 {
+                font-size: 36px;
+            }
+            .cube-container {
+                transform: translateY(-10px);
+            }
+            .availability-badge {
+                bottom: 15px;
+                right: 15px;
+                padding: 6px 14px;
+            }
+            .availability-badge .badge-text {
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <div class="logo-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+            </div>
+            <div class="logo-text">
+                <span>me cogieron porculox</span>
+                <span>DESIGN & DIGITAL</span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>
+                    <span>Transformamos</span>
+                    <span class="highlight">Ideas</span>
+                    <span>en Experiencias</span>
+                    <span>Digitales</span>
+                </h1>
+                <p>
+                    Somos un estudio de diseño y marketing digital especializado en crear 
+                    identidades de marca impactantes, sitios web innovadores y estrategias 
+                    digitales que generan resultados reales.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn-primary">
+                        <i class="fas fa-palette"></i> Ver Diseño
+                    </button>
+                    <button class="btn-secondary">
+                        <i class="fas fa-globe"></i> Explorar Webs
+                    </button>
+                </div>
+            </div>
+            
+            <div class="cube-wrapper">
+                <div class="cube-container">
+                    <div class="cube" id="animatedCube">
+                        <div class="face front">
+                            <img src="img/Recurso 0.png" alt="Diseño frontal" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=400&fit=crop'">
+                        </div>
+                        <div class="face back">
+                            <img src="img/Recurso 3.png" alt="Diseño trasero" onerror="this.src='https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=400&h=400&fit=crop'">
+                        </div>
+                        <div class="face right">
+                            <img src="img/Recurso 00.png" alt="Diseño derecha" onerror="this.src='https://images.unsplash.com/photo-1558655146-d09347e92766?w=400&h=400&fit=crop'">
+                        </div>
+                        <div class="face left">
+                            <img src="img/Recurso 4.png" alt="Diseño izquierda" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop'">
+                        </div>
+                        <div class="face top">
+                            <img src="img/Recurso 3.png" alt="Diseño superior" onerror="this.src='https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400&h=400&fit=crop'">
+                        </div>
+                        <div class="face bottom">
+                            <img src="img/Recurso 3.png" alt="Diseño inferior" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=400&fit=crop'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="availability-badge">
+        <i class="fas fa-rocket"></i>
+        <span class="badge-text">DISPONIBLE PARA NUEVOS PROYECTOS</span>
+    </div>
+
+    <canvas id="webgl-canvas-bg"></canvas>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        const canvas = document.getElementById('webgl-canvas-bg');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000);
+        
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 0, 15);
+        
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: false, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        
+        const starCount = 4500;
+        const starGeometry = new THREE.BufferGeometry();
+        const starPositions = new Float32Array(starCount * 3);
+        for (let i = 0; i < starCount; i++) {
+            starPositions[i*3] = (Math.random() - 0.5) * 320;
+            starPositions[i*3+1] = (Math.random() - 0.5) * 210;
+            starPositions[i*3+2] = (Math.random() - 0.5) * 110 - 40;
+        }
+        starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+        const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.1, transparent: true, opacity: 0.85 });
+        const stars = new THREE.Points(starGeometry, starMaterial);
+        scene.add(stars);
+        
+        const starCountMid = 3200;
+        const starGeometryMid = new THREE.BufferGeometry();
+        const starPositionsMid = new Float32Array(starCountMid * 3);
+        for (let i = 0; i < starCountMid; i++) {
+            starPositionsMid[i*3] = (Math.random() - 0.5) * 400;
+            starPositionsMid[i*3+1] = (Math.random() - 0.5) * 260;
+            starPositionsMid[i*3+2] = (Math.random() - 0.5) * 150 - 60;
+        }
+        starGeometryMid.setAttribute('position', new THREE.BufferAttribute(starPositionsMid, 3));
+        const starMaterialMid = new THREE.PointsMaterial({ color: 0xaaccff, size: 0.07, transparent: true, opacity: 0.65 });
+        const starsMid = new THREE.Points(starGeometryMid, starMaterialMid);
+        scene.add(starsMid);
+        
+        const starCountDim = 4000;
+        const starGeometryDim = new THREE.BufferGeometry();
+        const starPositionsDim = new Float32Array(starCountDim * 3);
+        for (let i = 0; i < starCountDim; i++) {
+            starPositionsDim[i*3] = (Math.random() - 0.5) * 500;
+            starPositionsDim[i*3+1] = (Math.random() - 0.5) * 320;
+            starPositionsDim[i*3+2] = (Math.random() - 0.5) * 200 - 90;
+        }
+        starGeometryDim.setAttribute('position', new THREE.BufferAttribute(starPositionsDim, 3));
+        const starMaterialDim = new THREE.PointsMaterial({ color: 0xcceeff, size: 0.045, transparent: true, opacity: 0.5 });
+        const starsDim = new THREE.Points(starGeometryDim, starMaterialDim);
+        scene.add(starsDim);
+        
+        function animateStars() {
+            requestAnimationFrame(animateStars);
+            stars.rotation.y += 0.00018;
+            stars.rotation.x += 0.00009;
+            starsMid.rotation.y -= 0.00012;
+            starsMid.rotation.x += 0.00007;
+            starsDim.rotation.x += 0.00005;
+            starsDim.rotation.z += 0.00004;
+        }
+        animateStars();
+        
+        function renderBackground() {
+            requestAnimationFrame(renderBackground);
+            renderer.render(scene, camera);
+        }
+        renderBackground();
+        
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        // ============================================================
+        // NUEVA VERSIÓN: ROTACIÓN AUTOMÁTICA Y ALEATORIA CONTINUA DESPUÉS DE SECUENCIA
+        // - Secuencia inicial: Horizontal (70%) → Pausa → Vertical (2 vueltas)
+        // - Luego: rotación infinita con cambios de dirección y velocidad aleatorios, sin parar nunca
+        // ============================================================
+        const cubeElement = document.getElementById('animatedCube');
+        
+        // Parámetros de la secuencia inicial
+        const horizontalDuration = 8000;
+        const verticalDuration = 18000;
+        const interruptPoint = 0.70;
+        
+        let phase = 0;  // 0:horizontal, 1:pausa, 2:vertical, 3:random-auto
+        let startTime = null;
+        let pauseStartTime = null;
+        const horizontalFirstDuration = horizontalDuration * interruptPoint;
+        
+        // Variables para el movimiento aleatorio continuo
+        let currentAngleX = 0;
+        let currentAngleY = 0;
+        let targetAngleX = 0;
+        let targetAngleY = 0;
+        let randomModeActive = false;
+        let animationLoopId = null;
+        let changeDirectionTimeout = null;
+        
+        // Función que aplica la rotación actual al cubo
+        function applyRotation() {
+            cubeElement.style.transform = `rotateX(${currentAngleX}deg) rotateY(${currentAngleY}deg)`;
+        }
+        
+        // Loop de animación que interpola suavemente hacia los ángulos objetivo
+        function randomRotationLoop() {
+            if (!randomModeActive) return;
+            
+            // Factor de suavidad: cuanto más bajo, más lento y orgánico el movimiento
+            const smoothFactor = 0.018;
+            
+            let needsUpdate = false;
+            if (Math.abs(currentAngleX - targetAngleX) > 0.05) {
+                currentAngleX += (targetAngleX - currentAngleX) * smoothFactor;
+                needsUpdate = true;
+            } else {
+                currentAngleX = targetAngleX;
+            }
+            
+            if (Math.abs(currentAngleY - targetAngleY) > 0.05) {
+                currentAngleY += (targetAngleY - currentAngleY) * smoothFactor;
+                needsUpdate = true;
+            } else {
+                currentAngleY = targetAngleY;
+            }
+            
+            if (needsUpdate) {
+                applyRotation();
+            }
+            
+            animationLoopId = requestAnimationFrame(randomRotationLoop);
+        }
+        
+        // Cambia los ángulos objetivo a valores aleatorios, generando un movimiento impredecible pero continuo
+        function setRandomAngles() {
+            if (!randomModeActive) return;
+            
+            // Generamos ángulos que pueden ir sumando vueltas completas gradualmente
+            // Usamos rangos amplios para que el cubo explore múltiples posiciones
+            // pero sin cambios bruscos exagerados gracias a la interpolación.
+            const newTargetX = targetAngleX + (Math.random() - 0.5) * 180;
+            const newTargetY = targetAngleY + (Math.random() - 0.5) * 220;
+            
+            // Limitar rangos para evitar que se vuelva loco, pero manteniendo libertad
+            targetAngleX = Math.min(1400, Math.max(-800, newTargetX));
+            targetAngleY = Math.min(1200, Math.max(-1000, newTargetY));
+            
+            // Próximo cambio de dirección entre 2.5 y 6 segundos
+            const nextChange = 2500 + Math.random() * 4000;
+            if (changeDirectionTimeout) clearTimeout(changeDirectionTimeout);
+            changeDirectionTimeout = setTimeout(setRandomAngles, nextChange);
+        }
+        
+        // Activa el modo de rotación aleatoria infinita
+        function startInfiniteRandomRotation() {
+            if (randomModeActive) return;
+            randomModeActive = true;
+            phase = 3;
+            
+            // Tomamos los ángulos finales de la secuencia vertical
+            currentAngleX = 780;
+            currentAngleY = -252;
+            targetAngleX = 780;
+            targetAngleY = -252;
+            applyRotation();
+            
+            // Iniciamos el loop de animación
+            if (animationLoopId) cancelAnimationFrame(animationLoopId);
+            animationLoopId = requestAnimationFrame(randomRotationLoop);
+            
+            // Esperamos un instante para que todo se estabilice y empezamos a cambiar direcciones
+            setTimeout(() => {
+                if (randomModeActive) {
+                    setRandomAngles();
+                }
+            }, 500);
+            
+            console.log('🌀 Rotación automática aleatoria infinita ACTIVADA: el cubo girará cambiando suavemente de dirección para siempre');
+        }
+        
+        // ========== SECUENCIA PRINCIPAL (SOLO SE EJECUTA UNA VEZ) ==========
+        function runInitialSequence(timestamp) {
+            if (!startTime && phase === 0) startTime = timestamp;
+            
+            if (phase === 0) {
+                const elapsed = timestamp - startTime;
+                if (elapsed < horizontalFirstDuration) {
+                    const progress = elapsed / horizontalFirstDuration;
+                    const yRot = -progress * 360 * interruptPoint;
+                    cubeElement.style.transform = `rotateX(0deg) rotateY(${yRot}deg)`;
+                    requestAnimationFrame(runInitialSequence);
+                } else {
+                    phase = 1;
+                    pauseStartTime = timestamp;
+                    cubeElement.style.transform = `rotateX(0deg) rotateY(${-360 * interruptPoint}deg)`;
+                    requestAnimationFrame(runInitialSequence);
+                }
+            }
+            else if (phase === 1) {
+                const pauseElapsed = timestamp - pauseStartTime;
+                if (pauseElapsed < 400) {
+                    requestAnimationFrame(runInitialSequence);
+                } else {
+                    phase = 2;
+                    startTime = timestamp;
+                    requestAnimationFrame(runInitialSequence);
+                }
+            }
+            else if (phase === 2) {
+                const elapsed = timestamp - startTime;
+                if (elapsed < verticalDuration) {
+                    const progress = elapsed / verticalDuration;
+                    const xRot = progress * 780;
+                    cubeElement.style.transform = `rotateX(${xRot}deg) rotateY(${-360 * interruptPoint}deg)`;
+                    requestAnimationFrame(runInitialSequence);
+                } else {
+                    // Secuencia terminada, ahora rotación aleatoria infinita
+                    cubeElement.style.transform = `rotateX(780deg) rotateY(${-360 * interruptPoint}deg)`;
+                    startInfiniteRandomRotation();
+                }
+            }
+        }
+        
+        // Lanzamos la animación inicial
+        requestAnimationFrame(runInitialSequence);
+        
+        console.log('✅ Secuencia inicial: horizontal 70% → pausa → 2 vueltas vertical → LUEGO rotación automática aleatoria INFINITA (nunca se detiene)');
+    </script>
+</body>
+</html>
