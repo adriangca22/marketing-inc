@@ -213,6 +213,7 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
+            /* Transición suave para la animación continua aleatoria */
             transition: transform 0.05s linear;
         }
 
@@ -222,23 +223,23 @@
             height: 320px;
             background: #000000;
             backdrop-filter: none;
-            border: 1.5px solid rgba(0, 212, 255, 0.5);
-            border-radius: 8px;
+            border: none;
+            box-shadow: none;
+            border-radius: 0px;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            box-shadow: 0 0 15px rgba(0,212,255,0.2);
-            backface-visibility: visible;
         }
 
         .face img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            opacity: 0.95;
+            opacity: 0.96;
             transition: opacity 0.3s;
             background: transparent;
+            filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
         }
 
         .face:hover img {
@@ -486,125 +487,159 @@
         });
         
         // ============================================================
-        // ANIMACIÓN DEL CUBO: 
-        // PRIMERO GIRO HORIZONTAL HACIA LA IZQUIERDA (hasta penúltima imagen)
-        // PAUSA BREVE
-        // LUEGO PASA DIRECTAMENTE A GIRO VERTICAL (2 vueltas completas)
-        // DESPUÉS MOVIMIENTO ALEATORIO SUAVE
+        // NUEVA VERSIÓN: ROTACIÓN AUTOMÁTICA Y ALEATORIA CONTINUA DESPUÉS DE SECUENCIA
+        // - Secuencia inicial: Horizontal (70%) → Pausa → Vertical (2 vueltas)
+        // - Luego: rotación infinita con cambios de dirección y velocidad aleatorios, sin parar nunca
         // ============================================================
         const cubeElement = document.getElementById('animatedCube');
         
-        // Configuración de tiempos
-        let horizontalDuration = 8000;   // 8 segundos para giro horizontal completo de 0 a -360
-        let verticalDuration = 18000;     // 18 segundos para 2 giros verticales
+        // Parámetros de la secuencia inicial
+        const horizontalDuration = 8000;
+        const verticalDuration = 18000;
+        const interruptPoint = 0.70;
         
-        // Punto de interrupción: 70% del giro horizontal (penúltima imagen visible)
-        const interruptPoint = 0.70; // 70% = -252 grados
-        
-        let phase = 0;        // 0 = horizontal, 1 = pausa, 2 = vertical, 3 = aleatorio
+        let phase = 0;  // 0:horizontal, 1:pausa, 2:vertical, 3:random-auto
         let startTime = null;
         let pauseStartTime = null;
-        let horizontalStartTime = null;
-        let horizontalFirstDuration = horizontalDuration * interruptPoint;
+        const horizontalFirstDuration = horizontalDuration * interruptPoint;
         
-        let currentRotX = 0;
-        let currentRotY = 0;
-        let targetRotX = 0;
-        let targetRotY = 0;
-        let isRandomMode = false;
-        let animationFrameId = null;
+        // Variables para el movimiento aleatorio continuo
+        let currentAngleX = 0;
+        let currentAngleY = 0;
+        let targetAngleX = 0;
+        let targetAngleY = 0;
+        let randomModeActive = false;
+        let animationLoopId = null;
+        let changeDirectionTimeout = null;
         
-        function smoothLerp() {
-            if (!isRandomMode) return;
-            
-            const lerpFactor = 0.02;
-            currentRotX = currentRotX + (targetRotX - currentRotX) * lerpFactor;
-            currentRotY = currentRotY + (targetRotY - currentRotY) * lerpFactor;
-            
-            cubeElement.style.transform = `rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
-            
-            animationFrameId = requestAnimationFrame(smoothLerp);
+        // Función que aplica la rotación actual al cubo
+        function applyRotation() {
+            cubeElement.style.transform = `rotateX(${currentAngleX}deg) rotateY(${currentAngleY}deg)`;
         }
         
-        function generateRandomTarget() {
-            if (!isRandomMode) return;
+        // Loop de animación que interpola suavemente hacia los ángulos objetivo
+        function randomRotationLoop() {
+            if (!randomModeActive) return;
             
-            targetRotX = 650 + Math.random() * 140;
-            targetRotY = -430 + Math.random() * 140;
+            // Factor de suavidad: cuanto más bajo, más lento y orgánico el movimiento
+            const smoothFactor = 0.018;
             
-            setTimeout(generateRandomTarget, 5000 + Math.random() * 6000);
+            let needsUpdate = false;
+            if (Math.abs(currentAngleX - targetAngleX) > 0.05) {
+                currentAngleX += (targetAngleX - currentAngleX) * smoothFactor;
+                needsUpdate = true;
+            } else {
+                currentAngleX = targetAngleX;
+            }
+            
+            if (Math.abs(currentAngleY - targetAngleY) > 0.05) {
+                currentAngleY += (targetAngleY - currentAngleY) * smoothFactor;
+                needsUpdate = true;
+            } else {
+                currentAngleY = targetAngleY;
+            }
+            
+            if (needsUpdate) {
+                applyRotation();
+            }
+            
+            animationLoopId = requestAnimationFrame(randomRotationLoop);
         }
         
-        function startRandomMode() {
-            isRandomMode = true;
+        // Cambia los ángulos objetivo a valores aleatorios, generando un movimiento impredecible pero continuo
+        function setRandomAngles() {
+            if (!randomModeActive) return;
+            
+            // Generamos ángulos que pueden ir sumando vueltas completas gradualmente
+            // Usamos rangos amplios para que el cubo explore múltiples posiciones
+            // pero sin cambios bruscos exagerados gracias a la interpolación.
+            const newTargetX = targetAngleX + (Math.random() - 0.5) * 180;
+            const newTargetY = targetAngleY + (Math.random() - 0.5) * 220;
+            
+            // Limitar rangos para evitar que se vuelva loco, pero manteniendo libertad
+            targetAngleX = Math.min(1400, Math.max(-800, newTargetX));
+            targetAngleY = Math.min(1200, Math.max(-1000, newTargetY));
+            
+            // Próximo cambio de dirección entre 2.5 y 6 segundos
+            const nextChange = 2500 + Math.random() * 4000;
+            if (changeDirectionTimeout) clearTimeout(changeDirectionTimeout);
+            changeDirectionTimeout = setTimeout(setRandomAngles, nextChange);
+        }
+        
+        // Activa el modo de rotación aleatoria infinita
+        function startInfiniteRandomRotation() {
+            if (randomModeActive) return;
+            randomModeActive = true;
             phase = 3;
             
-            currentRotX = 720;
-            currentRotY = -360;
-            targetRotX = 720;
-            targetRotY = -360;
+            // Tomamos los ángulos finales de la secuencia vertical
+            currentAngleX = 780;
+            currentAngleY = -252;
+            targetAngleX = 780;
+            targetAngleY = -252;
+            applyRotation();
             
-            cubeElement.style.transform = `rotateX(720deg) rotateY(-360deg)`;
+            // Iniciamos el loop de animación
+            if (animationLoopId) cancelAnimationFrame(animationLoopId);
+            animationLoopId = requestAnimationFrame(randomRotationLoop);
             
-            animationFrameId = requestAnimationFrame(smoothLerp);
+            // Esperamos un instante para que todo se estabilice y empezamos a cambiar direcciones
+            setTimeout(() => {
+                if (randomModeActive) {
+                    setRandomAngles();
+                }
+            }, 500);
             
-            setTimeout(generateRandomTarget, 2000);
-            
-            console.log('✅ Modo aleatorio suave activado');
+            console.log('🌀 Rotación automática aleatoria infinita ACTIVADA: el cubo girará cambiando suavemente de dirección para siempre');
         }
         
-        function animateCubeSequential(timestamp) {
+        // ========== SECUENCIA PRINCIPAL (SOLO SE EJECUTA UNA VEZ) ==========
+        function runInitialSequence(timestamp) {
             if (!startTime && phase === 0) startTime = timestamp;
             
             if (phase === 0) {
-                // GIRO HORIZONTAL: girar en Y de 0 a -252 grados (70% del recorrido)
                 const elapsed = timestamp - startTime;
                 if (elapsed < horizontalFirstDuration) {
                     const progress = elapsed / horizontalFirstDuration;
-                    const yRotation = -progress * 360 * interruptPoint;
-                    cubeElement.style.transform = `rotateX(0deg) rotateY(${yRotation}deg)`;
-                    requestAnimationFrame(animateCubeSequential);
+                    const yRot = -progress * 360 * interruptPoint;
+                    cubeElement.style.transform = `rotateX(0deg) rotateY(${yRot}deg)`;
+                    requestAnimationFrame(runInitialSequence);
                 } else {
-                    // Terminó el giro horizontal en la penúltima imagen, pasar a pausa
                     phase = 1;
                     pauseStartTime = timestamp;
                     cubeElement.style.transform = `rotateX(0deg) rotateY(${-360 * interruptPoint}deg)`;
-                    requestAnimationFrame(animateCubeSequential);
+                    requestAnimationFrame(runInitialSequence);
                 }
             }
             else if (phase === 1) {
-                // PAUSA para que se vea bien la penúltima imagen
-                const elapsed = timestamp - pauseStartTime;
-                if (elapsed < 400) {  // 0.8 segundos de pausa
-                    requestAnimationFrame(animateCubeSequential);
+                const pauseElapsed = timestamp - pauseStartTime;
+                if (pauseElapsed < 400) {
+                    requestAnimationFrame(runInitialSequence);
                 } else {
-                    // Pausa terminada, pasar DIRECTAMENTE a giro vertical (sin completar horizontal)
                     phase = 2;
                     startTime = timestamp;
-                    requestAnimationFrame(animateCubeSequential);
+                    requestAnimationFrame(runInitialSequence);
                 }
             }
             else if (phase === 2) {
-                // FASE VERTICAL: girar en X de 0 a 720 grados (2 vueltas completas)
-                // Mantenemos Y donde quedó (-252 grados) durante el giro vertical
                 const elapsed = timestamp - startTime;
                 if (elapsed < verticalDuration) {
                     const progress = elapsed / verticalDuration;
-                    const xRotation = progress * 780;
-                    cubeElement.style.transform = `rotateX(${xRotation}deg) rotateY(${-360 * interruptPoint}deg)`;
-                    requestAnimationFrame(animateCubeSequential);
+                    const xRot = progress * 780;
+                    cubeElement.style.transform = `rotateX(${xRot}deg) rotateY(${-360 * interruptPoint}deg)`;
+                    requestAnimationFrame(runInitialSequence);
                 } else {
-                    // Terminó la fase vertical, iniciar modo aleatorio continuo
-                    // Primero aseguramos que termine en X=720, Y=-252
+                    // Secuencia terminada, ahora rotación aleatoria infinita
                     cubeElement.style.transform = `rotateX(780deg) rotateY(${-360 * interruptPoint}deg)`;
-                    startRandomMode();
+                    startInfiniteRandomRotation();
                 }
             }
         }
         
-        requestAnimationFrame(animateCubeSequential);
+        // Lanzamos la animación inicial
+        requestAnimationFrame(runInitialSequence);
         
-        console.log('✅ Secuencia: Giro horizontal hasta penúltima imagen (70%) → pausa 0.8s → GIRO VERTICAL DIRECTO (2 vueltas) → aleatorio suave');
+        console.log('✅ Secuencia inicial: horizontal 70% → pausa → 2 vueltas vertical → LUEGO rotación automática aleatoria INFINITA (nunca se detiene)');
     </script>
 </body>
 </html>
