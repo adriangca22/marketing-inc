@@ -42,7 +42,7 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            border-bottom: 1px solid rgba(128, 0, 96, 0.35);
         }
 
         .logo {
@@ -56,7 +56,7 @@
         .logo-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            background: linear-gradient(135deg, #800060, #4d0039);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -76,7 +76,7 @@
 
         .logo-text span:last-child {
             font-size: 10px;
-            color: #00d4ff;
+            color: #800060;
             letter-spacing: 2px;
         }
 
@@ -115,12 +115,13 @@
         }
 
         .hero-text h1 .highlight {
-            color: #00d4ff;
+            color: #800060;
+            text-shadow: 0 0 12px rgba(128, 0, 96, 0.5);
         }
 
         .hero-text p {
             font-size: 16px;
-            color: #8b95a5;
+            color: #b5b9c4;
             line-height: 1.6;
             margin-bottom: 30px;
             max-width: 500px;
@@ -133,8 +134,8 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #00d4ff, #0099cc);
-            color: #000;
+            background: linear-gradient(135deg, #800060, #4d0039);
+            color: #fff;
             padding: 12px 25px;
             border: none;
             border-radius: 40px;
@@ -142,19 +143,20 @@
             font-weight: 700;
             transition: transform 0.3s, box-shadow 0.3s;
             font-family: 'Inter', sans-serif;
+            box-shadow: 0 4px 15px rgba(128, 0, 96, 0.4);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.4);
+            box-shadow: 0 12px 28px rgba(128, 0, 96, 0.6);
         }
 
         .btn-secondary {
-            background: rgba(255,255,255,0.08);
+            background: rgba(128, 0, 96, 0.15);
             backdrop-filter: blur(8px);
             color: #fff;
             padding: 12px 25px;
-            border: 1px solid rgba(0, 212, 255, 0.4);
+            border: 1px solid rgba(128, 0, 96, 0.6);
             border-radius: 40px;
             cursor: pointer;
             font-weight: 600;
@@ -166,9 +168,10 @@
         }
 
         .btn-secondary:hover {
-            background: rgba(0, 212, 255, 0.15);
+            background: rgba(128, 0, 96, 0.35);
             transform: translateY(-2px);
-            border-color: #00d4ff;
+            border-color: #800060;
+            box-shadow: 0 4px 12px rgba(128, 0, 96, 0.3);
         }
 
         .availability-badge {
@@ -180,16 +183,16 @@
             backdrop-filter: blur(12px);
             padding: 10px 22px;
             border-radius: 60px;
-            border-left: 3px solid #00d4ff;
+            border-left: 3px solid #800060;
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 0 22px rgba(128, 0, 96, 0.35);
             pointer-events: none;
         }
 
         .availability-badge i {
-            color: #00d4ff;
+            color: #800060;
             font-size: 0.9rem;
         }
 
@@ -247,7 +250,7 @@
             opacity: 0.96;
             transition: opacity 0.3s;
             background: transparent;
-            filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 0 4px rgba(128, 0, 96, 0.3));
         }
 
         .face:hover img {
@@ -479,69 +482,30 @@
 <body>
     <!-- ============================================= -->
     <!-- SOLUCIÓN DEFINITIVA: FORZAR SCROLL AL TOP     -->
-    <!-- Funciona tanto en vista normal como dentro de iframe -->
     <!-- ============================================= -->
     <script>
         (function() {
-            // Prevenir restauración de scroll del navegador
             if ('scrollRestoration' in history) {
                 history.scrollRestoration = 'manual';
             }
-            
-            // Función que fuerza el scroll al top
             const forceTop = () => {
-                if (window.scrollY !== 0) {
-                    window.scrollTo({ top: 0, behavior: 'instant' });
-                }
-                if (document.documentElement.scrollTop !== 0) {
-                    document.documentElement.scrollTop = 0;
-                }
-                if (document.body.scrollTop !== 0) {
-                    document.body.scrollTop = 0;
-                }
+                if (window.scrollY !== 0) window.scrollTo({ top: 0, behavior: 'instant' });
+                if (document.documentElement.scrollTop !== 0) document.documentElement.scrollTop = 0;
+                if (document.body.scrollTop !== 0) document.body.scrollTop = 0;
             };
-            
-            // Ejecutar inmediatamente
             forceTop();
-            
-            // Refuerzos en diferentes momentos críticos
             setTimeout(forceTop, 0);
             setTimeout(forceTop, 10);
             setTimeout(forceTop, 50);
             setTimeout(forceTop, 100);
             setTimeout(forceTop, 200);
-            setTimeout(forceTop, 500);
-            
-            // Cuando el DOM esté listo
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', forceTop);
-            } else {
-                forceTop();
-            }
-            
-            // Cuando todo el contenido esté cargado
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', forceTop);
+            else forceTop();
             window.addEventListener('load', forceTop);
-            
-            // Observador de cambios en el DOM (captura cualquier script que mueva el scroll)
-            const observer = new MutationObserver(() => {
-                forceTop();
-            });
-            
-            // Iniciar observación pero con límite de tiempo para no afectar rendimiento
-            observer.observe(document.body, { 
-                childList: true, 
-                subtree: true, 
-                attributes: true,
-                attributeFilter: ['style', 'class']
-            });
-            
-            // Detener el observer después de 1.5 segundos (suficiente para estabilizar)
+            const observer = new MutationObserver(() => forceTop());
+            observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
             setTimeout(() => observer.disconnect(), 1500);
-            
-            // Limpiar cualquier hash en la URL que pueda causar scroll automático
-            if (window.location.hash && window.location.hash !== '#') {
-                history.replaceState(null, '', window.location.pathname + window.location.search);
-            }
+            if (window.location.hash && window.location.hash !== '#') history.replaceState(null, '', window.location.pathname + window.location.search);
         })();
     </script>
 
@@ -582,33 +546,31 @@
                     </button>
                 </div>
             </div>
-            
             <div class="cube-wrapper">
                 <div class="cube-container">
                     <div class="cube" id="animatedCube">
                         <div class="face front">
-                            <img src="img/Recurso 22@4x.png" alt="Diseño frontal" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=400&fit=crop'">
+                            <img src="img/Recurso 12@4x.png" alt="Diseño frontal" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=400&fit=crop'">
                         </div>
                         <div class="face back">
-                            <img src="img/Recurso 19@4x.png" alt="Diseño trasero" onerror="this.src='https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=400&h=400&fit=crop'">
+                            <img src="img/Recurso 10@4x.png" alt="Diseño trasero" onerror="this.src='https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=400&h=400&fit=crop'">
                         </div>
                         <div class="face right">
-                            <img src="img/Recurso 23@4x.png" alt="Diseño derecha" onerror="this.src='https://images.unsplash.com/photo-1558655146-d09347e92766?w=400&h=400&fit=crop'">
+                            <img src="img/Recurso 13@4x.png" alt="Diseño derecha" onerror="this.src='https://images.unsplash.com/photo-1558655146-d09347e92766?w=400&h=400&fit=crop'">
                         </div>
                         <div class="face left">
-                            <img src="img/Recurso 25@4x.png" alt="Diseño izquierda" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop'">
+                            <img src="img/Recurso 15@4x.png" alt="Diseño izquierda" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop'">
                         </div>
                         <div class="face top">
-                            <img src="img/Recurso 19@4x.png" alt="Diseño superior" onerror="this.src='https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400&h=400&fit=crop'">
+                            <img src="img/Recurso 10@4x.png" alt="Diseño superior" onerror="this.src='https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400&h=400&fit=crop'">
                         </div>
                         <div class="face bottom">
-                            <img src="img/Recurso 19@4x.png" alt="Diseño inferior" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=400&fit=crop'">
+                            <img src="img/Recurso 9@4x.png" alt="Diseño inferior" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=400&fit=crop'">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
     <div class="availability-badge">
         <i class="fas fa-rocket"></i>
@@ -627,13 +589,10 @@
 
     <script type="module">
         // ============================================================
-        // THREE.JS Y ANIMACIÓN DEL CUBO - CARGA DIRECTA SIN PANTALLA DE CARGA
+        // THREE.JS Y ANIMACIÓN DEL CUBO - FONDO ESTRELLAS CON TONO #800060
         // ============================================================
         
-        // Pequeña ayuda extra para mantener scroll top incluso después de que cargue Three.js
-        const keepTop = () => {
-            if (window.scrollY !== 0) window.scrollTo(0, 0);
-        };
+        const keepTop = () => { if (window.scrollY !== 0) window.scrollTo(0, 0); };
         setTimeout(keepTop, 10);
         setTimeout(keepTop, 100);
         
@@ -650,7 +609,12 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         
-        // Capas de estrellas para fondo dinámico
+        // Color HEX #800060 en formato THREE (0x800060)
+        const accentColor = 0x800060;
+        const lightAccent = 0xa0237a;
+        const darkAccent = 0x5c0045;
+        
+        // Estrellas principales con tono morado
         const starCount = 4500;
         const starGeometry = new THREE.BufferGeometry();
         const starPositions = new Float32Array(starCount * 3);
@@ -660,10 +624,11 @@
             starPositions[i*3+2] = (Math.random() - 0.5) * 110 - 40;
         }
         starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-        const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.1, transparent: true, opacity: 0.85 });
+        const starMaterial = new THREE.PointsMaterial({ color: lightAccent, size: 0.1, transparent: true, opacity: 0.85 });
         const stars = new THREE.Points(starGeometry, starMaterial);
         scene.add(stars);
         
+        // Estrellas medianas con un violeta más claro inspirado en #800060
         const starCountMid = 3200;
         const starGeometryMid = new THREE.BufferGeometry();
         const starPositionsMid = new Float32Array(starCountMid * 3);
@@ -673,10 +638,11 @@
             starPositionsMid[i*3+2] = (Math.random() - 0.5) * 150 - 60;
         }
         starGeometryMid.setAttribute('position', new THREE.BufferAttribute(starPositionsMid, 3));
-        const starMaterialMid = new THREE.PointsMaterial({ color: 0xaaccff, size: 0.07, transparent: true, opacity: 0.65 });
+        const starMaterialMid = new THREE.PointsMaterial({ color: accentColor, size: 0.07, transparent: true, opacity: 0.7 });
         const starsMid = new THREE.Points(starGeometryMid, starMaterialMid);
         scene.add(starsMid);
         
+        // Estrellas tenues con un tono más profundo
         const starCountDim = 4000;
         const starGeometryDim = new THREE.BufferGeometry();
         const starPositionsDim = new Float32Array(starCountDim * 3);
@@ -686,9 +652,23 @@
             starPositionsDim[i*3+2] = (Math.random() - 0.5) * 200 - 90;
         }
         starGeometryDim.setAttribute('position', new THREE.BufferAttribute(starPositionsDim, 3));
-        const starMaterialDim = new THREE.PointsMaterial({ color: 0xcceeff, size: 0.045, transparent: true, opacity: 0.5 });
+        const starMaterialDim = new THREE.PointsMaterial({ color: darkAccent, size: 0.045, transparent: true, opacity: 0.55 });
         const starsDim = new THREE.Points(starGeometryDim, starMaterialDim);
         scene.add(starsDim);
+        
+        // Partículas de neblina / glow en tono #800060
+        const glowCount = 900;
+        const glowGeometry = new THREE.BufferGeometry();
+        const glowPositions = new Float32Array(glowCount * 3);
+        for (let i = 0; i < glowCount; i++) {
+            glowPositions[i*3] = (Math.random() - 0.5) * 70;
+            glowPositions[i*3+1] = (Math.random() - 0.5) * 50;
+            glowPositions[i*3+2] = (Math.random() - 0.5) * 50 - 25;
+        }
+        glowGeometry.setAttribute('position', new THREE.BufferAttribute(glowPositions, 3));
+        const glowMaterial = new THREE.PointsMaterial({ color: 0x9a1f72, size: 0.09, transparent: true, opacity: 0.4 });
+        const glowPoints = new THREE.Points(glowGeometry, glowMaterial);
+        scene.add(glowPoints);
         
         function animateStars() {
             requestAnimationFrame(animateStars);
@@ -698,6 +678,8 @@
             starsMid.rotation.x += 0.00007;
             starsDim.rotation.x += 0.00005;
             starsDim.rotation.z += 0.00004;
+            glowPoints.rotation.y += 0.0003;
+            glowPoints.rotation.x += 0.0002;
         }
         animateStars();
         
@@ -713,7 +695,7 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
         
-        // ========== ANIMACIÓN DEL CUBO (CARGA DIRECTA SIN PAUSAS) ==========
+        // ========== ANIMACIÓN DEL CUBO ==========
         const cubeElement = document.getElementById('animatedCube');
         
         const horizontalDuration = 8000;
@@ -827,16 +809,11 @@
             }
         }
         
-        // Iniciar animación apenas cargue el módulo
         requestAnimationFrame(runInitialSequence);
         
-        // Prevenir cualquier posible overlay o loader residual (por si acaso)
+        // Eliminar cualquier posible residuo de loader
         const existingLoader = document.querySelector('.initial-load');
-        if (existingLoader && existingLoader.parentNode) {
-            existingLoader.parentNode.removeChild(existingLoader);
-        }
-        
-        // Aseguramos que no haya ningún elemento flotante de carga
+        if (existingLoader && existingLoader.parentNode) existingLoader.parentNode.removeChild(existingLoader);
         const styleRemover = document.createElement('style');
         styleRemover.textContent = '.initial-load, .loader-overlay { display: none !important; }';
         document.head.appendChild(styleRemover);
