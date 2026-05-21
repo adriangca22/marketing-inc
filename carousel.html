@@ -1,6 +1,7 @@
 <!-- ============================================ -->
 <!-- COMPONENTE: Galería de Arte Moderna          -->
 <!-- FLECHAS CENTRALES MÁS VISIBLES - CORREGIDO   -->
+<!-- SIN SCROLL AUTOMÁTICO                        -->
 <!-- ============================================ -->
 
 <div class="glr-gallery-container">
@@ -57,7 +58,7 @@
     width: 100%;
     height: 100vh;
     min-height: 600px;
-    overflow: hidden;
+    overflow: hidden; /* CAMBIO: hidden en lugar de auto */
     font-family: 'Lato', 'Segoe UI', sans-serif;
     background-color: #0a0e1a;
 }
@@ -344,13 +345,13 @@
 }
 
 /* ============================================ */
-/* MÓVIL - FLECHAS LATERALES Y IMÁGENES COMPLETAS */
+/* MÓVIL - SIN SCROLL AUTOMÁTICO               */
 /* ============================================ */
 @media (max-width: 768px) {
     .glr-gallery-container {
         height: auto;
         min-height: 100vh;
-        overflow-y: auto;
+        overflow: hidden; /* CAMBIO: hidden en lugar de auto */
         overflow-x: hidden;
         display: flex;
         flex-direction: column;
@@ -714,15 +715,8 @@
             setTimeout(() => infoPanel.classList.add('glr-active'), 100);
         }
         
-        // En móvil, scroll al item activo
-        if (isMobile) {
-            const activeItem = document.querySelector('.glr-gallery-item.glr-active');
-            if (activeItem) {
-                setTimeout(() => {
-                    activeItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 50);
-            }
-        }
+        // CAMBIO: Eliminado scrollIntoView para evitar scroll automático
+        // En móvil, solo mostrar el item activo sin forzar scroll
     }
 
     function goToSlide(index) {
