@@ -2,24 +2,33 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>me cogieron porculox - Design & Digital | Estudio Creativo</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Fonts Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <style>
+        /* RESET Y PREVENCIÓN DE SCROLL INICIAL */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* FORZAR QUE EL HTML Y BODY NO TENGAN SCROLL EXTRAÑO AL INICIO */
+        html {
+            scroll-behavior: auto !important;
+            overflow-x: hidden;
+        }
+        
         body {
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #000000;
             color: #fff;
             overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
         }
 
         nav {
@@ -213,7 +222,6 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            /* Transición suave para la animación continua aleatoria */
             transition: transform 0.05s linear;
         }
 
@@ -264,10 +272,17 @@
             background: #000000;
         }
 
+        /* ========== VERSIÓN MÓVIL: REORGANIZACIÓN TOTAL ========== */
         @media (max-width: 1024px) {
             .hero-content {
                 flex-direction: column;
                 text-align: center;
+                gap: 20px;
+            }
+            .hero-text {
+                order: 1;
+                max-width: 100%;
+                margin-bottom: 10px;
             }
             .hero-text h1 {
                 font-size: 48px;
@@ -276,24 +291,27 @@
                 justify-content: center;
             }
             .cube-wrapper {
+                order: 2;
                 justify-content: center;
-                margin-top: 30px;
+                margin-top: 0;
+                width: 100%;
             }
             .cube-container {
-                width: 260px;
-                height: 260px;
-                transform: translateY(-15px);
+                width: 280px;
+                height: 280px;
+                transform: translateY(0);
+                margin: 0 auto;
             }
             .face {
-                width: 260px;
-                height: 260px;
+                width: 280px;
+                height: 280px;
             }
-            .front { transform: rotateY(0deg) translateZ(130px); }
-            .back { transform: rotateY(180deg) translateZ(130px); }
-            .right { transform: rotateY(90deg) translateZ(130px); }
-            .left { transform: rotateY(-90deg) translateZ(130px); }
-            .top { transform: rotateX(90deg) translateZ(130px); }
-            .bottom { transform: rotateX(-90deg) translateZ(130px); }
+            .front { transform: rotateY(0deg) translateZ(140px); }
+            .back { transform: rotateY(180deg) translateZ(140px); }
+            .right { transform: rotateY(90deg) translateZ(140px); }
+            .left { transform: rotateY(-90deg) translateZ(140px); }
+            .top { transform: rotateX(90deg) translateZ(140px); }
+            .bottom { transform: rotateX(-90deg) translateZ(140px); }
             .availability-badge {
                 bottom: 20px;
                 right: 20px;
@@ -306,29 +324,226 @@
 
         @media (max-width: 768px) {
             nav {
-                padding: 15px 20px;
+                padding: 12px 20px;
+            }
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+            }
+            .logo-text span:first-child {
+                font-size: 14px;
+            }
+            .logo-text span:last-child {
+                font-size: 8px;
             }
             .hero {
-                padding: 100px 20px 30px;
+                padding: 90px 20px 40px;
+                min-height: auto;
+                align-items: flex-start;
             }
             .hero-text h1 {
-                font-size: 36px;
+                font-size: 32px;
+                line-height: 1.2;
+            }
+            .hero-text p {
+                font-size: 14px;
+                margin-bottom: 24px;
+            }
+            .hero-buttons {
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+            .btn-primary, .btn-secondary {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+            .cube-wrapper {
+                margin: 5px auto 15px auto;
+                overflow: visible;
+                display: flex;
+                justify-content: center;
+                width: 100%;
             }
             .cube-container {
-                transform: translateY(-10px);
+                width: 240px;
+                height: 240px;
+                transform: translateY(0) scale(0.98);
+                perspective: 800px;
+                margin: 0 auto;
             }
+            .face {
+                width: 240px;
+                height: 240px;
+            }
+            .front { transform: rotateY(0deg) translateZ(120px); }
+            .back { transform: rotateY(180deg) translateZ(120px); }
+            .right { transform: rotateY(90deg) translateZ(120px); }
+            .left { transform: rotateY(-90deg) translateZ(120px); }
+            .top { transform: rotateX(90deg) translateZ(120px); }
+            .bottom { transform: rotateX(-90deg) translateZ(120px); }
+            
             .availability-badge {
-                bottom: 15px;
-                right: 15px;
-                padding: 6px 14px;
+                bottom: 12px;
+                right: 12px;
+                padding: 5px 12px;
+                gap: 6px;
+            }
+            .availability-badge i {
+                font-size: 0.7rem;
             }
             .availability-badge .badge-text {
-                font-size: 0.6rem;
+                font-size: 0.55rem;
+                letter-spacing: 1px;
             }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 80px 16px 30px;
+            }
+            .hero-text h1 {
+                font-size: 28px;
+            }
+            .hero-text p {
+                font-size: 13px;
+            }
+            .cube-container {
+                width: 200px;
+                height: 200px;
+            }
+            .face {
+                width: 200px;
+                height: 200px;
+            }
+            .front { transform: rotateY(0deg) translateZ(100px); }
+            .back { transform: rotateY(180deg) translateZ(100px); }
+            .right { transform: rotateY(90deg) translateZ(100px); }
+            .left { transform: rotateY(-90deg) translateZ(100px); }
+            .top { transform: rotateX(90deg) translateZ(100px); }
+            .bottom { transform: rotateX(-90deg) translateZ(100px); }
+            
+            .btn-primary, .btn-secondary {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+            .availability-badge {
+                bottom: 10px;
+                right: 10px;
+                padding: 4px 10px;
+            }
+        }
+        
+        @media (max-width: 850px) and (orientation: landscape) {
+            .hero {
+                padding: 80px 20px 20px;
+                min-height: auto;
+            }
+            .hero-content {
+                gap: 15px;
+            }
+            .cube-container {
+                width: 190px;
+                height: 190px;
+            }
+            .face {
+                width: 190px;
+                height: 190px;
+            }
+            .front { transform: rotateY(0deg) translateZ(95px); }
+            .back { transform: rotateY(180deg) translateZ(95px); }
+            .right { transform: rotateY(90deg) translateZ(95px); }
+            .left { transform: rotateY(-90deg) translateZ(95px); }
+            .top { transform: rotateX(90deg) translateZ(95px); }
+            .bottom { transform: rotateX(-90deg) translateZ(95px); }
+            .hero-text h1 {
+                font-size: 28px;
+            }
+            .hero-text p {
+                font-size: 12px;
+                margin-bottom: 12px;
+            }
+            .hero-buttons {
+                margin-bottom: 10px;
+            }
+        }
+        
+        body {
+            overflow-x: hidden;
+        }
+        .cube, .cube-container, .face {
+            -webkit-backface-visibility: visible;
+            backface-visibility: visible;
         }
     </style>
 </head>
 <body>
+    <!-- ============================================= -->
+    <!-- SOLUCIÓN DEFINITIVA: FORZAR SCROLL AL TOP     -->
+    <!-- Funciona tanto en vista normal como dentro de iframe -->
+    <!-- ============================================= -->
+    <script>
+        (function() {
+            // Prevenir restauración de scroll del navegador
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            
+            // Función que fuerza el scroll al top
+            const forceTop = () => {
+                if (window.scrollY !== 0) {
+                    window.scrollTo({ top: 0, behavior: 'instant' });
+                }
+                if (document.documentElement.scrollTop !== 0) {
+                    document.documentElement.scrollTop = 0;
+                }
+                if (document.body.scrollTop !== 0) {
+                    document.body.scrollTop = 0;
+                }
+            };
+            
+            // Ejecutar inmediatamente
+            forceTop();
+            
+            // Refuerzos en diferentes momentos críticos
+            setTimeout(forceTop, 0);
+            setTimeout(forceTop, 10);
+            setTimeout(forceTop, 50);
+            setTimeout(forceTop, 100);
+            setTimeout(forceTop, 200);
+            setTimeout(forceTop, 500);
+            
+            // Cuando el DOM esté listo
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', forceTop);
+            } else {
+                forceTop();
+            }
+            
+            // Cuando todo el contenido esté cargado
+            window.addEventListener('load', forceTop);
+            
+            // Observador de cambios en el DOM (captura cualquier script que mueva el scroll)
+            const observer = new MutationObserver(() => {
+                forceTop();
+            });
+            
+            // Iniciar observación pero con límite de tiempo para no afectar rendimiento
+            observer.observe(document.body, { 
+                childList: true, 
+                subtree: true, 
+                attributes: true,
+                attributeFilter: ['style', 'class']
+            });
+            
+            // Detener el observer después de 1.5 segundos (suficiente para estabilizar)
+            setTimeout(() => observer.disconnect(), 1500);
+            
+            // Limpiar cualquier hash en la URL que pueda causar scroll automático
+            if (window.location.hash && window.location.hash !== '#') {
+                history.replaceState(null, '', window.location.pathname + window.location.search);
+            }
+        })();
+    </script>
 
     <nav>
         <div class="logo">
@@ -372,22 +587,22 @@
                 <div class="cube-container">
                     <div class="cube" id="animatedCube">
                         <div class="face front">
-                            <img src="img/Recurso 0.png" alt="Diseño frontal" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=400&fit=crop'">
+                            <img src="img/Recurso 22@4x.png" alt="Diseño frontal" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=400&fit=crop'">
                         </div>
                         <div class="face back">
-                            <img src="img/Recurso 3.png" alt="Diseño trasero" onerror="this.src='https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=400&h=400&fit=crop'">
+                            <img src="img/Recurso 19@4x.png" alt="Diseño trasero" onerror="this.src='https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=400&h=400&fit=crop'">
                         </div>
                         <div class="face right">
-                            <img src="img/Recurso 00.png" alt="Diseño derecha" onerror="this.src='https://images.unsplash.com/photo-1558655146-d09347e92766?w=400&h=400&fit=crop'">
+                            <img src="img/Recurso 23@4x.png" alt="Diseño derecha" onerror="this.src='https://images.unsplash.com/photo-1558655146-d09347e92766?w=400&h=400&fit=crop'">
                         </div>
                         <div class="face left">
-                            <img src="img/Recurso 4.png" alt="Diseño izquierda" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop'">
+                            <img src="img/Recurso 25@4x.png" alt="Diseño izquierda" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop'">
                         </div>
                         <div class="face top">
-                            <img src="img/Recurso 3.png" alt="Diseño superior" onerror="this.src='https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400&h=400&fit=crop'">
+                            <img src="img/Recurso 19@4x.png" alt="Diseño superior" onerror="this.src='https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400&h=400&fit=crop'">
                         </div>
                         <div class="face bottom">
-                            <img src="img/Recurso 3.png" alt="Diseño inferior" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=400&fit=crop'">
+                            <img src="img/Recurso 19@4x.png" alt="Diseño inferior" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=400&fit=crop'">
                         </div>
                     </div>
                 </div>
@@ -411,6 +626,17 @@
     </script>
 
     <script type="module">
+        // ============================================================
+        // THREE.JS Y ANIMACIÓN DEL CUBO - CARGA DIRECTA SIN PANTALLA DE CARGA
+        // ============================================================
+        
+        // Pequeña ayuda extra para mantener scroll top incluso después de que cargue Three.js
+        const keepTop = () => {
+            if (window.scrollY !== 0) window.scrollTo(0, 0);
+        };
+        setTimeout(keepTop, 10);
+        setTimeout(keepTop, 100);
+        
         import * as THREE from 'three';
 
         const canvas = document.getElementById('webgl-canvas-bg');
@@ -424,6 +650,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         
+        // Capas de estrellas para fondo dinámico
         const starCount = 4500;
         const starGeometry = new THREE.BufferGeometry();
         const starPositions = new Float32Array(starCount * 3);
@@ -486,24 +713,18 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
         
-        // ============================================================
-        // NUEVA VERSIÓN: ROTACIÓN AUTOMÁTICA Y ALEATORIA CONTINUA DESPUÉS DE SECUENCIA
-        // - Secuencia inicial: Horizontal (70%) → Pausa → Vertical (2 vueltas)
-        // - Luego: rotación infinita con cambios de dirección y velocidad aleatorios, sin parar nunca
-        // ============================================================
+        // ========== ANIMACIÓN DEL CUBO (CARGA DIRECTA SIN PAUSAS) ==========
         const cubeElement = document.getElementById('animatedCube');
         
-        // Parámetros de la secuencia inicial
         const horizontalDuration = 8000;
         const verticalDuration = 18000;
         const interruptPoint = 0.70;
         
-        let phase = 0;  // 0:horizontal, 1:pausa, 2:vertical, 3:random-auto
+        let phase = 0;
         let startTime = null;
         let pauseStartTime = null;
         const horizontalFirstDuration = horizontalDuration * interruptPoint;
         
-        // Variables para el movimiento aleatorio continuo
         let currentAngleX = 0;
         let currentAngleY = 0;
         let targetAngleX = 0;
@@ -512,18 +733,15 @@
         let animationLoopId = null;
         let changeDirectionTimeout = null;
         
-        // Función que aplica la rotación actual al cubo
         function applyRotation() {
-            cubeElement.style.transform = `rotateX(${currentAngleX}deg) rotateY(${currentAngleY}deg)`;
+            if (cubeElement) {
+                cubeElement.style.transform = `rotateX(${currentAngleX}deg) rotateY(${currentAngleY}deg)`;
+            }
         }
         
-        // Loop de animación que interpola suavemente hacia los ángulos objetivo
         function randomRotationLoop() {
             if (!randomModeActive) return;
-            
-            // Factor de suavidad: cuanto más bajo, más lento y orgánico el movimiento
             const smoothFactor = 0.018;
-            
             let needsUpdate = false;
             if (Math.abs(currentAngleX - targetAngleX) > 0.05) {
                 currentAngleX += (targetAngleX - currentAngleX) * smoothFactor;
@@ -531,69 +749,43 @@
             } else {
                 currentAngleX = targetAngleX;
             }
-            
             if (Math.abs(currentAngleY - targetAngleY) > 0.05) {
                 currentAngleY += (targetAngleY - currentAngleY) * smoothFactor;
                 needsUpdate = true;
             } else {
                 currentAngleY = targetAngleY;
             }
-            
-            if (needsUpdate) {
-                applyRotation();
-            }
-            
+            if (needsUpdate) applyRotation();
             animationLoopId = requestAnimationFrame(randomRotationLoop);
         }
         
-        // Cambia los ángulos objetivo a valores aleatorios, generando un movimiento impredecible pero continuo
         function setRandomAngles() {
             if (!randomModeActive) return;
-            
-            // Generamos ángulos que pueden ir sumando vueltas completas gradualmente
-            // Usamos rangos amplios para que el cubo explore múltiples posiciones
-            // pero sin cambios bruscos exagerados gracias a la interpolación.
             const newTargetX = targetAngleX + (Math.random() - 0.5) * 180;
             const newTargetY = targetAngleY + (Math.random() - 0.5) * 220;
-            
-            // Limitar rangos para evitar que se vuelva loco, pero manteniendo libertad
             targetAngleX = Math.min(1400, Math.max(-800, newTargetX));
             targetAngleY = Math.min(1200, Math.max(-1000, newTargetY));
-            
-            // Próximo cambio de dirección entre 2.5 y 6 segundos
             const nextChange = 2500 + Math.random() * 4000;
             if (changeDirectionTimeout) clearTimeout(changeDirectionTimeout);
             changeDirectionTimeout = setTimeout(setRandomAngles, nextChange);
         }
         
-        // Activa el modo de rotación aleatoria infinita
         function startInfiniteRandomRotation() {
             if (randomModeActive) return;
             randomModeActive = true;
             phase = 3;
-            
-            // Tomamos los ángulos finales de la secuencia vertical
             currentAngleX = 780;
             currentAngleY = -252;
             targetAngleX = 780;
             targetAngleY = -252;
             applyRotation();
-            
-            // Iniciamos el loop de animación
             if (animationLoopId) cancelAnimationFrame(animationLoopId);
             animationLoopId = requestAnimationFrame(randomRotationLoop);
-            
-            // Esperamos un instante para que todo se estabilice y empezamos a cambiar direcciones
             setTimeout(() => {
-                if (randomModeActive) {
-                    setRandomAngles();
-                }
+                if (randomModeActive) setRandomAngles();
             }, 500);
-            
-            console.log('🌀 Rotación automática aleatoria infinita ACTIVADA: el cubo girará cambiando suavemente de dirección para siempre');
         }
         
-        // ========== SECUENCIA PRINCIPAL (SOLO SE EJECUTA UNA VEZ) ==========
         function runInitialSequence(timestamp) {
             if (!startTime && phase === 0) startTime = timestamp;
             
@@ -602,12 +794,12 @@
                 if (elapsed < horizontalFirstDuration) {
                     const progress = elapsed / horizontalFirstDuration;
                     const yRot = -progress * 360 * interruptPoint;
-                    cubeElement.style.transform = `rotateX(0deg) rotateY(${yRot}deg)`;
+                    if (cubeElement) cubeElement.style.transform = `rotateX(0deg) rotateY(${yRot}deg)`;
                     requestAnimationFrame(runInitialSequence);
                 } else {
                     phase = 1;
                     pauseStartTime = timestamp;
-                    cubeElement.style.transform = `rotateX(0deg) rotateY(${-360 * interruptPoint}deg)`;
+                    if (cubeElement) cubeElement.style.transform = `rotateX(0deg) rotateY(${-360 * interruptPoint}deg)`;
                     requestAnimationFrame(runInitialSequence);
                 }
             }
@@ -626,20 +818,28 @@
                 if (elapsed < verticalDuration) {
                     const progress = elapsed / verticalDuration;
                     const xRot = progress * 780;
-                    cubeElement.style.transform = `rotateX(${xRot}deg) rotateY(${-360 * interruptPoint}deg)`;
+                    if (cubeElement) cubeElement.style.transform = `rotateX(${xRot}deg) rotateY(${-360 * interruptPoint}deg)`;
                     requestAnimationFrame(runInitialSequence);
                 } else {
-                    // Secuencia terminada, ahora rotación aleatoria infinita
-                    cubeElement.style.transform = `rotateX(780deg) rotateY(${-360 * interruptPoint}deg)`;
+                    if (cubeElement) cubeElement.style.transform = `rotateX(780deg) rotateY(${-360 * interruptPoint}deg)`;
                     startInfiniteRandomRotation();
                 }
             }
         }
         
-        // Lanzamos la animación inicial
+        // Iniciar animación apenas cargue el módulo
         requestAnimationFrame(runInitialSequence);
         
-        console.log('✅ Secuencia inicial: horizontal 70% → pausa → 2 vueltas vertical → LUEGO rotación automática aleatoria INFINITA (nunca se detiene)');
+        // Prevenir cualquier posible overlay o loader residual (por si acaso)
+        const existingLoader = document.querySelector('.initial-load');
+        if (existingLoader && existingLoader.parentNode) {
+            existingLoader.parentNode.removeChild(existingLoader);
+        }
+        
+        // Aseguramos que no haya ningún elemento flotante de carga
+        const styleRemover = document.createElement('style');
+        styleRemover.textContent = '.initial-load, .loader-overlay { display: none !important; }';
+        document.head.appendChild(styleRemover);
     </script>
 </body>
 </html>
