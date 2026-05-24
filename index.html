@@ -2,20 +2,22 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Eco.Node Studio | Diseño & Marketing Digital</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ========================================== */
+        /* ESTILOS GLOBALES DEL SITIO                 */
+        /* ========================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* PALETA DE COLORES #800060 (morado característico) */
         :root {
             --primary: #050a10;
             --secondary: #0d1f33;
@@ -41,6 +43,7 @@
             line-height: 1.6;
         }
 
+        /* Header */
         header {
             position: fixed;
             top: 0;
@@ -76,7 +79,6 @@
             font-size: 1.5rem;
         }
 
-        /* Logo con imagen personalizable - SIN RECORTE, MANTIENE PROPORCIONES */
         .logo-icon {
             width: 85px;
             height: 45px;
@@ -95,7 +97,6 @@
             display: block;
         }
 
-        /* Fallback si no hay imagen */
         .logo-icon.default-icon {
             background: var(--accent-gradient);
             border-radius: 12px;
@@ -175,7 +176,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Ajustes responsive */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -195,7 +195,7 @@
             }
         }
 
-        /* Estilos para los iframes (secciones integradas) */
+        /* Contenedores de iframes */
         .carousel-container {
             width: 100%;
             overflow: hidden;
@@ -210,7 +210,455 @@
             background: transparent;
         }
 
-        /* Footer con paleta actualizada */
+        /* ========================================== */
+        /* SECCIÓN DE SERVICIOS - CON IMAGEN DE FONDO */
+        /* Y LUCES PARPADEANTES                       */
+        /* ========================================== */
+        .ec-servicios-container {
+            font-family: 'Inter', sans-serif;
+            /* Imagen de fondo + overlay oscuro */
+            background: linear-gradient(rgba(5, 10, 16, 0.158), rgba(7, 20, 36, 0.233)),
+                        url('img/fondo.png') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 1.5rem 5rem 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Patrón de puntos sobre la imagen */
+        .ec-servicios-container::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        /* Luces parpadeantes detrás de las tarjetas */
+        .ec-blinking-lights {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .light-spot {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0;
+            animation: blinkLight 4s ease-in-out infinite;
+        }
+
+        .light-spot:nth-child(1) {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, var(--accent-light), transparent);
+            top: 15%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .light-spot:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--accent), transparent);
+            top: 40%;
+            right: 0%;
+            animation-delay: 1.5s;
+        }
+
+        .light-spot:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #6C63FF, transparent);
+            bottom: 20%;
+            left: 10%;
+            animation-delay: 0.8s;
+        }
+
+        .light-spot:nth-child(4) {
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, var(--accent-light), transparent);
+            bottom: 10%;
+            right: 5%;
+            animation-delay: 2.5s;
+        }
+
+        .light-spot:nth-child(5) {
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, #FF6584, transparent);
+            top: 60%;
+            left: 20%;
+            animation-delay: 1s;
+        }
+
+        .light-spot:nth-child(6) {
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, var(--accent), transparent);
+            top: 10%;
+            right: 20%;
+            animation-delay: 3s;
+        }
+
+        @keyframes blinkLight {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            15% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            30% {
+                opacity: 0.3;
+                transform: scale(0.9);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.1);
+            }
+            65% {
+                opacity: 0.2;
+                transform: scale(0.85);
+            }
+            85% {
+                opacity: 0.5;
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+        }
+
+        .ec-servicios-section {
+            max-width: 1400px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ec-section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .ec-section-header h2 {
+            font-size: clamp(1.8rem, 8vw, 3.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFFFFF, #A5F0FF, #6C63FF);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            display: inline-block;
+            padding: 0 0.5rem;
+            position: relative;
+        }
+
+        .ec-section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(90deg, #6C63FF, #FF6584, #6C63FF);
+            border-radius: 4px;
+            box-shadow: 0 0 12px #ff6584;
+            animation: ec-pulseGlow 2s infinite;
+        }
+
+        @keyframes ec-pulseGlow {
+            0% { opacity: 0.6; width: 70px; }
+            50% { opacity: 1; width: 100px; }
+            100% { opacity: 0.6; width: 70px; }
+        }
+
+        .ec-section-header p {
+            color: #B0B3C0;
+            font-size: clamp(0.85rem, 4vw, 1.2rem);
+            margin-top: 1.5rem;
+        }
+
+        .ec-highlight-text {
+            background: linear-gradient(120deg, #F0F3FF, #A98EFF);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .ec-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            justify-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .ec-service-card {
+            background: rgba(18, 22, 35, 0.75);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            width: 100%;
+            max-width: 340px;
+            padding: 1.8rem 1.2rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid rgba(128, 0, 96, 0.4);
+            box-shadow: 0 20px 35px -15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(128, 0, 96, 0.2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            animation: ec-float-up 0.6s forwards;
+            opacity: 0;
+        }
+
+        .ec-service-card:nth-child(1) { animation-delay: 0.05s; }
+        .ec-service-card:nth-child(2) { animation-delay: 0.15s; }
+        .ec-service-card:nth-child(3) { animation-delay: 0.25s; }
+        .ec-service-card:nth-child(4) { animation-delay: 0.35s; }
+
+        @keyframes ec-float-up {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Efecto brillo en las tarjetas */
+        .ec-service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 180%;
+            height: 200%;
+            background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.15) 45%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 55%, transparent 70%);
+            transform: rotate(25deg);
+            opacity: 0;
+            pointer-events: none;
+            animation: ec-shineAnimation 4.5s infinite;
+        }
+
+        @keyframes ec-shineAnimation {
+            0% { transform: rotate(25deg) translateX(-120%) translateY(-20%); opacity: 0; }
+            15% { opacity: 0.4; }
+            35% { opacity: 0.7; }
+            55% { opacity: 0.8; }
+            75% { opacity: 0.4; }
+            100% { transform: rotate(25deg) translateX(100%) translateY(20%); opacity: 0; }
+        }
+
+        @media (hover: hover) {
+            .ec-service-card:hover {
+                transform: translateY(-8px);
+                background: rgba(25, 30, 45, 0.9);
+                border-color: var(--accent-light);
+                box-shadow: 0 25px 40px -15px rgba(128, 0, 96, 0.4);
+            }
+            .ec-service-card:hover .ec-icon-wrapper {
+                transform: scale(1.05);
+                border-color: var(--accent-light);
+                box-shadow: 0 0 20px rgba(128, 0, 96, 0.5);
+            }
+        }
+
+        .ec-icon-wrapper {
+            background: linear-gradient(145deg, #1E243F, #13182C);
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 28px;
+            transition: all 0.3s;
+            box-shadow: 0 15px 20px -10px rgba(0,0,0,0.5);
+            border: 1px solid var(--accent);
+        }
+
+        .ec-icon-wrapper i {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #F0F3FF, #B9B4FF);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .ec-dual-icons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .ec-dual-icons i {
+            font-size: 2rem;
+        }
+
+        .ec-service-card h3 {
+            font-size: clamp(1.3rem, 5vw, 1.7rem);
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            background: linear-gradient(115deg, #FFFFFF, #D9D9FF);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .ec-service-description {
+            color: #C5C9E0;
+            font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+            line-height: 1.45;
+            margin: 0.8rem 0 1.2rem;
+            flex-grow: 1;
+        }
+
+        .ec-tech-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: rgba(128, 0, 96, 0.25);
+            padding: 0.3rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #D0B4FF;
+            border: 0.5px solid var(--accent);
+            margin-bottom: 0.8rem;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .ec-card-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.1rem;
+            background: rgba(20, 24, 40, 0.8);
+            border-radius: 50px;
+            color: #D0D4FF;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid var(--accent);
+            transition: all 0.25s;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .ec-card-link i {
+            font-size: 0.75rem;
+            transition: transform 0.2s;
+        }
+
+        @media (hover: hover) {
+            .ec-card-link:hover {
+                background: var(--accent);
+                color: white;
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(128, 0, 96, 0.4);
+            }
+            .ec-card-link:hover i {
+                transform: translateX(4px);
+            }
+        }
+
+        .ec-floating-footer {
+            text-align: center;
+            margin-top: 2.8rem;
+        }
+
+        .ec-floating-footer span {
+            color: #6C7A9E;
+            font-size: 0.8rem;
+            background: rgba(0,0,0,0.3);
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Responsive de servicios */
+        @media (max-width: 768px) {
+            .ec-servicios-container {
+                padding: 2rem 1rem 3rem 1rem;
+                background-attachment: scroll;
+            }
+            .ec-cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .ec-service-card {
+                max-width: 100%;
+                padding: 1.3rem 1rem;
+            }
+            .ec-icon-wrapper {
+                width: 65px;
+                height: 65px;
+            }
+            .ec-icon-wrapper i {
+                font-size: 2rem;
+            }
+            .ec-dual-icons i {
+                font-size: 1.6rem;
+            }
+            .ec-service-card h3 {
+                font-size: 1.3rem;
+            }
+            .ec-service-description {
+                font-size: 0.8rem;
+            }
+            .light-spot {
+                filter: blur(40px);
+                opacity: 0.3;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .ec-servicios-container {
+                padding: 1.5rem 0.8rem 2.5rem 0.8rem;
+            }
+            .ec-icon-wrapper {
+                width: 55px;
+                height: 55px;
+            }
+            .ec-icon-wrapper i {
+                font-size: 1.6rem;
+            }
+            .ec-service-card h3 {
+                font-size: 1.2rem;
+            }
+            .light-spot {
+                display: none;
+            }
+        }
+
+        /* Footer */
         footer {
             background: rgba(2, 6, 12, 0.95);
             border-top: 1px solid rgba(128, 0, 96, 0.3);
@@ -276,11 +724,9 @@
     <header id="header">
         <nav>
             <a href="#" class="logo">
-                <!-- Logo con imagen personalizable - SIN RECORTE, LA IMAGEN SE MUESTRA COMPLETA -->
                 <div class="logo-icon" id="logoIcon">
                     <img src="img/logo 2@4x.png" alt="Eco.Node Logo" id="logoImage">
                 </div>
-                
             </a>
             <ul class="nav-links">
                 <li><a href="#inicio">Inicio</a></li>
@@ -307,54 +753,82 @@
         ></iframe>
     </div>
 
-    <!-- Sección servicios -->
-    <div id="servicios" class="carousel-container" style="width: 100%; overflow: hidden; margin: 0; padding: 0;">
-        <iframe 
-            src="services.html" 
-            title="Sección de Servicios"
-            loading="lazy"
-            style="width: 100%; height: 850px; border: none; display: block; overflow: hidden; margin: 0; padding: 0;"
-            scrolling="no"
-            frameborder="0">
-        </iframe>
+    <!-- ========================================== -->
+    <!-- SECCIÓN DE SERVICIOS CON IMAGEN DE FONDO    -->
+    <!-- Y LUCES PARPADEANTES                       -->
+    <!-- ========================================== -->
+    <div id="servicios" class="ec-servicios-container">
+        <!-- Luces parpadeantes detrás de las tarjetas -->
+        <div class="ec-blinking-lights">
+            <div class="light-spot"></div>
+            <div class="light-spot"></div>
+            <div class="light-spot"></div>
+            <div class="light-spot"></div>
+            <div class="light-spot"></div>
+            <div class="light-spot"></div>
+        </div>
+        
+        <div class="ec-servicios-section">
+            <div class="ec-section-header">
+                <h2>Nuestros Servicios</h2>
+                <p>Soluciones creativas con tecnología 3D y gestión profesional | <span class="ec-highlight-text">Innovación y resultados</span></p>
+            </div>
+            <div class="ec-cards-grid">
+                <!-- Tarjeta 1: Marketing -->
+                <div class="ec-service-card">
+                    <div class="ec-icon-wrapper"><i class="fas fa-chart-line"></i></div>
+                    <h3>Marketing</h3>
+                    <div class="ec-service-description">Estrategias data-driven, growth hacking y campañas de alto impacto. Elevamos tu presencia digital.</div>
+                    <span class="ec-tech-badge"><i class="fas fa-bullhorn"></i> SEO · ADS · Analytics</span>
+                    <a href="#" class="ec-card-link">Descubrir <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <!-- Tarjeta 2: Diseño Web -->
+                <div class="ec-service-card">
+                    <div class="ec-icon-wrapper"><i class="fas fa-code"></i></div>
+                    <h3>Diseño Web</h3>
+                    <div class="ec-service-description">Sitios web modernos, interactivos y responsivos. Experiencias inmersivas con animaciones 3D.</div>
+                    <span class="ec-tech-badge"><i class="fab fa-react"></i> React · Three.js · UX</span>
+                    <a href="#" class="ec-card-link">Explorar <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <!-- Tarjeta 3: Gráfico -->
+                <div class="ec-service-card">
+                    <div class="ec-icon-wrapper"><i class="fas fa-palette"></i></div>
+                    <h3>Gráfico</h3>
+                    <div class="ec-service-description">Identidad visual, ilustración, motion graphics y piezas gráficas con profundidad 3D.</div>
+                    <span class="ec-tech-badge"><i class="fas fa-crown"></i> Branding · Motion · UI</span>
+                    <a href="#" class="ec-card-link">Ver más <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <!-- Tarjeta 4: Render 3D + CM -->
+                <div class="ec-service-card">
+                    <div class="ec-icon-wrapper">
+                        <div class="ec-dual-icons"><i class="fas fa-cube"></i><i class="fas fa-users"></i></div>
+                    </div>
+                    <h3>Render 3D + CM</h3>
+                    <div class="ec-service-description">Visualización fotorrealista y gestión profesional de comunidad. Potencia tu marca con contenido 3D.</div>
+                    <span class="ec-tech-badge"><i class="fas fa-vr-cardboard"></i> 3D Studio · Blender · Social Manager</span>
+                    <a href="#" class="ec-card-link">Cotizar <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="ec-floating-footer">
+                <span><i class="fas fa-sun"></i> Efecto brillo dinámico · 3D Interactivo</span>
+            </div>
+        </div>
     </div>
 
-    <!-- Carrusel principal -->
-    <div id="diseno" class="carousel-container" style="overflow: hidden; height: 100vh; width: 100%;">
-        <iframe 
-            src="carousel.html" 
-            style="width: 100%; height: 100vh; border: none; overflow: hidden;"
-            scrolling="no"
-            frameborder="0"
-        ></iframe>
-    </div>
-
-    <!-- Carrusel 2: Páginas Web -->
+    <!-- Carruseles adicionales -->
     <div id="webs" class="carousel-container" style="width: 100%; overflow: hidden; margin: 0; padding: 0;">
-        <iframe
-            src="carrusel2.html"
-            title="Carrusel Páginas Web"
-            loading="lazy"
-            style="width: 100%; height: 680px; border: none; display: block; overflow: hidden; margin: 0; padding: 0; background: transparent;"
-            scrolling="no"
-            frameborder="0"
-            allow="fullscreen">
-        </iframe>
+        <iframe src="carousel.html" title="Carrusel Páginas Web" loading="lazy" style="width: 100%; height: 680px; border: none; display: block; overflow: hidden; margin: 0; padding: 0; background: transparent;" scrolling="no" frameborder="0"></iframe>
     </div>
 
-    <!-- Sección Aspect / adicional -->
+    <div id="webs" class="carousel-container" style="width: 100%; overflow: hidden; margin: 0; padding: 0;">
+        <iframe src="carrusel2.html" title="Carrusel Páginas Web" loading="lazy" style="width: 100%; height: 680px; border: none; display: block; overflow: hidden; margin: 0; padding: 0; background: transparent;" scrolling="no" frameborder="0"></iframe>
+    </div>
+
     <div class="carousel-container" style="width: 100%; overflow: hidden; margin: 0; padding: 0;">
-        <iframe 
-            src="aspect.html" 
-            title="Sección Aspect"
-            loading="lazy"
-            style="width: 100%; height: 850px; border: none; display: block; overflow: hidden; margin: 0; padding: 0;"
-            scrolling="no"
-            frameborder="0">
-        </iframe>
+        <iframe src="aspect.html" title="Sección Aspect" loading="lazy" style="width: 100%; height: 850px; border: none; display: block; overflow: hidden; margin: 0; padding: 0;" scrolling="no" frameborder="0"></iframe>
     </div>
 
-    <!-- Footer con paleta de colores #800060 -->
+    <!-- Footer -->
     <footer id="contacto">
         <div class="footer-content">
             <div class="footer-grid">
@@ -399,28 +873,15 @@
                 <div class="footer-column">
                     <h3>Contacto</h3>
                     <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div><strong>Ubicación</strong><br>Ciudad de México, México</div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div><strong>Email</strong><br>hola@econode.com</div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone-alt"></i>
-                            <div><strong>Teléfono</strong><br>+52 (55) 1234-5678</div>
-                        </div>
+                        <div class="contact-item"><i class="fas fa-map-marker-alt"></i><div><strong>Ubicación</strong><br>Ciudad de México, México</div></div>
+                        <div class="contact-item"><i class="fas fa-envelope"></i><div><strong>Email</strong><br>hola@econode.com</div></div>
+                        <div class="contact-item"><i class="fas fa-phone-alt"></i><div><strong>Teléfono</strong><br>+52 (55) 1234-5678</div></div>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
                 <div>© 2025 Eco.Node Studio. Todos los derechos reservados.</div>
-                <div class="footer-bottom-links">
-                    <a href="#">Privacidad</a>
-                    <a href="#">Términos</a>
-                    <a href="#">Cookies</a>
-                </div>
+                <div class="footer-bottom-links"><a href="#">Privacidad</a><a href="#">Términos</a><a href="#">Cookies</a></div>
             </div>
         </div>
     </footer>
@@ -429,14 +890,10 @@
         // Header scroll effect
         const header = document.getElementById('header');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
+            header.classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Mobile menu toggle (funcionalidad básica)
+        // Mobile menu
         const mobileMenu = document.querySelector('.mobile-menu');
         const navLinks = document.querySelector('.nav-links');
         if (mobileMenu) {
@@ -459,118 +916,32 @@
             });
         }
 
-        // Cerrar menú al hacer click en un enlace
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    navLinks.style.display = 'none';
-                }
+                if (window.innerWidth <= 768) navLinks.style.display = 'none';
             });
         });
 
-        // Ajustar altura dinámica de iframes para evitar scroll extra
-        function adjustIframes() {
-            const containers = document.querySelectorAll('.carousel-container iframe');
-            containers.forEach(iframe => {
-                if (iframe.parentElement && iframe.parentElement.style.height) {
-                    const parentHeight = iframe.parentElement.style.height;
-                    if (parentHeight && parentHeight !== 'auto') {
-                        iframe.style.height = parentHeight;
-                    }
-                }
-            });
-        }
-        window.addEventListener('load', adjustIframes);
-        window.addEventListener('resize', adjustIframes);
-
-        // ============================================================
-        // SOLUCIÓN PARA EL LOGO: SIN RECORTE, LA IMAGEN SE MUESTRA COMPLETA
-        // ============================================================
+        // Logo handling
         const logoImage = document.getElementById('logoImage');
         const logoIcon = document.getElementById('logoIcon');
-        
         if (logoImage) {
-            // Función para verificar si la imagen se cargó correctamente
-            const handleImageLoad = () => {
-                // La imagen se cargó correctamente, aseguramos que se muestre bien
-                logoIcon.classList.remove('default-icon');
-                logoImage.style.display = 'block';
-                logoImage.style.opacity = '1';
-            };
-            
-            const handleImageError = () => {
-                // Si la imagen no existe o hay error, mostramos el fallback
+            logoImage.onload = () => { logoIcon.classList.remove('default-icon'); logoImage.style.display = 'block'; };
+            logoImage.onerror = () => {
                 logoIcon.classList.add('default-icon');
                 logoImage.style.display = 'none';
-                // Crear el elemento de fallback si no existe
                 if (!logoIcon.querySelector('.fallback-icon')) {
-                    const fallbackSpan = document.createElement('span');
-                    fallbackSpan.className = 'fallback-icon';
-                    fallbackSpan.innerHTML = '◈';
-                    fallbackSpan.style.fontSize = '1.5rem';
-                    fallbackSpan.style.fontWeight = 'bold';
-                    fallbackSpan.style.color = 'white';
-                    logoIcon.appendChild(fallbackSpan);
+                    const fallback = document.createElement('span');
+                    fallback.className = 'fallback-icon';
+                    fallback.innerHTML = '◈';
+                    fallback.style.fontSize = '1.5rem';
+                    fallback.style.fontWeight = 'bold';
+                    fallback.style.color = 'white';
+                    logoIcon.appendChild(fallback);
                 }
             };
-            
-            // Asignar eventos
-            logoImage.addEventListener('load', handleImageLoad);
-            logoImage.addEventListener('error', handleImageError);
-            
-            // Forzar verificación en caso de que la imagen ya esté en caché
-            if (logoImage.complete) {
-                if (logoImage.naturalWidth === 0) {
-                    handleImageError();
-                } else {
-                    handleImageLoad();
-                }
-            }
-            
-            // Estilos adicionales para asegurar que la imagen no se recorte
-            logoImage.style.maxWidth = '100%';
-            logoImage.style.maxHeight = '100%';
-            logoImage.style.width = 'auto';
-            logoImage.style.height = 'auto';
-            logoImage.style.objectFit = 'contain';
-            logoImage.style.display = 'block';
-            
-            // Ajustar el contenedor para que respete las proporciones
-            logoIcon.style.overflow = 'visible';
+            if (logoImage.complete && logoImage.naturalWidth === 0) logoImage.onerror();
         }
-        
-        // Función adicional: Si quieres cambiar la imagen del logo dinámicamente
-        // Solo tienes que modificar el src de #logoImage
-        // Ejemplo: document.getElementById('logoImage').src = 'nuevo-logo.png';
-        
-        // Forzar que el contenedor del logo no tenga restricciones de recorte
-        const styleFix = document.createElement('style');
-        styleFix.textContent = `
-            .logo-icon {
-                overflow: visible !important;
-                background: transparent !important;
-            }
-            .logo-icon.default-icon {
-                background: var(--accent-gradient) !important;
-                border-radius: 12px !important;
-                overflow: hidden !important;
-            }
-            .logo-icon.default-icon .fallback-icon {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                height: 100%;
-            }
-            .logo-icon img {
-                max-width: 100%;
-                max-height: 100%;
-                width: auto;
-                height: auto;
-                object-fit: contain;
-            }
-        `;
-        document.head.appendChild(styleFix);
     </script>
 </body>
 </html>
