@@ -1,68 +1,142 @@
 <!-- ============================================ -->
-<!-- COMPONENTE: Galería de Arte Moderna          -->
-<!-- FLECHAS CENTRALES MÁS VISIBLES - CORREGIDO   -->
-<!-- SIN SCROLL AUTOMÁTICO                        -->
+<!-- COMPONENTE: Laptop 3D + Video                -->
+<!-- ESTILO PRO - FONDO MINIMALISTA               -->
+<!-- VIDEO: video.mp4 (ruta relativa)             -->
+<!-- PALETA: #050a10, #0d1f33, #800060            -->
 <!-- ============================================ -->
 
 <div class="glr-gallery-container">
     <div class="glr-gallery-logo">GALLERIE D'ART</div>
     
-    <div class="glr-info-panel" id="glr-infoPanel">
-        <span class="glr-catalogue-number" id="glr-catalogueNum">01 / COLLECTION</span>
-        <h1 class="glr-artwork-title" id="glr-artworkTitle">Amanecer Eterno</h1>
-        <p class="glr-artwork-description" id="glr-artworkDesc">La luz del amanecer se fusiona con la abstracción.</p>
-        <div class="glr-meta-grid">
-            <span class="glr-meta-label">Artist</span>
-            <span class="glr-meta-value" id="glr-artistName">María González</span>
-            <span class="glr-meta-label">Year</span>
-            <span class="glr-meta-value" id="glr-artYear">2024</span>
-            <span class="glr-meta-label">Medium</span>
-            <span class="glr-meta-value" id="glr-artMedium">Óleo sobre Lienzo</span>
+    <!-- 🎬 LAPTOP 3D CON VIDEO -->
+    <div class="glr-laptop-wrapper">
+        <div class="glr-laptop-3d">
+            <!-- Pantalla con video -->
+            <div class="glr-laptop-screen">
+                <video class="glr-laptop-video" autoplay loop muted playsinline preload="auto">
+                    <source src="video.mp4" type="video/mp4">
+                </video>
+                <div class="glr-screen-overlay"></div>
+            </div>
+            <!-- Base -->
+            <div class="glr-laptop-base">
+                <div class="glr-laptop-trackpad"></div>
+            </div>
+            <!-- Bisagra -->
+            <div class="glr-laptop-hinge"></div>
+            <!-- Cámara -->
+            <div class="glr-laptop-camera"></div>
         </div>
     </div>
 
-    <div class="glr-gallery-track" id="glr-galleryTrack">
-        <!-- Las imágenes se generarán con JavaScript -->
-    </div>
-
-    <!-- FLECHAS CENTRALES - MÁS VISIBLES -->
-    <div class="glr-nav-arrows">
-        <button class="glr-arrow-btn glr-arrow-prev" id="glr-prevBtn">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-        </button>
-        <button class="glr-arrow-btn glr-arrow-next" id="glr-nextBtn">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-        </button>
-    </div>
-
-    <div class="glr-slide-counter">
-        <span id="glr-currentIdx">01</span> / <span id="glr-totalSlides">11</span>
-    </div>
+    <!-- Elementos decorativos de fondo -->
+    <div class="glr-bg-glow-1"></div>
+    <div class="glr-bg-glow-2"></div>
+    <div class="glr-bg-glow-3"></div>
+    <div class="glr-bg-grid"></div>
 </div>
 
-<!-- CSS AISLADO DE LA GALERÍA -->
+<!-- CSS CON PALETA PERSONALIZADA -->
 <style>
-/* Reset solo dentro de la galería */
+:root {
+    --primary: #050a10;
+    --secondary: #0d1f33;
+    --accent: #800060;
+    --accent-light: #a02078;
+    --accent-glow: rgba(128, 0, 96, 0.4);
+    --text: #e0e6ed;
+    --text-muted: #8b95a5;
+    --white: #ffffff;
+    --gradient: linear-gradient(135deg, #050a10 0%, #0d1f33 50%, #071424 100%);
+    --accent-gradient: linear-gradient(135deg, #800060, #4d0039);
+}
+
+/* Reset */
 .glr-gallery-container * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Contenedor principal */
 .glr-gallery-container {
     position: relative;
     width: 100%;
     height: 100vh;
     min-height: 600px;
-    overflow: hidden; /* CAMBIO: hidden en lugar de auto */
+    overflow: hidden;
     font-family: 'Lato', 'Segoe UI', sans-serif;
-    background-color: #0a0e1a;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* ============================================ */
+/* EFECTOS DE FONDO PROFESIONALES               */
+/* ============================================ */
+
+/* Grid sutil */
+.glr-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(var(--text-muted) 1px, transparent 1px),
+        linear-gradient(90deg, var(--text-muted) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Glows decorativos */
+.glr-bg-glow-1 {
+    position: absolute;
+    top: -20%;
+    left: -10%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    filter: blur(80px);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+    animation: glr-pulse-slow 8s ease-in-out infinite;
+}
+
+.glr-bg-glow-2 {
+    position: absolute;
+    bottom: -20%;
+    right: -10%;
+    width: 55%;
+    height: 55%;
+    background: radial-gradient(circle, rgba(128, 0, 96, 0.25) 0%, transparent 70%);
+    filter: blur(90px);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+    animation: glr-pulse-slow 10s ease-in-out infinite reverse;
+}
+
+.glr-bg-glow-3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(13, 31, 51, 0.6) 0%, transparent 80%);
+    filter: blur(60px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes glr-pulse-slow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.08); }
+}
+
+/* Logo superior */
 .glr-gallery-logo {
     position: absolute;
     top: 30px;
@@ -73,290 +147,166 @@
     font-size: 0.9rem;
     text-transform: uppercase;
     z-index: 100;
-    color: #eef2ff;
-    background: rgba(10, 14, 26, 0.6);
+    color: var(--text);
+    background: rgba(5, 10, 16, 0.7);
     backdrop-filter: blur(8px);
     padding: 6px 16px;
     border-radius: 40px;
-    border-left: 2px solid #3b82f6;
+    border-left: 3px solid var(--accent);
     pointer-events: none;
 }
 
-.glr-gallery-track {
+/* ============================================ */
+/* 🎬 LAPTOP 3D VISTA FRONTAL                  */
+/* ============================================ */
+.glr-laptop-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 30;
+    perspective: 1200px;
+    width: 100%;
     display: flex;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    height: 100%;
-    align-items: center;
-    gap: 40px;
-    padding: 0;
-    will-change: transform;
+    justify-content: center;
 }
 
-.glr-gallery-item {
-    flex-shrink: 0;
-    width: 480px;
-    height: 440px;
+.glr-laptop-3d {
     position: relative;
-    transition: all 0.6s ease;
+    width: 720px;
+    max-width: 90vw;
     transform-style: preserve-3d;
-    perspective: 1000px;
-    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
 
-.glr-gallery-item.glr-active {
-    transform: scale(1.1);
-    z-index: 10;
+/* Efecto hover sutil */
+.glr-laptop-3d:hover {
+    transform: translateY(-5px) rotateX(1deg);
 }
 
-.glr-gallery-item.glr-prev,
-.glr-gallery-item.glr-next {
-    transform: scale(0.9);
-    opacity: 0.6;
-}
-
-.glr-gallery-item.glr-hidden {
-    opacity: 0;
-    transform: scale(0.8);
-    pointer-events: none;
-}
-
-.glr-image-wrapper {
+/* Pantalla */
+.glr-laptop-screen {
     position: relative;
     width: 100%;
-    height: 100%;
-    border-radius: 12px;
+    aspect-ratio: 16/10;
+    background: #000;
+    border-radius: 20px 20px 10px 10px;
+    border: 3px solid var(--secondary);
+    border-bottom: 2px solid var(--accent);
+    box-shadow: 
+        inset 0 0 60px rgba(128, 0, 96, 0.1),
+        0 30px 50px -15px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(128, 0, 96, 0.3);
     overflow: hidden;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-    border: 2px solid rgba(59, 130, 246, 0.3);
-    background: linear-gradient(135deg, #1e3a5f 0%, #0a0e1a 100%);
 }
 
-.glr-gallery-image {
+.glr-laptop-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.6s ease;
 }
 
-.glr-gallery-item:hover .glr-gallery-image {
-    transform: scale(1.05);
-}
-
-.glr-image-frame {
+/* Overlay con reflejo sutil */
+.glr-screen-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 2px solid rgba(107, 140, 255, 0.4);
-    border-radius: 12px;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(128, 0, 96, 0.08) 0%,
+        transparent 30%,
+        transparent 70%,
+        rgba(128, 0, 96, 0.05) 100%
+    );
     pointer-events: none;
-    box-shadow: inset 0 0 30px rgba(59, 130, 246, 0.2);
+    z-index: 2;
 }
 
-.glr-info-panel {
-    position: absolute;
-    top: 50%;
-    left: 60px;
-    transform: translateY(-50%);
-    width: 380px;
-    max-width: 400px;
-    background: rgba(10, 14, 26, 0.85);
-    backdrop-filter: blur(12px);
-    padding: 2rem;
-    border-radius: 20px;
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    transition: all 0.6s ease;
-    z-index: 50;
-    pointer-events: none;
-}
-
-.glr-info-panel.glr-active {
-    opacity: 1;
-    transform: translateY(-50%) translateX(0);
-    pointer-events: auto;
-}
-
-.glr-catalogue-number {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    color: #93c5fd;
-    margin-bottom: 0.8rem;
-    display: inline-block;
-    border-bottom: 1px solid #3b82f6;
-    padding-bottom: 4px;
-}
-
-.glr-artwork-title {
-    font-family: 'Playfair Display', 'Georgia', serif;
-    font-weight: 400;
-    font-style: italic;
-    font-size: 2.5rem;
-    margin: 0 0 0.8rem 0;
-    line-height: 1.1;
-    color: #ffffff;
-}
-
-.glr-artwork-description {
-    font-size: 0.9rem;
-    font-weight: 300;
-    line-height: 1.5;
-    color: #d1d5db;
-    margin-bottom: 1.5rem;
-}
-
-.glr-meta-grid {
-    display: grid;
-    grid-template-columns: 70px 1fr;
-    row-gap: 0.5rem;
-    border-top: 1px solid rgba(59, 130, 246, 0.4);
-    padding-top: 1rem;
-}
-
-.glr-meta-label {
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: #9ca3af;
-}
-
-.glr-meta-value {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.95rem;
-    font-style: italic;
-    color: #f0f9ff;
-}
-
-/* ============================================ */
-/* FLECHAS CENTRALES - MÁS VISIBLES Y GRANDES   */
-/* ============================================ */
-.glr-nav-arrows {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    padding: 0 30px;
-    z-index: 100;
-    pointer-events: none;
-}
-
-.glr-arrow-btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: rgba(15, 25, 45, 0.85);
-    backdrop-filter: blur(12px);
-    border: 2px solid rgba(59, 130, 246, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: #eef2ff;
-    pointer-events: auto;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.glr-arrow-btn:hover {
-    background: #1e293b;
-    border-color: #3b82f6;
-    transform: scale(1.1);
-    color: #60a5fa;
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-}
-
-.glr-arrow-btn:active {
-    transform: scale(0.95);
-}
-
-.glr-slide-counter {
-    position: absolute;
-    bottom: 45px;
-    left: 40px;
-    font-size: 0.8rem;
-    background: rgba(10, 14, 26, 0.7);
-    backdrop-filter: blur(8px);
-    padding: 6px 16px;
-    border-radius: 40px;
-    border: 1px solid rgba(59, 130, 246, 0.4);
-    color: #cbd5e1;
-    z-index: 100;
-}
-
-.glr-slide-counter span:first-child {
-    color: #60a5fa;
-    font-weight: 600;
-}
-
-.glr-loading-placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
+/* Base de la laptop */
+.glr-laptop-base {
+    position: relative;
     width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #1e3a5f 0%, #0a0e1a 100%);
-    color: #6b8cff;
-    font-size: 1.2rem;
-    font-weight: 300;
-    text-align: center;
-    flex-direction: column;
+    height: 24px;
+    background: linear-gradient(to bottom, var(--secondary), var(--primary));
+    border-radius: 4px 4px 14px 14px;
+    border: 3px solid var(--secondary);
+    border-top: none;
+    box-shadow: 
+        0 18px 30px -8px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(128, 0, 96, 0.2);
+}
+
+.glr-laptop-trackpad {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 10px;
+    background: linear-gradient(to bottom, #1a2a3f, var(--secondary));
+    border-radius: 6px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Bisagra */
+.glr-laptop-hinge {
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 7px;
+    background: linear-gradient(to right, var(--primary), var(--accent-light), var(--primary));
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Cámara web */
+.glr-laptop-camera {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    border: 1.5px solid var(--accent-light);
+    z-index: 5;
+    box-shadow: 0 0 0 2px rgba(128, 0, 96, 0.2);
+}
+.glr-laptop-camera::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 3px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 4px var(--accent);
+    animation: glr-camera-blink 3s infinite;
+}
+
+@keyframes glr-camera-blink {
+    0%, 95%, 100% { opacity: 1; }
+    97% { opacity: 0.3; }
 }
 
 /* ============================================ */
-/* TABLET (768px - 1024px)                     */
+/* RESPONSIVE                                  */
 /* ============================================ */
 @media (max-width: 1024px) {
-    .glr-info-panel {
-        width: 300px;
-        padding: 1.5rem;
-        left: 20px;
-    }
-    .glr-artwork-title {
-        font-size: 2rem;
-    }
-    .glr-gallery-item {
-        width: 360px;
-        height: 340px;
-    }
-    .glr-gallery-track {
-        gap: 30px;
-    }
-    .glr-arrow-btn {
-        width: 50px;
-        height: 50px;
-    }
-    .glr-arrow-btn svg {
-        width: 24px;
-        height: 24px;
-    }
-    .glr-nav-arrows {
-        padding: 0 20px;
-    }
+    .glr-laptop-3d { width: 580px; }
 }
 
-/* ============================================ */
-/* MÓVIL - SIN SCROLL AUTOMÁTICO               */
-/* ============================================ */
 @media (max-width: 768px) {
     .glr-gallery-container {
         height: auto;
         min-height: 100vh;
-        overflow: hidden; /* CAMBIO: hidden en lugar de auto */
-        overflow-x: hidden;
-        display: flex;
-        flex-direction: column;
+        padding: 80px 0 40px;
     }
-
     .glr-gallery-logo {
         position: fixed;
         top: 15px;
@@ -365,412 +315,136 @@
         padding: 4px 12px;
         z-index: 200;
     }
-
-    .glr-gallery-track {
-        flex-direction: column;
-        padding: 80px 20px 120px 20px;
-        gap: 30px;
-        transform: none !important;
-        height: auto;
-        order: 1;
-    }
-
-    .glr-gallery-item {
-        width: 90%;
-        max-width: 380px;
-        height: auto;
-        aspect-ratio: 4 / 5;
-        margin: 0 auto;
-        transform: scale(1) !important;
-        opacity: 1 !important;
-    }
-
-    .glr-gallery-item.glr-prev,
-    .glr-gallery-item.glr-next,
-    .glr-gallery-item.glr-hidden {
-        display: none;
-    }
-
-    .glr-gallery-item.glr-active {
-        display: block;
-        transform: scale(1) !important;
-    }
-
-    .glr-info-panel {
+    .glr-laptop-wrapper {
         position: relative;
+        transform: none;
         top: auto;
         left: auto;
-        transform: none;
-        width: 90%;
-        max-width: 380px;
-        margin: 20px auto 30px auto;
-        order: 2;
-        opacity: 1;
-        pointer-events: auto;
+        margin: 0 auto;
     }
-
-    .glr-nav-arrows {
-        position: fixed;
-        top: 50%;
-        left: 0;
-        right: 0;
-        transform: translateY(-50%);
-        padding: 0 10px;
-        justify-content: space-between;
-        z-index: 200;
-        pointer-events: none;
+    .glr-laptop-3d {
+        width: 85%;
+        max-width: 400px;
     }
-
-    .glr-arrow-btn {
-        width: 48px;
-        height: 48px;
-        background: rgba(15, 25, 45, 0.95);
-        pointer-events: auto;
-    }
-
-    .glr-arrow-btn svg {
-        width: 24px;
-        height: 24px;
-    }
-
-    .glr-slide-counter {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 200;
-        background: rgba(10, 14, 26, 0.9);
-        white-space: nowrap;
+    .glr-bg-glow-1, .glr-bg-glow-2 {
+        width: 80%;
+        height: 80%;
+        filter: blur(60px);
     }
 }
 
-/* ============================================ */
-/* MÓVIL PEQUEÑO (hasta 480px)                 */
-/* ============================================ */
 @media (max-width: 480px) {
-    .glr-arrow-btn {
-        width: 42px;
-        height: 42px;
-    }
-    
-    .glr-arrow-btn svg {
-        width: 20px;
-        height: 20px;
-    }
-    
-    .glr-gallery-item {
-        max-width: 320px;
-    }
-    
-    .glr-info-panel {
-        padding: 1.25rem;
-    }
-    
-    .glr-artwork-title {
-        font-size: 1.5rem;
-    }
-    
-    .glr-artwork-description {
-        font-size: 0.85rem;
-    }
-    
-    .glr-catalogue-number {
-        font-size: 0.6rem;
-        letter-spacing: 2px;
-    }
-    
-    .glr-slide-counter {
-        bottom: 15px;
-        font-size: 0.7rem;
-        padding: 4px 12px;
-    }
+    .glr-laptop-3d { max-width: 320px; }
+    .glr-laptop-trackpad { width: 100px; height: 8px; }
 }
 
-/* ============================================ */
-/* MÓVIL ORIENTACIÓN LANDSCAPE                 */
-/* ============================================ */
-@media (max-width: 768px) and (orientation: landscape) {
-    .glr-gallery-track {
-        padding: 70px 20px 100px 20px;
-        gap: 20px;
-    }
-    
-    .glr-gallery-item {
-        max-width: 300px;
-    }
-    
-    .glr-info-panel {
-        margin: 10px auto 20px auto;
-        padding: 1rem;
-    }
-    
-    .glr-artwork-title {
-        font-size: 1.3rem;
-        margin-bottom: 0.4rem;
-    }
-    
-    .glr-artwork-description {
-        margin-bottom: 0.8rem;
-        font-size: 0.8rem;
-    }
-}
-
-/* ============================================ */
-/* PANTALLAS GRANDES (1400px+)                 */
-/* ============================================ */
 @media (min-width: 1400px) {
-    .glr-gallery-item {
-        width: 550px;
-        height: 500px;
-    }
-    
-    .glr-gallery-track {
-        gap: 50px;
-    }
-    
-    .glr-info-panel {
-        width: 420px;
-        left: 80px;
-    }
-    
-    .glr-artwork-title {
-        font-size: 3rem;
-    }
-    
-    .glr-nav-arrows {
-        padding: 0 60px;
-    }
-    
-    .glr-arrow-btn {
-        width: 70px;
-        height: 70px;
-    }
-    
-    .glr-arrow-btn svg {
-        width: 32px;
-        height: 32px;
-    }
+    .glr-laptop-3d { width: 850px; }
 }
 </style>
 
-<!-- JavaScript AISLADO DE LA GALERÍA -->
+<!-- JS robusto para video -->
 <script>
 (function() {
-    // DATOS DE LAS OBRAS
-    const obras = [
-        { numero: "01", titulo: "Amanecer Eterno", descripcion: "La luz del amanecer se fusiona con la abstracción, creando una atmósfera de paz y renovación.", artista: "María González", año: "2024", tecnica: "Óleo sobre Lienzo" },
-        { numero: "02", titulo: "Silencio Geométrico", descripcion: "Formas precisas que invitan a la contemplación. El orden perfecto en medio del caos visual.", artista: "Carlos Ruiz", año: "2023", tecnica: "Acrílico" },
-        { numero: "03", titulo: "Horizontes Lejanos", descripcion: "La línea del horizonte como metáfora de lo inalcanzable. Colores que se difuminan en el tiempo.", artista: "Ana Torres", año: "2024", tecnica: "Acuarela" },
-        { numero: "04", titulo: "El Vacío", descripcion: "Una reflexión sobre el espacio vacío en el arte contemporáneo y su significado profundo.", artista: "Desconocido", año: "2023", tecnica: "Técnica Mixta" },
-        { numero: "05", titulo: "Raíces Profundas", descripcion: "Conexión con la tierra y nuestras raíces culturales. Texturas que evocan naturaleza pura.", artista: "Laura Méndez", año: "2024", tecnica: "Óleo" },
-        { numero: "06", titulo: "Sueños Líquidos", descripcion: "El agua como elemento transformador. Formas orgánicas que fluyen sin control aparente.", artista: "Ricardo Paz", año: "2023", tecnica: "Acuarela" },
-        { numero: "07", titulo: "Resplandor Nocturno", descripcion: "La noche iluminada por destellos de esperanza. Contrastes entre luz y oscuridad.", artista: "Elena Vega", año: "2024", tecnica: "Acrílico" },
-        { numero: "08", titulo: "Estructuras", descripcion: "La ciudad y su arquitectura como inspiración. Líneas que se entrecruzan formando redes.", artista: "Jorge Lima", año: "2023", tecnica: "Grafito" },
-        { numero: "09", titulo: "Jardín Secreto", descripcion: "Naturaleza en su estado más puro. Colores vibrantes y vida en cada pincelada.", artista: "Sofía Flores", año: "2024", tecnica: "Óleo" },
-        { numero: "10", titulo: "Memoria Fragmentada", descripcion: "Recuerdos que se desvanecen y reconstruyen. Capas de tiempo y emoción superpuestas.", artista: "Andrés Mora", año: "2023", tecnica: "Collage" },
-        { numero: "11", titulo: "Renacer", descripcion: "Un nuevo comienzo. La esperanza representada en colores cálidos y formas ascendentes.", artista: "Valentina Cruz", año: "2024", tecnica: "Mixta" }
-    ];
-
-    // RUTAS DE IMÁGENES - Cambia la ruta según donde tengas tus imágenes
-    const imagePaths = [
-        './img/foto (1).jpg',
-        './img/foto (2).jpg',
-        './img/foto (3).jpg',
-        './img/foto (4).jpg',
-        './img/foto (5).jpg',
-        './img/foto (6).jpg',
-        './img/foto (7).jpg',
-        './img/foto (8).jpg',
-        './img/foto (9).jpg',
-        './img/foto (10).jpg',
-        './img/foto (11).jpg'
-    ];
-
-    let currentIndex = 0;
-    const track = document.getElementById('glr-galleryTrack');
-    const container = document.querySelector('.glr-gallery-container');
-    const totalSlides = obras.length;
-
-    if (!track) return;
-
-    // Crear elementos de la galería
-    function createGalleryItems() {
-        track.innerHTML = '';
-        
-        obras.forEach((obra, index) => {
-            const item = document.createElement('div');
-            item.className = 'glr-gallery-item';
-            item.dataset.index = index;
-            
-            const wrapper = document.createElement('div');
-            wrapper.className = 'glr-image-wrapper';
-            
-            const img = document.createElement('img');
-            img.className = 'glr-gallery-image';
-            img.src = imagePaths[index];
-            img.alt = obra.titulo;
-            img.loading = 'lazy';
-            img.onerror = function() {
-                this.style.display = 'none';
-                const placeholder = document.createElement('div');
-                placeholder.className = 'glr-loading-placeholder';
-                placeholder.innerHTML = `
-                    <div style="text-align: center;">
-                        <div style="font-size: 3rem; margin-bottom: 10px;">🎨</div>
-                        <div>Foto ${index + 1}</div>
-                        <div style="font-size: 0.9rem; margin-top: 5px;">${obra.titulo}</div>
-                    </div>
-                `;
-                wrapper.appendChild(placeholder);
-            };
-            
-            const frame = document.createElement('div');
-            frame.className = 'glr-image-frame';
-            
-            wrapper.appendChild(img);
-            wrapper.appendChild(frame);
-            item.appendChild(wrapper);
-            track.appendChild(item);
-        });
-        
-        const totalSpan = document.getElementById('glr-totalSlides');
-        if (totalSpan) totalSpan.textContent = totalSlides.toString().padStart(2, '0');
-    }
-
-    // Calcular posición centrada para desktop
-    function getCenteredOffset() {
-        if (!track || !container) return 0;
-        
-        const trackWidth = track.scrollWidth;
-        const containerWidth = container.clientWidth;
-        const activeItem = track.children[currentIndex];
-        
-        if (!activeItem) return 0;
-        
-        const itemRect = activeItem.getBoundingClientRect();
-        const trackRect = track.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
-        
-        // Calcular la posición para centrar el item activo
-        const itemOffsetLeft = itemRect.left - trackRect.left;
-        const targetPosition = itemOffsetLeft - (containerRect.width / 2) + (itemRect.width / 2);
-        
-        return -targetPosition;
-    }
-
-    // Actualizar galería
-    function updateGallery() {
-        const items = document.querySelectorAll('.glr-gallery-item');
-        const infoPanel = document.getElementById('glr-infoPanel');
-        const isMobile = window.innerWidth <= 768;
-        
-        if (!isMobile) {
-            // Desktop: centrar el item activo
-            const offset = getCenteredOffset();
-            if (track) {
-                track.style.transform = `translateX(${offset}px)`;
-            }
+    const video = document.querySelector('.glr-laptop-video');
+    if (!video) return;
+    
+    // ========================================
+    // 1. CORRECCIÓN DE RUTA - Fallback robusto
+    // ========================================
+    const source = video.querySelector('source');
+    const posiblesRutas = ['video.mp4', './video.mp4', '/video.mp4', '../video.mp4'];
+    let intentoActual = 0;
+    
+    function intentarCargarVideo() {
+        if (intentoActual >= posiblesRutas.length) {
+            console.warn('❌ No se pudo cargar video.mp4 en ninguna ruta');
+            mostrarPlaceholder();
+            return;
         }
+        const ruta = posiblesRutas[intentoActual];
+        if (source) source.src = ruta;
+        video.load();
         
-        items.forEach((item, index) => {
-            item.classList.remove('glr-active', 'glr-prev', 'glr-next', 'glr-hidden');
-            
-            if (index === currentIndex) {
-                item.classList.add('glr-active');
-            } else if (!isMobile) {
-                if (index === currentIndex - 1) {
-                    item.classList.add('glr-prev');
-                } else if (index === currentIndex + 1) {
-                    item.classList.add('glr-next');
-                } else {
-                    item.classList.add('glr-hidden');
-                }
+        video.onerror = function() {
+            console.log(`⚠️ Falló carga en: ${ruta}`);
+            intentoActual++;
+            intentarCargarVideo();
+        };
+    }
+    
+    function mostrarPlaceholder() {
+        const screen = document.querySelector('.glr-laptop-screen');
+        if (screen && !screen.querySelector('.video-placeholder')) {
+            const placeholder = document.createElement('div');
+            placeholder.className = 'video-placeholder';
+            placeholder.innerHTML = `
+                <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #050a10, #0d1f33); flex-direction:column; gap:15px;">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#800060" stroke-width="1.5">
+                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                        <polygon points="10 8 16 12 10 16 10 8" fill="#800060" fill-opacity="0.5"></polygon>
+                    </svg>
+                    <span style="color:#a02078; font-family:monospace;">video.mp4</span>
+                    <span style="color:#8b95a5; font-size:12px;">Coloca el archivo en la misma carpeta</span>
+                </div>
+            `;
+            placeholder.style.position = 'absolute';
+            placeholder.style.inset = '0';
+            placeholder.style.zIndex = '10';
+            screen.style.position = 'relative';
+            screen.appendChild(placeholder);
+            video.style.opacity = '0.3';
+        }
+    }
+    
+    intentarCargarVideo();
+    
+    // ========================================
+    // 2. AUTO-REPRODUCCIÓN
+    // ========================================
+    video.muted = true;
+    video.playsInline = true;
+    video.loop = true;
+    
+    const playVideo = () => {
+        video.play().catch(e => {
+            console.log('⏸ Autoplay bloqueado');
+            document.addEventListener('click', function playOnce() {
+                video.play().catch(()=>{});
+                document.removeEventListener('click', playOnce);
+            }, { once: true });
+        });
+    };
+    
+    video.addEventListener('canplay', playVideo);
+    
+    // ========================================
+    // 3. INTERSECTION OBSERVER
+    // ========================================
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                video.play().catch(() => {});
             } else {
-                // En móvil ocultar todos excepto el activo
-                if (index !== currentIndex) {
-                    item.classList.add('glr-hidden');
-                }
+                video.pause();
             }
         });
-        
-        const obra = obras[currentIndex];
-        const catalogueNum = document.getElementById('glr-catalogueNum');
-        const artworkTitle = document.getElementById('glr-artworkTitle');
-        const artworkDesc = document.getElementById('glr-artworkDesc');
-        const artistName = document.getElementById('glr-artistName');
-        const artYear = document.getElementById('glr-artYear');
-        const artMedium = document.getElementById('glr-artMedium');
-        const currentIdx = document.getElementById('glr-currentIdx');
-        
-        if (catalogueNum) catalogueNum.textContent = `${obra.numero} / COLLECTION`;
-        if (artworkTitle) artworkTitle.textContent = obra.titulo;
-        if (artworkDesc) artworkDesc.textContent = obra.descripcion;
-        if (artistName) artistName.textContent = obra.artista;
-        if (artYear) artYear.textContent = obra.año;
-        if (artMedium) artMedium.textContent = obra.tecnica;
-        if (currentIdx) currentIdx.textContent = (currentIndex + 1).toString().padStart(2, '0');
-        
-        if (infoPanel && !isMobile) {
-            infoPanel.classList.remove('glr-active');
-            setTimeout(() => infoPanel.classList.add('glr-active'), 100);
-        }
-        
-        // CAMBIO: Eliminado scrollIntoView para evitar scroll automático
-        // En móvil, solo mostrar el item activo sin forzar scroll
+    }, { threshold: 0.2 });
+    observer.observe(video);
+    
+    // ========================================
+    // 4. Efecto hover en pantalla
+    // ========================================
+    const screen = document.querySelector('.glr-laptop-screen');
+    if (screen) {
+        screen.addEventListener('mouseenter', () => {
+            screen.style.boxShadow = 'inset 0 0 40px rgba(128, 0, 96, 0.25), 0 30px 50px -15px rgba(0,0,0,0.8), 0 0 0 2px rgba(128, 0, 96, 0.4)';
+        });
+        screen.addEventListener('mouseleave', () => {
+            screen.style.boxShadow = 'inset 0 0 60px rgba(128, 0, 96, 0.1), 0 30px 50px -15px rgba(0,0,0,0.8), 0 0 0 1px rgba(128, 0, 96, 0.3)';
+        });
     }
-
-    function goToSlide(index) {
-        if (index < 0) index = totalSlides - 1;
-        if (index >= totalSlides) index = 0;
-        currentIndex = index;
-        updateGallery();
-    }
-
-    const prevBtn = document.getElementById('glr-prevBtn');
-    const nextBtn = document.getElementById('glr-nextBtn');
     
-    if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
-    if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
-
-    // Teclado
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') goToSlide(currentIndex - 1);
-        if (e.key === 'ArrowRight') goToSlide(currentIndex + 1);
-    });
-
-    // Touch events para swipe
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    document.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    });
-    
-    document.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        const diff = touchEndX - touchStartX;
-        if (Math.abs(diff) > 50) {
-            if (diff > 0) {
-                goToSlide(currentIndex - 1);
-            } else {
-                goToSlide(currentIndex + 1);
-            }
-        }
-    });
-
-    // Resize
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => updateGallery(), 150);
-    });
-    
-    // Inicializar
-    createGalleryItems();
-    
-    // Pequeño retraso para asegurar que los elementos estén renderizados
-    setTimeout(() => {
-        updateGallery();
-    }, 100);
+    console.log('🎬 Laptop 3D lista - Usando paleta #800060');
 })();
 </script>
