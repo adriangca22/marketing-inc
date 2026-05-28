@@ -43,6 +43,69 @@
             line-height: 1.6;
         }
 
+        /* ========================================== */
+        /* BOTÓN FLOTANTE DE WHATSAPP (FIJO)          */
+        /* ========================================== */
+        .whatsapp-fixed {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 65px;
+            height: 65px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            text-decoration: none;
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+            z-index: 9999;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulseWhatsapp 2s infinite;
+        }
+
+        .whatsapp-fixed:hover {
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 8px 35px rgba(37, 211, 102, 0.8);
+        }
+
+        @keyframes pulseWhatsapp {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* ========================================== */
+        /* REDES SOCIALES EN HEADER - AL FINAL        */
+        /* ========================================== */
+        .header-social {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: 1.5rem;
+            padding-left: 1.5rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .header-social a {
+            color: var(--white);
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .header-social a:hover {
+            color: var(--accent-light);
+            transform: translateY(-2px);
+            text-shadow: 0 0 10px rgba(160, 32, 120, 0.6);
+        }
+
         /* Header */
         header {
             position: fixed;
@@ -77,6 +140,7 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 1.5rem;
+            flex-shrink: 0;
         }
 
         .logo-icon {
@@ -128,9 +192,15 @@
             text-transform: uppercase;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 2.2rem;
             list-style: none;
             align-items: center;
         }
@@ -147,21 +217,6 @@
             color: var(--accent-light);
         }
 
-        .cta-button {
-            background: var(--accent-gradient);
-            color: var(--white) !important;
-            padding: 0.7rem 1.8rem;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px var(--accent-glow);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(128, 0, 96, 0.5);
-        }
-
         .mobile-menu {
             display: none;
             flex-direction: column;
@@ -176,8 +231,14 @@
             transition: all 0.3s ease;
         }
 
+        @media (max-width: 1280px) {
+            .header-social {
+                display: none;
+            }
+        }
+
         @media (max-width: 768px) {
-            .nav-links {
+            .nav-links, .header-social {
                 display: none;
             }
             .mobile-menu {
@@ -211,12 +272,10 @@
         }
 
         /* ========================================== */
-        /* SECCIÓN DE SERVICIOS - CON IMAGEN DE FONDO */
-        /* Y LUCES PARPADEANTES                       */
+        /* SECCIÓN DE SERVICIOS                       */
         /* ========================================== */
         .ec-servicios-container {
             font-family: 'Inter', sans-serif;
-            /* Imagen de fondo + overlay oscuro */
             background: linear-gradient(rgba(5, 10, 16, 0.158), rgba(7, 20, 36, 0.233)),
                         url('img/fondo.png') no-repeat center center;
             background-size: cover;
@@ -226,11 +285,10 @@
             align-items: center;
             justify-content: center;
             padding: 4rem 1.5rem 5rem 1.5rem;
-            position: relative;
+            position: relative; 
             overflow-x: hidden;
         }
 
-        /* Patrón de puntos sobre la imagen */
         .ec-servicios-container::before {
             content: "";
             position: absolute;
@@ -244,7 +302,6 @@
             z-index: 0;
         }
 
-        /* Luces parpadeantes detrás de las tarjetas */
         .ec-blinking-lights {
             position: absolute;
             top: 0;
@@ -319,34 +376,13 @@
         }
 
         @keyframes blinkLight {
-            0% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            15% {
-                opacity: 0.6;
-                transform: scale(1);
-            }
-            30% {
-                opacity: 0.3;
-                transform: scale(0.9);
-            }
-            50% {
-                opacity: 0.7;
-                transform: scale(1.1);
-            }
-            65% {
-                opacity: 0.2;
-                transform: scale(0.85);
-            }
-            85% {
-                opacity: 0.5;
-                transform: scale(1.05);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
+            0% { opacity: 0; transform: scale(0.8); }
+            15% { opacity: 0.6; transform: scale(1); }
+            30% { opacity: 0.3; transform: scale(0.9); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+            65% { opacity: 0.2; transform: scale(0.85); }
+            85% { opacity: 0.5; transform: scale(1.05); }
+            100% { opacity: 0; transform: scale(0.8); }
         }
 
         .ec-servicios-section {
@@ -445,7 +481,6 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Efecto brillo en las tarjetas */
         .ec-service-card::before {
             content: '';
             position: absolute;
@@ -603,7 +638,6 @@
             gap: 6px;
         }
 
-        /* Responsive de servicios */
         @media (max-width: 768px) {
             .ec-servicios-container {
                 padding: 2rem 1rem 3rem 1rem;
@@ -680,13 +714,27 @@
 
         .footer-brand .logo { margin-bottom: 1.5rem; }
         .footer-brand p { color: var(--text-muted); line-height: 1.8; margin-bottom: 2rem; font-size: 0.95rem; }
+        
+        /* Redes sociales del footer - BLANCAS con hover */
         .social-links { display: flex; gap: 1rem; }
         .social-links a {
-            width: 42px; height: 42px; border-radius: 50%; background: rgba(128, 0, 96, 0.15);
-            border: 1px solid rgba(128, 0, 96, 0.3); display: flex; align-items: center; justify-content: center;
-            color: var(--text); text-decoration: none; transition: all 0.3s ease; font-size: 1.2rem;
+            width: 42px; height: 42px; border-radius: 50%; 
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            display: flex; align-items: center; justify-content: center;
+            color: var(--white);
+            text-decoration: none; 
+            transition: all 0.3s ease; 
+            font-size: 1.2rem;
         }
-        .social-links a:hover { background: var(--accent); border-color: var(--accent); color: var(--white); transform: translateY(-3px); }
+        .social-links a:hover { 
+            background: var(--accent); 
+            border-color: var(--accent-light); 
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(128, 0, 96, 0.5);
+        }
+        
         .footer-column h3 { color: var(--white); font-size: 1.1rem; margin-bottom: 1.5rem; position: relative; }
         .footer-column h3::after {
             content: '';
@@ -716,6 +764,13 @@
             .footer-bottom { flex-direction: column; text-align: center; }
             .footer-bottom-links { justify-content: center; }
             footer { padding: 3rem 1.5rem 1.5rem; }
+            .whatsapp-fixed {
+                width: 55px;
+                height: 55px;
+                bottom: 15px;
+                right: 15px;
+                font-size: 1.6rem;
+            }
         }
     </style>
 </head>
@@ -723,18 +778,31 @@
 
     <header id="header">
         <nav>
+            <!-- Logo a la izquierda -->
             <a href="#" class="logo">
                 <div class="logo-icon" id="logoIcon">
                     <img src="img/logo 2@4x.png" alt="Eco.Node Logo" id="logoImage">
                 </div>
             </a>
-            <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#diseno">Diseño Gráfico</a></li>
-                <li><a href="#webs">Páginas Web</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#contacto" class="cta-button">Empezar Proyecto</a></li>
-            </ul>
+            
+            <!-- Lado derecho: Nav + Redes (al final) -->
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#diseno">Diseño Gráfico</a></li>
+                    <li><a href="#webs">Páginas Web</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                </ul>
+                
+                <!-- 🔵 REDES SOCIALES - AL FINAL DEL HEADER -->
+                <div class="header-social">
+                    <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://wa.me/" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
             <div class="mobile-menu">
                 <span></span>
                 <span></span>
@@ -753,12 +821,8 @@
         ></iframe>
     </div>
 
-    <!-- ========================================== -->
-    <!-- SECCIÓN DE SERVICIOS CON IMAGEN DE FONDO    -->
-    <!-- Y LUCES PARPADEANTES                       -->
-    <!-- ========================================== -->
+    <!-- Sección de Servicios -->
     <div id="servicios" class="ec-servicios-container">
-        <!-- Luces parpadeantes detrás de las tarjetas -->
         <div class="ec-blinking-lights">
             <div class="light-spot"></div>
             <div class="light-spot"></div>
@@ -774,7 +838,6 @@
                 <p>Soluciones creativas con tecnología 3D y gestión profesional | <span class="ec-highlight-text">Innovación y resultados</span></p>
             </div>
             <div class="ec-cards-grid">
-                <!-- Tarjeta 1: Marketing -->
                 <div class="ec-service-card">
                     <div class="ec-icon-wrapper"><i class="fas fa-chart-line"></i></div>
                     <h3>Marketing</h3>
@@ -782,7 +845,6 @@
                     <span class="ec-tech-badge"><i class="fas fa-bullhorn"></i> SEO · ADS · Analytics</span>
                     <a href="#" class="ec-card-link">Descubrir <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <!-- Tarjeta 2: Diseño Web -->
                 <div class="ec-service-card">
                     <div class="ec-icon-wrapper"><i class="fas fa-code"></i></div>
                     <h3>Diseño Web</h3>
@@ -790,7 +852,6 @@
                     <span class="ec-tech-badge"><i class="fab fa-react"></i> React · Three.js · UX</span>
                     <a href="#" class="ec-card-link">Explorar <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <!-- Tarjeta 3: Gráfico -->
                 <div class="ec-service-card">
                     <div class="ec-icon-wrapper"><i class="fas fa-palette"></i></div>
                     <h3>Gráfico</h3>
@@ -798,7 +859,6 @@
                     <span class="ec-tech-badge"><i class="fas fa-crown"></i> Branding · Motion · UI</span>
                     <a href="#" class="ec-card-link">Ver más <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <!-- Tarjeta 4: Render 3D + CM -->
                 <div class="ec-service-card">
                     <div class="ec-icon-wrapper">
                         <div class="ec-dual-icons"><i class="fas fa-cube"></i><i class="fas fa-users"></i></div>
@@ -814,6 +874,10 @@
             </div>
         </div>
     </div>
+    <!-- Carruseles adicionales -->
+    <div id="webs" class="carousel-container" style="width: 100%; overflow: hidden; margin: 0; padding: 0;">
+        <iframe src="3D.html" title="Carrusel Páginas Web" loading="lazy" style="width: 100%; height: 680px; border: none; display: block; overflow: hidden; margin: 0; padding: 0; background: transparent;" scrolling="no" frameborder="0"></iframe>
+    </div>
 
     <!-- Carruseles adicionales -->
     <div id="webs" class="carousel-container" style="width: 100%; overflow: hidden; margin: 0; padding: 0;">
@@ -825,7 +889,7 @@
     </div>
 
     <div class="carousel-container" style="width: 100%; overflow: hidden; margin: 0; padding: 0;">
-        <iframe src="aspect.html" title="Sección Aspect" loading="lazy" style="width: 100%; height: 850px; border: none; display: block; overflow: hidden; margin: 0; padding: 0;" scrolling="no" frameborder="0"></iframe>
+        <iframe src="team.html" title="Sección Aspect" loading="lazy" style="width: 100%; height: 850px; border: none; display: block; overflow: hidden; margin: 0; padding: 0;" scrolling="no" frameborder="0"></iframe>
     </div>
 
     <!-- Footer -->
@@ -843,11 +907,13 @@
                         </div>
                     </a>
                     <p>Creamos experiencias digitales memorables que conectan marcas con personas. Diseño estratégico, desarrollo innovador y marketing que genera impacto.</p>
+                    
+                    <!-- Redes sociales del footer -->
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-behance"></i></a>
+                        <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://wa.me/" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 <div class="footer-column">
@@ -886,6 +952,11 @@
         </div>
     </footer>
 
+    <!-- 🔵 BOTÓN FLOTANTE DE WHATSAPP (FIJO - COLOR ORIGINAL) -->
+    <a href="https://wa.me/" target="_blank" class="whatsapp-fixed" aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <script>
         // Header scroll effect
         const header = document.getElementById('header');
@@ -916,9 +987,11 @@
             });
         }
 
-        document.querySelectorAll('.nav-links a').forEach(link => {
+        document.querySelectorAll('.nav-links a, .header-social a').forEach(link => {
             link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) navLinks.style.display = 'none';
+                if (window.innerWidth <= 768) {
+                    navLinks.style.display = 'none';
+                }
             });
         });
 

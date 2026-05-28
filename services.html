@@ -2,505 +2,564 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Servicios Creativos 3D | Marketing, Diseño, Render, Community Manager</title>
-    <!-- Google Fonts para tipografía moderna -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 (Free CDN) para iconos premium -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Servicios · Grid + Luces Dinámicas (Alta Visibilidad)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
+        /* ========================================== */
+        /* RESET Y ESTILOS BASE                       */
+        /* ========================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Estilos base para el contenedor de la sección - CORREGIDO: sin altura fija */
-        .services-container {
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at 10% 30%, #0B0C10, #050608);
-            min-height: auto; /* CAMBIADO: ya no fuerza 100vh */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 4rem 2rem 8rem 2rem; /* AUMENTADO: padding abajo de 8rem */
-            position: relative;
-            overflow-x: hidden;
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
         }
 
-        /* Fondo con partículas sutiles estilo 3D abstracto */
-        .services-container::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 0;
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #020611;
+            color: #e0e6ed;
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-width: 320px;
+        }
+
+        /* ========================================== */
+        /* FONDO CON GRID Y 3 LUCES (MUY VISIBLES)   */
+        /* ========================================== */
+        .background-fusion {
+            position: fixed;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            background: #020611;
         }
 
-        /* contenedor principal */
-        .services-section {
-            max-width: 1400px;
-            width: 100%;
-            position: relative;
+        /* Grid estilo neón (sutil, no compite con luces) */
+        .grid {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(38, 1fr);
+            gap: 10px;
+            padding: 20px;
             z-index: 2;
         }
 
-        /* Título principal "Nuestros Servicios" con efecto 3D */
-        .section-header {
-            text-align: center;
-            margin-bottom: 3.5rem;
+        .cell {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            border: 1px solid rgba(180, 0, 255, 0.25);
+            background: radial-gradient(circle at 28% 28%, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.05) 2px, transparent 3px), rgba(80, 0, 120, 0.08);
+            box-shadow: inset 0 0 10px rgba(255,0,255,0.04), 0 0 5px rgba(255,0,255,0.03);
+            backdrop-filter: blur(1px);
+            transition: border 0.2s;
         }
-        .section-header h2 {
-            font-size: 3.5rem;
+
+        /* === 3 LUCES DE FONDO MEJORADAS: MÁS OPACIDAD, TAMAÑO Y BRILLO PARA QUE SE NOTEN === */
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            mix-blend-mode: screen;
+            z-index: 1;
+            will-change: transform;
+            opacity: 0.65; /* Base más alta para visibilidad */
+        }
+
+        /* Luz 1: magenta intensa - esquina superior izquierda con movimiento amplio */
+        .glow1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #ff44cc, #ff00aa);
+            opacity: 0.55;
+            top: -8%;
+            left: -8%;
+            animation: moveOneEnhanced 28s ease-in-out infinite alternate;
+            box-shadow: 0 0 60px rgba(255, 0, 170, 0.6);
+        }
+
+        /* Luz 2: violeta / fucsia brillante - centro dinámico */
+        .glow2 {
+            width: 620px;
+            height: 620px;
+            background: radial-gradient(circle, #ff55ff, #c000ff);
+            opacity: 0.5;
+            top: 15%;
+            left: 30%;
+            animation: moveTwoEnhanced 35s ease-in-out infinite alternate;
+            box-shadow: 0 0 70px rgba(192, 0, 255, 0.7);
+        }
+
+        /* Luz 3: púrpura neón con tonos azulados - esquina derecha */
+        .glow3 {
+            width: 540px;
+            height: 540px;
+            background: radial-gradient(circle, #bf4cff, #8a2be2);
+            opacity: 0.55;
+            top: 5%;
+            right: -5%;
+            animation: moveThreeEnhanced 32s ease-in-out infinite alternate;
+            box-shadow: 0 0 65px rgba(138, 43, 226, 0.7);
+        }
+
+        /* Animaciones más fluidas y notorias */
+        @keyframes moveOneEnhanced {
+            0% { transform: translate3d(0px, 0px, 0) scale(1); opacity: 0.5; }
+            30% { transform: translate3d(180px, 140px, 0) scale(1.12); opacity: 0.75; }
+            60% { transform: translate3d(340px, 280px, 0) scale(0.92); opacity: 0.65; }
+            100% { transform: translate3d(-40px, 220px, 0) scale(1.05); opacity: 0.8; }
+        }
+
+        @keyframes moveTwoEnhanced {
+            0% { transform: translate3d(0px, 0px, 0) scale(1); opacity: 0.55; }
+            25% { transform: translate3d(-250px, 160px, 0) scale(1.1); opacity: 0.7; }
+            50% { transform: translate3d(-400px, -100px, 0) scale(0.88); opacity: 0.6; }
+            75% { transform: translate3d(-180px, -240px, 0) scale(1.08); opacity: 0.75; }
+            100% { transform: translate3d(120px, -80px, 0) scale(1.02); opacity: 0.65; }
+        }
+
+        @keyframes moveThreeEnhanced {
+            0% { transform: translate3d(0px, 0px, 0) scale(1); opacity: 0.55; }
+            20% { transform: translate3d(-200px, 140px, 0) scale(1.08); opacity: 0.7; }
+            50% { transform: translate3d(-340px, 300px, 0) scale(0.9); opacity: 0.6; }
+            80% { transform: translate3d(-120px, 180px, 0) scale(1.1); opacity: 0.78; }
+            100% { transform: translate3d(80px, 20px, 0) scale(1.02); opacity: 0.7; }
+        }
+
+        /* Overlay más sutil para no tapar las luces pero mantener legibilidad del texto */
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(2,6,17,0.3) 55%, rgba(2,6,17,0.7) 100%);
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* Responsive grid */
+        @media (max-width: 900px) {
+            .grid { grid-template-columns: repeat(22, 1fr); gap: 8px; }
+            .glow { filter: blur(85px); }
+            .glow1, .glow2, .glow3 { opacity: 0.6; }
+        }
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: repeat(14, 1fr); gap: 6px; padding: 12px; }
+            .glow { filter: blur(70px); }
+            .glow1 { width: 380px; height: 380px; }
+            .glow2 { width: 450px; height: 450px; }
+            .glow3 { width: 400px; height: 400px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .glow, .glow1, .glow2, .glow3 { animation: none; opacity: 0.3; filter: blur(80px); }
+        }
+
+        /* ========================================== */
+        /* SECCIÓN DE SERVICIOS (estilo refinado)     */
+        /* ========================================== */
+        .ec-servicios-container {
+            position: relative;
+            z-index: 20;
+            font-family: 'Inter', sans-serif;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 1.5rem 5rem 1.5rem;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .ec-servicios-section {
+            max-width: 1400px;
+            width: 100%;
+            position: relative;
+            z-index: 22;
+        }
+
+        .ec-section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding: 0 1rem;
+        }
+
+        .ec-section-header h2 {
+            font-size: clamp(1.8rem, 6vw, 3.5rem);
             font-weight: 800;
-            background: linear-gradient(135deg, #FFFFFF, #A5F0FF, #6C63FF);
+            background: linear-gradient(135deg, #FFFFFF, #A5F0FF, #D56CFF);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
             letter-spacing: -0.02em;
-            position: relative;
             display: inline-block;
+            padding: 0 0.5rem;
+            position: relative;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.3);
         }
-        /* decoración subrayado brillante */
-        .section-header h2::after {
+
+        .ec-section-header h2::after {
             content: '';
             position: absolute;
-            bottom: -12px;
+            bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, #6C63FF, #FF6584, #6C63FF);
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff44cc, #b200ff, #ff44cc);
             border-radius: 4px;
-            box-shadow: 0 0 12px #ff6584;
-            animation: pulseGlow 2s infinite;
+            box-shadow: 0 0 14px #ff44cc;
+            animation: ec-pulseGlow 2s infinite;
         }
-        @keyframes pulseGlow {
-            0% { opacity: 0.6; width: 80px; box-shadow: 0 0 5px #FF6584; }
-            50% { opacity: 1; width: 110px; box-shadow: 0 0 18px #FF6584, 0 0 5px #6C63FF; }
-            100% { opacity: 0.6; width: 80px; box-shadow: 0 0 5px #FF6584; }
+
+        @keyframes ec-pulseGlow {
+            0% { opacity: 0.6; width: 70px; box-shadow: 0 0 5px #ff44cc; }
+            50% { opacity: 1; width: 100px; box-shadow: 0 0 18px #ff66ff; }
+            100% { opacity: 0.6; width: 70px; }
         }
-        .section-header p {
-            color: #B0B3C0;
-            font-size: 1.2rem;
+
+        .ec-section-header p {
+            color: #f0f2ff;
+            font-size: clamp(0.85rem, 3vw, 1.2rem);
             margin-top: 1.5rem;
-            font-weight: 400;
-            letter-spacing: -0.2px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            word-wrap: break-word;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+            font-weight: 500;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(2px);
+            padding: 0.2rem 0.8rem;
+            border-radius: 60px;
+            display: inline-block;
+            width: auto;
         }
 
-        /* Grid de cards - 4 cards con diseño responsivo */
-        .cards-grid {
+        .ec-highlight-text {
+            background: linear-gradient(120deg, #fff, #e0aaff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .ec-cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.8rem;
             justify-items: center;
-            align-items: stretch;
+            margin-bottom: 1rem;
+            padding: 0 0.5rem;
         }
 
-        /* Cada card con efecto 3D real + ANIMACIÓN DE BRILLO */
-        .service-card {
-            background: rgba(18, 22, 35, 0.75);
-            backdrop-filter: blur(8px);
+        .ec-service-card {
+            background: rgba(12, 16, 32, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 2rem;
             width: 100%;
-            max-width: 320px;
-            padding: 2rem 1.5rem;
+            max-width: 340px;
+            padding: 1.8rem 1.2rem;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            border: 1px solid rgba(108, 99, 255, 0.3);
-            box-shadow: 0 20px 35px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(108, 99, 255, 0.1) inset;
-            cursor: default;
+            border: 1px solid rgba(180, 100, 255, 0.5);
+            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.7), 0 0 12px rgba(156, 60, 255, 0.3);
             position: relative;
-            transform-style: preserve-3d;
-            transform: perspective(1200px) translateZ(0) rotateX(0deg) rotateY(0deg);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            animation: ec-float-up 0.6s forwards;
+            opacity: 0;
         }
-        
-        /* ANIMACIÓN DE BRILLO SOBRE LAS CARDS */
-        .service-card::before {
+
+        .ec-service-card:nth-child(1) { animation-delay: 0.05s; }
+        .ec-service-card:nth-child(2) { animation-delay: 0.15s; }
+        .ec-service-card:nth-child(3) { animation-delay: 0.25s; }
+        .ec-service-card:nth-child(4) { animation-delay: 0.35s; }
+
+        @keyframes ec-float-up {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .ec-service-card::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -60%;
             width: 180%;
             height: 200%;
-            background: linear-gradient(
-                115deg,
-                transparent 30%,
-                rgba(255, 255, 255, 0.25) 45%,
-                rgba(255, 255, 255, 0.4) 50%,
-                rgba(255, 255, 255, 0.25) 55%,
-                transparent 70%
-            );
+            background: linear-gradient(115deg, transparent 30%, rgba(255,200,255,0.2) 45%, rgba(255,200,255,0.35) 50%, rgba(255,200,255,0.2) 55%, transparent 70%);
             transform: rotate(25deg);
             opacity: 0;
-            transition: opacity 0.2s ease;
             pointer-events: none;
-            z-index: 2;
-            animation: shineAnimation 3.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        /* keyframes para el deslizamiento del brillo */
-        @keyframes shineAnimation {
-            0% {
-                transform: rotate(25deg) translateX(-120%) translateY(-20%);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.5;
-            }
-            30% {
-                opacity: 0.8;
-            }
-            50% {
-                opacity: 0.9;
-            }
-            70% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: rotate(25deg) translateX(100%) translateY(20%);
-                opacity: 0;
-            }
-        }
-        
-        /* hover acelera el brillo */
-        .service-card:hover::before {
-            animation: shineAnimation 1.8s ease-in-out forwards;
-            opacity: 0.8;
-        }
-        
-        /* Mantener la card con posición relativa para los hijos */
-        .service-card > * {
-            position: relative;
-            z-index: 3;
+            animation: ec-shineAnimation 6s infinite;
         }
 
-        /* Efecto 3D al hover: levita + rotación suave y sombra intensa */
-        .service-card:hover {
-            transform: perspective(1200px) translateZ(25px) rotateX(3deg) rotateY(5deg);
-            background: rgba(25, 30, 45, 0.9);
-            border-color: rgba(108, 99, 255, 0.8);
-            box-shadow: 0 35px 50px -20px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(255, 101, 132, 0.3) inset;
-        }
-        
-        /* efecto de luz adicional en hover */
-        .service-card::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 2rem;
-            background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.08), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-            z-index: 1;
+        @keyframes ec-shineAnimation {
+            0% { transform: rotate(25deg) translateX(-120%) translateY(-20%); opacity: 0; }
+            20% { opacity: 0.4; }
+            40% { opacity: 0.7; }
+            60% { opacity: 0.8; }
+            80% { opacity: 0.4; }
+            100% { transform: rotate(25deg) translateX(100%) translateY(20%); opacity: 0; }
         }
 
-        .service-card:hover::after {
-            opacity: 1;
-        }
-
-        /* Icono circular con gradiente y sombra 3D */
-        .icon-wrapper {
-            background: linear-gradient(145deg, #1E243F, #13182C);
-            width: 85px;
-            height: 85px;
-            margin: 0 auto 1.5rem;
+        .ec-icon-wrapper {
+            background: linear-gradient(145deg, #1F2440, #0F1428);
+            width: 75px;
+            height: 75px;
+            min-width: 75px;
+            margin: 0 auto 1.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 30px;
-            transform: translateZ(20px);
+            border-radius: 28px;
             transition: all 0.3s;
-            box-shadow: 0 15px 20px -10px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1);
-            border: 1px solid rgba(108, 99, 255, 0.5);
+            box-shadow: 0 12px 18px -8px rgba(0,0,0,0.6);
+            border: 1px solid rgba(160, 100, 255, 0.7);
         }
 
-        .service-card:hover .icon-wrapper {
-            transform: translateZ(35px) scale(1.02);
-            box-shadow: 0 20px 25px -12px black, inset 0 0 8px rgba(108,99,255,0.4);
-            border-color: #FF6584;
-        }
-
-        .icon-wrapper i {
-            font-size: 2.8rem;
-            background: linear-gradient(135deg, #F0F3FF, #B9B4FF);
+        .ec-icon-wrapper i {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #ffffff, #d9b4ff);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
 
-        /* Títulos y texto */
-        .service-card h3 {
-            font-size: 1.7rem;
+        .ec-dual-icons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .ec-dual-icons i {
+            font-size: 2rem;
+        }
+
+        .ec-service-card h3 {
+            font-size: clamp(1.3rem, 4vw, 1.7rem);
             font-weight: 700;
-            margin-bottom: 0.75rem;
-            background: linear-gradient(115deg, #FFFFFF, #D9D9FF);
+            margin-bottom: 0.6rem;
+            background: linear-gradient(115deg, #ffffff, #e4d5ff);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            letter-spacing: -0.3px;
         }
 
-        .service-description {
-            color: #C5C9E0;
-            font-size: 0.95rem;
+        .ec-service-description {
+            color: #e1e6fe;
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
             line-height: 1.5;
-            margin: 1rem 0 1.5rem;
-            font-weight: 400;
+            margin: 0.8rem 0 1.2rem;
+            flex-grow: 1;
         }
 
-        /* Etiqueta sutil o badge */
-        .tech-badge {
-            display: inline-block;
-            background: rgba(108, 99, 255, 0.2);
-            backdrop-filter: blur(4px);
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            color: #B8AEFF;
-            border: 0.5px solid rgba(108,99,255,0.4);
-            transition: 0.2s;
-        }
-
-        .service-card:hover .tech-badge {
-            background: rgba(255, 101, 132, 0.25);
-            color: #FFD9E2;
-            border-color: #FF6584;
-        }
-
-        /* Botón sutil con efecto elevación */
-        .card-link {
+        .ec-tech-badge {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: rgba(120, 80, 200, 0.35);
+            padding: 0.3rem 0.9rem;
+            border-radius: 40px;
+            font-size: clamp(0.65rem, 2vw, 0.7rem);
+            font-weight: 600;
+            color: #e8ddff;
+            border: 0.5px solid rgba(170, 100, 255, 0.6);
+            margin-bottom: 0.8rem;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            backdrop-filter: blur(4px);
+        }
+
+        .ec-card-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             gap: 0.5rem;
-            margin-top: 1rem;
-            padding: 0.6rem 1.2rem;
-            background: rgba(20, 24, 40, 0.8);
+            padding: 0.55rem 1.1rem;
+            background: rgba(20, 24, 48, 0.9);
             border-radius: 50px;
-            color: #D0D4FF;
+            color: #f0eaff;
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 500;
-            border: 1px solid rgba(108, 99, 255, 0.4);
+            border: 1px solid rgba(160, 110, 255, 0.7);
             transition: all 0.25s;
-            backdrop-filter: blur(5px);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .card-link i {
-            font-size: 0.8rem;
+        .ec-card-link i {
+            font-size: 0.75rem;
             transition: transform 0.2s;
         }
 
-        .card-link:hover {
-            background: #6C63FF;
-            color: white;
-            border-color: #FF6584;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 18px rgba(108, 99, 255, 0.3);
+        .ec-floating-footer {
+            text-align: center;
+            margin-top: 2.8rem;
         }
 
-        .card-link:hover i {
-            transform: translateX(4px);
+        .ec-floating-footer span {
+            color: #cfc6ff;
+            font-size: clamp(0.7rem, 2vw, 0.8rem);
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(180, 130, 255, 0.4);
         }
 
-        /* Ajustes responsivos */
-        @media (max-width: 700px) {
-            .services-container {
-                padding: 2rem 1.2rem 6rem 1.2rem; /* MÁS PADDING ABAJO EN MÓVIL */
-            }
-            .section-header h2 {
-                font-size: 2.3rem;
-            }
-            .service-card {
-                max-width: 100%;
-                transform: perspective(800px) translateZ(0);
-            }
-            .service-card:hover {
-                transform: perspective(800px) translateZ(15px) rotateX(2deg) rotateY(3deg);
-            }
-            .service-card::before {
-                animation-duration: 5s;
-            }
+        /* Hover y responsive */
+        @media (max-width: 1024px) {
+            .ec-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
         }
 
-        /* perspectiva global */
-        .cards-grid {
-            perspective: 800px;
-            margin-bottom: 2rem; /* ESPACIO EXTRA ABAJO DEL GRID */
+        @media (max-width: 768px) {
+            .ec-servicios-container { padding: 3rem 1rem 4rem 1rem; }
+            .ec-cards-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.2rem; }
+            .ec-service-card { max-width: 100%; padding: 1.5rem 1.2rem; }
+            .ec-icon-wrapper { width: 65px; height: 65px; }
+            .ec-icon-wrapper i { font-size: 2rem; }
         }
 
-        /* efecto de entrada suave animación */
-        @keyframes float-up {
-            0% {
-                opacity: 0;
-                transform: translateY(50px) perspective(600px) rotateX(5deg);
+        @media (max-width: 480px) {
+            .ec-servicios-container { padding: 2.5rem 0.8rem 3.5rem 0.8rem; }
+            .ec-cards-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .ec-service-card { padding: 1.3rem 1rem; border-radius: 1.5rem; }
+            .ec-icon-wrapper { width: 58px; height: 58px; }
+            .ec-icon-wrapper i { font-size: 1.5rem; }
+            .ec-tech-badge { white-space: normal; }
+        }
+
+        @media (hover: hover) {
+            .ec-service-card:hover {
+                transform: translateY(-8px);
+                background: rgba(30, 35, 60, 0.85);
+                border-color: rgba(200, 100, 255, 0.9);
+                box-shadow: 0 28px 40px -12px black;
             }
-            100% {
-                opacity: 1;
-                transform: translateY(0) perspective(600px) rotateX(0);
+            .ec-service-card:hover .ec-icon-wrapper {
+                transform: scale(1.05);
+                border-color: #ff77aa;
             }
+            .ec-card-link:hover {
+                background: #8a4dff;
+                color: white;
+                transform: translateY(-3px);
+                border-color: white;
+            }
+            .ec-card-link:hover i { transform: translateX(4px); }
         }
 
-        .service-card {
-            animation: float-up 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
-            opacity: 0;
+        @media (min-width: 1440px) {
+            .ec-cards-grid { grid-template-columns: repeat(4, 1fr); max-width: 1200px; margin-left: auto; margin-right: auto; }
         }
-
-        /* delays para cada card (efecto cascada) */
-        .service-card:nth-child(1) { animation-delay: 0.1s; }
-        .service-card:nth-child(2) { animation-delay: 0.2s; }
-        .service-card:nth-child(3) { animation-delay: 0.3s; }
-        .service-card:nth-child(4) { animation-delay: 0.4s; }
-        
-        /* decoración flotante 3D extra (círculos) */
-        .bg-shape {
-            position: absolute;
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle, rgba(108,99,255,0.1), transparent);
-            border-radius: 50%;
-            filter: blur(60px);
-            z-index: 0;
-            pointer-events: none;
-        }
-        .shape-1 { top: 10%; left: -5%; }
-        .shape-2 { bottom: 5%; right: -2%; background: radial-gradient(circle, rgba(255,101,132,0.1), transparent);}
-        
-        /* Detalle extra: texto de "Nuestros Servicios" mejorado */
-        .highlight-text {
-            background: linear-gradient(120deg, #F0F3FF, #A98EFF);
-            background-clip: text;
-            -webkit-background-clip: text;
-        }
-
-        /* NUEVO: Aseguramos que el último elemento tenga espacio */
-        .services-section > div:last-child {
-            margin-bottom: 1rem;
+        @media (min-width: 1920px) {
+            .ec-servicios-container { padding: 5rem 3rem 6rem 3rem; }
+            .ec-service-card { padding: 2.2rem 1.5rem; }
+            .ec-icon-wrapper { width: 85px; height: 85px; }
+            .ec-icon-wrapper i { font-size: 2.8rem; }
         }
     </style>
 </head>
 <body>
-    <!-- DIV CONTENEDOR PRINCIPAL -->
-    <div class="services-container">
-        <div class="bg-shape shape-1"></div>
-        <div class="bg-shape shape-2"></div>
 
-        <div class="services-section">
-            <div class="section-header">
+    <!-- FONDO CON GRID Y TRES LUCES MUY NOTORIAS Y EN MOVIMIENTO -->
+    <div class="background-fusion">
+        <div class="glow glow1"></div>
+        <div class="glow glow2"></div>
+        <div class="glow glow3"></div>
+        <div class="grid" id="dynamicGrid"></div>
+        <div class="overlay"></div>
+    </div>
+
+    <!-- SECCIÓN DE SERVICIOS (totalmente funcional) -->
+    <div id="servicios" class="ec-servicios-container">
+        <div class="ec-servicios-section">
+            <div class="ec-section-header">
                 <h2>Nuestros Servicios</h2>
-                <p>Soluciones creativas con tecnología 3D y gestión profesional | <span class="highlight-text">Innovación y resultados</span></p>
+                <p>Soluciones creativas con tecnología 3D y gestión profesional | <span class="ec-highlight-text">Innovación y resultados</span></p>
             </div>
-            <div class="cards-grid">
-                <!-- Card 1: Marketing Digital -->
-                <div class="service-card">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
+            <div class="ec-cards-grid">
+                <!-- Tarjeta 1: Marketing -->
+                <div class="ec-service-card">
+                    <div class="ec-icon-wrapper"><i class="fas fa-chart-line"></i></div>
                     <h3>Marketing</h3>
-                    <div class="service-description">
-                        Estrategias data-driven, growth hacking y campañas de alto impacto. Elevamos tu presencia digital con análisis 3D predictivo.
-                    </div>
-                    <span class="tech-badge"><i class="fas fa-bullhorn"></i> SEO · ADS · Analytics</span>
-                    <a href="#" class="card-link">Descubrir <i class="fas fa-arrow-right"></i></a>
+                    <div class="ec-service-description">Estrategias data-driven, growth hacking y campañas de alto impacto. Elevamos tu presencia digital.</div>
+                    <span class="ec-tech-badge"><i class="fas fa-bullhorn"></i> SEO · ADS · Analytics</span>
+                    <a href="#" class="ec-card-link">Descubrir <i class="fas fa-arrow-right"></i></a>
                 </div>
-
-                <!-- Card 2: Diseño Web & UI/UX 3D -->
-                <div class="service-card">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-code"></i>
-                    </div>
+                <!-- Tarjeta 2: Diseño Web -->
+                <div class="ec-service-card">
+                    <div class="ec-icon-wrapper"><i class="fas fa-code"></i></div>
                     <h3>Diseño Web</h3>
-                    <div class="service-description">
-                        Creación de sitios web modernos, interactivos y totalmente responsivos. Experiencias inmersivas con animaciones y efectos 3D.
-                    </div>
-                    <span class="tech-badge"><i class="fab fa-react"></i> React · Three.js · UX</span>
-                    <a href="#" class="card-link">Explorar <i class="fas fa-arrow-right"></i></a>
+                    <div class="ec-service-description">Sitios web modernos, interactivos y responsivos. Experiencias inmersivas con animaciones 3D.</div>
+                    <span class="ec-tech-badge"><i class="fab fa-react"></i> React · Three.js · UX</span>
+                    <a href="#" class="ec-card-link">Explorar <i class="fas fa-arrow-right"></i></a>
                 </div>
-
-                <!-- Card 3: Gráfico / Motion & Branding 3D -->
-                <div class="service-card">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-palette"></i>
-                    </div>
+                <!-- Tarjeta 3: Gráfico -->
+                <div class="ec-service-card">
+                    <div class="ec-icon-wrapper"><i class="fas fa-palette"></i></div>
                     <h3>Gráfico</h3>
-                    <div class="service-description">
-                        Identidad visual, ilustración, motion graphics y piezas gráficas con profundidad 3D. Diseño que cautiva y comunica.
-                    </div>
-                    <span class="tech-badge"><i class="fas fa-crown"></i> Branding · Motion · UI</span>
-                    <a href="#" class="card-link">Ver más <i class="fas fa-arrow-right"></i></a>
+                    <div class="ec-service-description">Identidad visual, ilustración, motion graphics y piezas gráficas con profundidad 3D.</div>
+                    <span class="ec-tech-badge"><i class="fas fa-crown"></i> Branding · Motion · UI</span>
+                    <a href="#" class="ec-card-link">Ver más <i class="fas fa-arrow-right"></i></a>
                 </div>
-
-                <!-- Card 4: Render 3D + Community Manager -->
-                <div class="service-card">
-                    <div class="icon-wrapper" style="position: relative;">
-                        <div style="display: flex; gap: 10px; align-items: center; justify-content: center;">
-                            <i class="fas fa-cube"></i>
-                            <i class="fas fa-users" style="font-size: 2rem;"></i>
-                        </div>
+                <!-- Tarjeta 4: Render 3D + CM -->
+                <div class="ec-service-card">
+                    <div class="ec-icon-wrapper">
+                        <div class="ec-dual-icons"><i class="fas fa-cube"></i><i class="fas fa-users"></i></div>
                     </div>
                     <h3>Render 3D + CM</h3>
-                    <div class="service-description">
-                        Visualización fotorrealista de productos/arquitectura y gestión profesional de comunidad. Potencia tu marca con contenido 3D y engagement 24/7.
-                    </div>
-                    <span class="tech-badge"><i class="fas fa-vr-cardboard"></i> 3D Studio · Blender · Social Manager</span>
-                    <a href="#" class="card-link">Cotizar <i class="fas fa-arrow-right"></i></a>
+                    <div class="ec-service-description">Visualización fotorrealista y gestión profesional de comunidad. Potencia tu marca con contenido 3D.</div>
+                    <span class="ec-tech-badge"><i class="fas fa-vr-cardboard"></i> 3D Studio · Blender · Social Manager</span>
+                    <a href="#" class="ec-card-link">Cotizar <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 3.5rem;">
-                <span style="color: #6C7A9E; font-size: 0.85rem; background: rgba(0,0,0,0.3); padding: 0.3rem 1rem; border-radius: 30px; backdrop-filter: blur(2px);"><i class="fas fa-sun"></i> Efecto brillo dinámico · 3D Interactivo</span>
+            <div class="ec-floating-footer">
+                <span><i class="fas fa-glow"></i> 3 Luces Cinéticas · Grid Inmersivo · Estudio Visual</span>
             </div>
         </div>
     </div>
 
-    <!-- Script para efecto parallax 3D con seguimiento de mouse -->
     <script>
-        (function() {
-            const cards = document.querySelectorAll('.service-card');
-            
-            cards.forEach(card => {
-                // efecto de inclinación 3D en movimiento
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    const rotateY = ((x - centerX) / centerX) * 8;
-                    const rotateX = ((centerY - y) / centerY) * 5;
-                    
-                    card.style.transform = `perspective(1200px) translateZ(12px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'perspective(1200px) translateZ(0) rotateX(0deg) rotateY(0deg)';
-                });
-            });
-            
-            // Si es dispositivo táctil, desactivamos el seguimiento para mantener fluidez
-            if ('ontouchstart' in window) {
-                cards.forEach(card => {
-                    card.removeEventListener('mousemove', () => {});
-                    card.style.transform = '';
-                });
+        /* =========================
+           GENERAR GRID DINÁMICO (suficientes celdas)
+        ========================= */
+        const gridContainer = document.getElementById("dynamicGrid");
+        if (gridContainer) {
+            // Se generan aprox 680 celdas para cubrir bien toda la pantalla con grid responsive
+            function buildGridCells() {
+                const totalCells = 680; // cantidad óptima para scroll y 38 columnas en escritorio
+                gridContainer.innerHTML = '';
+                for(let i = 0; i < totalCells; i++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    gridContainer.appendChild(cell);
+                }
             }
-            
-            console.log("✨ Efecto brillo + animación 3D activado sobre las cards | Título: Nuestros Servicios");
-        })();
+            buildGridCells();
+            // Reconstrucción opcional si hay cambios extremos de tamaño
+            window.addEventListener('resize', () => {});
+        }
     </script>
 </body>
 </html>
