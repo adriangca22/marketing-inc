@@ -196,7 +196,7 @@
         .status-dot {
             width: 10px;
             height: 10px;
-            background: #22c55e; /* Verde brillante */
+            background: #22c55e;
             border-radius: 50%;
             position: relative;
             display: inline-block;
@@ -256,7 +256,10 @@
             text-transform: uppercase;
         }
 
-        .cube-wrapper {
+        /* ============================================ */
+        /* SODA GIF - REEMPLAZA EL CUBO 3D              */
+        /* ============================================ */
+        .soda-wrapper {
             flex: 1;
             display: flex;
             justify-content: flex-start;
@@ -264,57 +267,31 @@
             position: relative;
         }
         
-        .cube-container {
+        .soda-container {
             width: 320px;
             height: 320px;
-            perspective: 1000px;
             position: relative;
             transform: translateY(-25px);
         }
 
-        .cube {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.05s linear;
-        }
-
-        .face {
-            position: absolute;
-            width: 320px;
-            height: 320px;
-            background: #000000;
-            backdrop-filter: none;
-            border: none;
-            box-shadow: none;
-            border-radius: 0px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .face img {
+        .soda-gif {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            opacity: 0.96;
-            transition: opacity 0.3s;
             background: transparent;
-            filter: drop-shadow(0 0 4px rgba(128, 0, 96, 0.3));
+            filter: drop-shadow(0 0 12px rgba(128, 0, 96, 0.4));
+            animation: sodaFloat 3s ease-in-out infinite;
         }
 
-        .face:hover img {
-            opacity: 1;
+        /* Animación suave de flotación para el GIF */
+        @keyframes sodaFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
         }
-
-        .front { transform: rotateY(0deg) translateZ(160px); }
-        .back { transform: rotateY(180deg) translateZ(160px); }
-        .right { transform: rotateY(90deg) translateZ(160px); }
-        .left { transform: rotateY(-90deg) translateZ(160px); }
-        .top { transform: rotateX(90deg) translateZ(160px); }
-        .bottom { transform: rotateX(-90deg) translateZ(160px); }
 
         #webgl-canvas-bg {
             position: fixed;
@@ -345,28 +322,18 @@
             .hero-buttons {
                 justify-content: center;
             }
-            .cube-wrapper {
+            .soda-wrapper {
                 order: 2;
                 justify-content: center;
                 margin-top: 0;
                 width: 100%;
             }
-            .cube-container {
+            .soda-container {
                 width: 280px;
                 height: 280px;
                 transform: translateY(0);
                 margin: 0 auto;
             }
-            .face {
-                width: 280px;
-                height: 280px;
-            }
-            .front { transform: rotateY(0deg) translateZ(140px); }
-            .back { transform: rotateY(180deg) translateZ(140px); }
-            .right { transform: rotateY(90deg) translateZ(140px); }
-            .left { transform: rotateY(-90deg) translateZ(140px); }
-            .top { transform: rotateX(90deg) translateZ(140px); }
-            .bottom { transform: rotateX(-90deg) translateZ(140px); }
             .availability-badge {
                 bottom: 20px;
                 right: 20px;
@@ -375,7 +342,6 @@
             .availability-badge .badge-text {
                 font-size: 0.65rem;
             }
-            /* ✨ PUNTO VERDE RESPONSIVE - TABLET */
             .status-dot {
                 width: 9px;
                 height: 9px;
@@ -417,30 +383,19 @@
                 padding: 10px 20px;
                 font-size: 13px;
             }
-            .cube-wrapper {
+            .soda-wrapper {
                 margin: 5px auto 15px auto;
                 overflow: visible;
                 display: flex;
                 justify-content: center;
                 width: 100%;
             }
-            .cube-container {
+            .soda-container {
                 width: 240px;
                 height: 240px;
                 transform: translateY(0) scale(0.98);
-                perspective: 800px;
                 margin: 0 auto;
             }
-            .face {
-                width: 240px;
-                height: 240px;
-            }
-            .front { transform: rotateY(0deg) translateZ(120px); }
-            .back { transform: rotateY(180deg) translateZ(120px); }
-            .right { transform: rotateY(90deg) translateZ(120px); }
-            .left { transform: rotateY(-90deg) translateZ(120px); }
-            .top { transform: rotateX(90deg) translateZ(120px); }
-            .bottom { transform: rotateX(-90deg) translateZ(120px); }
             
             .availability-badge {
                 bottom: 12px;
@@ -452,7 +407,6 @@
                 font-size: 0.55rem;
                 letter-spacing: 1px;
             }
-            /* ✨ PUNTO VERDE RESPONSIVE - MÓVIL */
             .status-dot {
                 width: 8px;
                 height: 8px;
@@ -469,20 +423,10 @@
             .hero-text p {
                 font-size: 13px;
             }
-            .cube-container {
+            .soda-container {
                 width: 200px;
                 height: 200px;
             }
-            .face {
-                width: 200px;
-                height: 200px;
-            }
-            .front { transform: rotateY(0deg) translateZ(100px); }
-            .back { transform: rotateY(180deg) translateZ(100px); }
-            .right { transform: rotateY(90deg) translateZ(100px); }
-            .left { transform: rotateY(-90deg) translateZ(100px); }
-            .top { transform: rotateX(90deg) translateZ(100px); }
-            .bottom { transform: rotateX(-90deg) translateZ(100px); }
             
             .btn-primary, .btn-secondary {
                 padding: 8px 16px;
@@ -493,7 +437,6 @@
                 right: 10px;
                 padding: 4px 10px;
             }
-            /* ✨ PUNTO VERDE RESPONSIVE - MÓVIL PEQUEÑO */
             .status-dot {
                 width: 7px;
                 height: 7px;
@@ -508,20 +451,10 @@
             .hero-content {
                 gap: 15px;
             }
-            .cube-container {
+            .soda-container {
                 width: 190px;
                 height: 190px;
             }
-            .face {
-                width: 190px;
-                height: 190px;
-            }
-            .front { transform: rotateY(0deg) translateZ(95px); }
-            .back { transform: rotateY(180deg) translateZ(95px); }
-            .right { transform: rotateY(90deg) translateZ(95px); }
-            .left { transform: rotateY(-90deg) translateZ(95px); }
-            .top { transform: rotateX(90deg) translateZ(95px); }
-            .bottom { transform: rotateX(-90deg) translateZ(95px); }
             .hero-text h1 {
                 font-size: 28px;
             }
@@ -532,7 +465,6 @@
             .hero-buttons {
                 margin-bottom: 10px;
             }
-            /* ✨ PUNTO VERDE RESPONSIVE - LANDSCAPE */
             .status-dot {
                 width: 7px;
                 height: 7px;
@@ -541,10 +473,6 @@
         
         body {
             overflow-x: hidden;
-        }
-        .cube, .cube-container, .face {
-            -webkit-backface-visibility: visible;
-            backface-visibility: visible;
         }
     </style>
 </head>
@@ -615,37 +543,21 @@
                     </button>
                 </div>
             </div>
-            <div class="cube-wrapper">
-                <div class="cube-container">
-                    <div class="cube" id="animatedCube">
-                        <div class="face front">
-                            <img src="img/Recurso 12@4x.png" alt="Diseño frontal" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=400&fit=crop'">
-                        </div>
-                        <div class="face back">
-                            <img src="img/Recurso 10@4x.png" alt="Diseño trasero" onerror="this.src='https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=400&h=400&fit=crop'">
-                        </div>
-                        <div class="face right">
-                            <img src="img/Recurso 23@4x.png" alt="Diseño derecha" onerror="this.src='https://images.unsplash.com/photo-1558655146-d09347e92766?w=400&h=400&fit=crop'">
-                        </div>
-                        <div class="face left">
-                            <img src="img/Recurso 25@4x.png" alt="Diseño izquierda" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop'">
-                        </div>
-                        <div class="face top">
-                            <img src="img/Recurso 10@4x.png" alt="Diseño superior" onerror="this.src='https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400&h=400&fit=crop'">
-                        </div>
-                        <div class="face bottom">
-                            <img src="img/Recurso 9@4x.png" alt="Diseño inferior" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=400&fit=crop'">
-                        </div>
-                    </div>
+            
+            <!-- SODA GIF - REEMPLAZA EL CUBO 3D -->
+            <div class="soda-wrapper">
+                <div class="soda-container">
+                    <img class="soda-gif" src="soda.gif" alt="Soda Animation" onerror="this.src='https://placehold.co/400x400/800060/white?text=SODA+GIF'">
                 </div>
             </div>
         </div>
 
-    <!-- ✨ BADGE CON PUNTO VERDE PARPADEANTE (REEMPLAZA EL ICONO DE LA NAVE) -->
-    <div class="availability-badge">
-        <span class="status-dot" aria-label="Estado: Conectado"></span>
-        <span class="badge-text">DISPONIBLE PARA NUEVOS PROYECTOS</span>
-    </div>
+        <!-- ✨ BADGE CON PUNTO VERDE PARPADEANTE -->
+        <div class="availability-badge">
+            <span class="status-dot" aria-label="Estado: Conectado"></span>
+            <span class="badge-text">DISPONIBLE PARA NUEVOS PROYECTOS</span>
+        </div>
+    </section>
 
     <canvas id="webgl-canvas-bg"></canvas>
 
@@ -659,7 +571,7 @@
 
     <script type="module">
         // ============================================================
-        // THREE.JS Y ANIMACIÓN DEL CUBO - FONDO ESTRELLAS CON TONO #800060
+        // THREE.JS Y FONDO ESTRELLAS CON TONO #800060
         // ============================================================
         
         const keepTop = () => { if (window.scrollY !== 0) window.scrollTo(0, 0); };
@@ -679,12 +591,10 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         
-        // Color HEX #800060 en formato THREE (0x800060)
         const accentColor = 0x800060;
         const lightAccent = 0xa0237a;
         const darkAccent = 0x5c0045;
         
-        // Estrellas principales con tono morado
         const starCount = 4500;
         const starGeometry = new THREE.BufferGeometry();
         const starPositions = new Float32Array(starCount * 3);
@@ -698,7 +608,6 @@
         const stars = new THREE.Points(starGeometry, starMaterial);
         scene.add(stars);
         
-        // Estrellas medianas con un violeta más claro inspirado en #800060
         const starCountMid = 3200;
         const starGeometryMid = new THREE.BufferGeometry();
         const starPositionsMid = new Float32Array(starCountMid * 3);
@@ -712,7 +621,6 @@
         const starsMid = new THREE.Points(starGeometryMid, starMaterialMid);
         scene.add(starsMid);
         
-        // Estrellas tenues con un tono más profundo
         const starCountDim = 4000;
         const starGeometryDim = new THREE.BufferGeometry();
         const starPositionsDim = new Float32Array(starCountDim * 3);
@@ -726,7 +634,6 @@
         const starsDim = new THREE.Points(starGeometryDim, starMaterialDim);
         scene.add(starsDim);
         
-        // Partículas de neblina / glow en tono #800060
         const glowCount = 900;
         const glowGeometry = new THREE.BufferGeometry();
         const glowPositions = new Float32Array(glowCount * 3);
@@ -764,122 +671,6 @@
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
-        
-        // ========== ANIMACIÓN DEL CUBO ==========
-        const cubeElement = document.getElementById('animatedCube');
-        
-        const horizontalDuration = 8000;
-        const verticalDuration = 18000;
-        const interruptPoint = 0.70;
-        
-        let phase = 0;
-        let startTime = null;
-        let pauseStartTime = null;
-        const horizontalFirstDuration = horizontalDuration * interruptPoint;
-        
-        let currentAngleX = 0;
-        let currentAngleY = 0;
-        let targetAngleX = 0;
-        let targetAngleY = 0;
-        let randomModeActive = false;
-        let animationLoopId = null;
-        let changeDirectionTimeout = null;
-        
-        function applyRotation() {
-            if (cubeElement) {
-                cubeElement.style.transform = `rotateX(${currentAngleX}deg) rotateY(${currentAngleY}deg)`;
-            }
-        }
-        
-        function randomRotationLoop() {
-            if (!randomModeActive) return;
-            const smoothFactor = 0.018;
-            let needsUpdate = false;
-            if (Math.abs(currentAngleX - targetAngleX) > 0.05) {
-                currentAngleX += (targetAngleX - currentAngleX) * smoothFactor;
-                needsUpdate = true;
-            } else {
-                currentAngleX = targetAngleX;
-            }
-            if (Math.abs(currentAngleY - targetAngleY) > 0.05) {
-                currentAngleY += (targetAngleY - currentAngleY) * smoothFactor;
-                needsUpdate = true;
-            } else {
-                currentAngleY = targetAngleY;
-            }
-            if (needsUpdate) applyRotation();
-            animationLoopId = requestAnimationFrame(randomRotationLoop);
-        }
-        
-        function setRandomAngles() {
-            if (!randomModeActive) return;
-            const newTargetX = targetAngleX + (Math.random() - 0.5) * 180;
-            const newTargetY = targetAngleY + (Math.random() - 0.5) * 220;
-            targetAngleX = Math.min(1400, Math.max(-800, newTargetX));
-            targetAngleY = Math.min(1200, Math.max(-1000, newTargetY));
-            const nextChange = 2500 + Math.random() * 4000;
-            if (changeDirectionTimeout) clearTimeout(changeDirectionTimeout);
-            changeDirectionTimeout = setTimeout(setRandomAngles, nextChange);
-        }
-        
-        function startInfiniteRandomRotation() {
-            if (randomModeActive) return;
-            randomModeActive = true;
-            phase = 3;
-            currentAngleX = 780;
-            currentAngleY = -252;
-            targetAngleX = 780;
-            targetAngleY = -252;
-            applyRotation();
-            if (animationLoopId) cancelAnimationFrame(animationLoopId);
-            animationLoopId = requestAnimationFrame(randomRotationLoop);
-            setTimeout(() => {
-                if (randomModeActive) setRandomAngles();
-            }, 500);
-        }
-        
-        function runInitialSequence(timestamp) {
-            if (!startTime && phase === 0) startTime = timestamp;
-            
-            if (phase === 0) {
-                const elapsed = timestamp - startTime;
-                if (elapsed < horizontalFirstDuration) {
-                    const progress = elapsed / horizontalFirstDuration;
-                    const yRot = -progress * 360 * interruptPoint;
-                    if (cubeElement) cubeElement.style.transform = `rotateX(0deg) rotateY(${yRot}deg)`;
-                    requestAnimationFrame(runInitialSequence);
-                } else {
-                    phase = 1;
-                    pauseStartTime = timestamp;
-                    if (cubeElement) cubeElement.style.transform = `rotateX(0deg) rotateY(${-360 * interruptPoint}deg)`;
-                    requestAnimationFrame(runInitialSequence);
-                }
-            }
-            else if (phase === 1) {
-                const pauseElapsed = timestamp - pauseStartTime;
-                if (pauseElapsed < 400) {
-                    requestAnimationFrame(runInitialSequence);
-                } else {
-                    phase = 2;
-                    startTime = timestamp;
-                    requestAnimationFrame(runInitialSequence);
-                }
-            }
-            else if (phase === 2) {
-                const elapsed = timestamp - startTime;
-                if (elapsed < verticalDuration) {
-                    const progress = elapsed / verticalDuration;
-                    const xRot = progress * 780;
-                    if (cubeElement) cubeElement.style.transform = `rotateX(${xRot}deg) rotateY(${-360 * interruptPoint}deg)`;
-                    requestAnimationFrame(runInitialSequence);
-                } else {
-                    if (cubeElement) cubeElement.style.transform = `rotateX(780deg) rotateY(${-360 * interruptPoint}deg)`;
-                    startInfiniteRandomRotation();
-                }
-            }
-        }
-        
-        requestAnimationFrame(runInitialSequence);
         
         // Eliminar cualquier posible residuo de loader
         const existingLoader = document.querySelector('.initial-load');
