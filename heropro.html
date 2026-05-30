@@ -274,7 +274,7 @@
         .availability-badge {
             position: fixed;
             bottom: 30px;
-            right: 30px;
+            right: 90px;
             z-index: 25;
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(12px);
@@ -349,66 +349,56 @@
             text-transform: uppercase;
         }
 
-        /* ESTILOS DEL CUBO 3D */
-        .cube-wrapper {
+        /* ============================================ */
+        /* ESTILOS DEL GIF - SIN BORDES, TRANSPARENTE, MÁS GRANDE */
+        /* ============================================ */
+        .gif-wrapper {
             flex: 1;
             display: flex;
             justify-content: flex-start;
             align-items: center;
             position: relative;
+            right: 75px;
         }
         
-        .cube-container {
-            width: 320px;
-            height: 320px;
-            perspective: 1000px;
+        /* Contenedor completamente transparente, sin fondo, sin border-radius */
+        .gif-container {
+            width: 860px;      /* Más grande que antes */
+            height: 520px;     /* Tamaño incrementado significativamente */
             position: relative;
-            transform: translateY(-25px);
-        }
-
-        .cube {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.05s linear;
-        }
-
-        .face {
-            position: absolute;
-            width: 320px;
-            height: 320px;
-            background: #000000;
-            backdrop-filter: none;
-            border: none;
-            box-shadow: none;
-            border-radius: 0px;
+            transform: translateY(-15px);
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            background: transparent;   /* Fondo completamente transparente */
+            border-radius: 0px;       /* Sin border radius */
+            box-shadow: none;         /* Sin sombra en el contenedor */
+            backdrop-filter: none;    /* Sin ningún efecto de vidrio */
+            transition: transform 0.3s ease;
         }
-
-        .face img {
+        
+        /* Eliminamos cualquier efecto de hover que agregue fondo o bordes */
+        .gif-container:hover {
+            transform: translateY(-15px) scale(1.02);
+            background: transparent;
+            box-shadow: none;
+        }
+        
+        /* El GIF en sí: sin bordes, sin fondo, más grande */
+        .soda-gif {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            opacity: 0.96;
-            transition: opacity 0.3s;
+            object-fit: contain;   /* Mantiene proporción sin recortes, visible completo */
+            display: block;
             background: transparent;
-            filter: drop-shadow(0 0 4px rgba(128, 0, 96, 0.3));
+            border-radius: 0px;
+            filter: drop-shadow(0 8px 24px rgba(128, 0, 96, 0.4)); /* sutíl solo para destacar, no es fondo */
+            transition: filter 0.3s ease;
         }
-
-        .face:hover img {
-            opacity: 1;
+        
+        .soda-gif:hover {
+            filter: drop-shadow(0 12px 32px rgba(128, 0, 96, 0.6));
         }
-
-        .front { transform: rotateY(0deg) translateZ(160px); }
-        .back { transform: rotateY(180deg) translateZ(160px); }
-        .right { transform: rotateY(90deg) translateZ(160px); }
-        .left { transform: rotateY(-90deg) translateZ(160px); }
-        .top { transform: rotateX(90deg) translateZ(160px); }
-        .bottom { transform: rotateX(-90deg) translateZ(160px); }
 
         /* ========== VERSIÓN MÓVIL ========== */
         @media (max-width: 1024px) {
@@ -428,28 +418,22 @@
             .hero-buttons {
                 justify-content: center;
             }
-            .cube-wrapper {
+            .gif-wrapper {
                 order: 2;
                 justify-content: center;
                 margin-top: 0;
                 width: 100%;
             }
-            .cube-container {
-                width: 280px;
-                height: 280px;
+            /* Tamaño ajustado para tablet pero más grande que antes */
+            .gif-container {
+                width: 380px;
+                height: 380px;
                 transform: translateY(0);
                 margin: 0 auto;
             }
-            .face {
-                width: 280px;
-                height: 280px;
+            .gif-container:hover {
+                transform: translateY(0) scale(1.02);
             }
-            .front { transform: rotateY(0deg) translateZ(140px); }
-            .back { transform: rotateY(180deg) translateZ(140px); }
-            .right { transform: rotateY(90deg) translateZ(140px); }
-            .left { transform: rotateY(-90deg) translateZ(140px); }
-            .top { transform: rotateX(90deg) translateZ(140px); }
-            .bottom { transform: rotateX(-90deg) translateZ(140px); }
             .availability-badge {
                 bottom: 20px;
                 right: 20px;
@@ -502,31 +486,20 @@
                 padding: 10px 20px;
                 font-size: 13px;
             }
-            .cube-wrapper {
+            .gif-wrapper {
                 margin: 5px auto 15px auto;
                 overflow: visible;
                 display: flex;
                 justify-content: center;
                 width: 100%;
             }
-            .cube-container {
-                width: 240px;
-                height: 240px;
-                transform: translateY(0) scale(0.98);
-                perspective: 800px;
+            /* Más grande en móvil también: 320px */
+            .gif-container {
+                width: 320px;
+                height: 320px;
+                transform: translateY(0);
                 margin: 0 auto;
             }
-            .face {
-                width: 240px;
-                height: 240px;
-            }
-            .front { transform: rotateY(0deg) translateZ(120px); }
-            .back { transform: rotateY(180deg) translateZ(120px); }
-            .right { transform: rotateY(90deg) translateZ(120px); }
-            .left { transform: rotateY(-90deg) translateZ(120px); }
-            .top { transform: rotateX(90deg) translateZ(120px); }
-            .bottom { transform: rotateX(-90deg) translateZ(120px); }
-            
             .availability-badge {
                 bottom: 12px;
                 right: 12px;
@@ -553,21 +526,11 @@
             .hero-text p {
                 font-size: 13px;
             }
-            .cube-container {
-                width: 200px;
-                height: 200px;
+            /* En móviles pequeños aún grande pero proporcionado */
+            .gif-container {
+                width: 280px;
+                height: 280px;
             }
-            .face {
-                width: 200px;
-                height: 200px;
-            }
-            .front { transform: rotateY(0deg) translateZ(100px); }
-            .back { transform: rotateY(180deg) translateZ(100px); }
-            .right { transform: rotateY(90deg) translateZ(100px); }
-            .left { transform: rotateY(-90deg) translateZ(100px); }
-            .top { transform: rotateX(90deg) translateZ(100px); }
-            .bottom { transform: rotateX(-90deg) translateZ(100px); }
-            
             .btn-primary, .btn-secondary {
                 padding: 8px 16px;
                 font-size: 12px;
@@ -583,6 +546,7 @@
             }
         }
         
+        /* Landscape mode en móviles: ajuste de tamaño manteniendo la proporción grande */
         @media (max-width: 850px) and (orientation: landscape) {
             .hero {
                 padding: 80px 20px 20px;
@@ -591,20 +555,10 @@
             .hero-content {
                 gap: 15px;
             }
-            .cube-container {
-                width: 190px;
-                height: 190px;
+            .gif-container {
+                width: 260px;
+                height: 260px;
             }
-            .face {
-                width: 190px;
-                height: 190px;
-            }
-            .front { transform: rotateY(0deg) translateZ(95px); }
-            .back { transform: rotateY(180deg) translateZ(95px); }
-            .right { transform: rotateY(90deg) translateZ(95px); }
-            .left { transform: rotateY(-90deg) translateZ(95px); }
-            .top { transform: rotateX(90deg) translateZ(95px); }
-            .bottom { transform: rotateX(-90deg) translateZ(95px); }
             .hero-text h1 {
                 font-size: 28px;
             }
@@ -621,12 +575,20 @@
             }
         }
         
+        /* Para pantallas muy grandes, que el gif pueda sentirse todavía con presencia */
+        @media (min-width: 1600px) {
+            .gif-container {
+                width: 560px;
+                height: 560px;
+                transform: translateY(-20px);
+            }
+            .hero-text h1 {
+                font-size: 74px;
+            }
+        }
+        
         body {
             overflow-x: hidden;
-        }
-        .cube, .cube-container, .face {
-            -webkit-backface-visibility: visible;
-            backface-visibility: visible;
         }
     </style>
 </head>
@@ -660,7 +622,7 @@
         })();
     </script>
 
-    <!-- FONDO CON FIGURAS DIFUMINADAS (SIN Three.js) -->
+    <!-- FONDO CON FIGURAS DIFUMINADAS -->
     <div class="animated-bg">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
@@ -707,29 +669,11 @@
                 </div>
             </div>
             
-            <!-- CUBO 3D -->
-            <div class="cube-wrapper">
-                <div class="cube-container">
-                    <div class="cube" id="animatedCube">
-                        <div class="face front">
-                            <img src="img/Recurso 12@4x.png" alt="Diseño frontal" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=400&fit=crop'">
-                        </div>
-                        <div class="face back">
-                            <img src="img/Recurso 10@4x.png" alt="Diseño trasero" onerror="this.src='https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=400&h=400&fit=crop'">
-                        </div>
-                        <div class="face right">
-                            <img src="img/Recurso 23@4x.png" alt="Diseño derecha" onerror="this.src='https://images.unsplash.com/photo-1558655146-d09347e92766?w=400&h=400&fit=crop'">
-                        </div>
-                        <div class="face left">
-                            <img src="img/Recurso 25@4x.png" alt="Diseño izquierda" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop'">
-                        </div>
-                        <div class="face top">
-                            <img src="img/Recurso 10@4x.png" alt="Diseño superior" onerror="this.src='https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400&h=400&fit=crop'">
-                        </div>
-                        <div class="face bottom">
-                            <img src="img/Recurso 9@4x.png" alt="Diseño inferior" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=400&fit=crop'">
-                        </div>
-                    </div>
+            <!-- GIF "soda.gif" - SIN BORDES, SIN FONDO, MÁS GRANDE -->
+            <div class="gif-wrapper">
+                <div class="gif-container">
+                    <img class="soda-gif" src="eco.gif" alt="soda animación creativa" 
+                         onerror="this.onerror=null; this.src='https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzZkZjQxMDVlYzU5YzA4ZGY3YmI4MzU0M2M3MDI5Y2I4YzU5YzY4ZCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/xT9IgGgFb7O6qR5q0/giphy.gif';">
                 </div>
             </div>
         </div>
@@ -742,124 +686,37 @@
     </section>
 
     <script>
-        // ============================================================
-        // ANIMACIÓN DEL CUBO 3D (SIN Three.js)
-        // ============================================================
-        
-        const cubeElement = document.getElementById('animatedCube');
-        
-        const horizontalDuration = 8000;
-        const verticalDuration = 18000;
-        const interruptPoint = 0.70;
-        
-        let phase = 0;
-        let startTime = null;
-        let pauseStartTime = null;
-        const horizontalFirstDuration = horizontalDuration * interruptPoint;
-        
-        let currentAngleX = 0;
-        let currentAngleY = 0;
-        let targetAngleX = 0;
-        let targetAngleY = 0;
-        let randomModeActive = false;
-        let animationLoopId = null;
-        let changeDirectionTimeout = null;
-        
-        function applyRotation() {
-            if (cubeElement) {
-                cubeElement.style.transform = `rotateX(${currentAngleX}deg) rotateY(${currentAngleY}deg)`;
-            }
-        }
-        
-        function randomRotationLoop() {
-            if (!randomModeActive) return;
-            const smoothFactor = 0.018;
-            let needsUpdate = false;
-            if (Math.abs(currentAngleX - targetAngleX) > 0.05) {
-                currentAngleX += (targetAngleX - currentAngleX) * smoothFactor;
-                needsUpdate = true;
-            } else {
-                currentAngleX = targetAngleX;
-            }
-            if (Math.abs(currentAngleY - targetAngleY) > 0.05) {
-                currentAngleY += (targetAngleY - currentAngleY) * smoothFactor;
-                needsUpdate = true;
-            } else {
-                currentAngleY = targetAngleY;
-            }
-            if (needsUpdate) applyRotation();
-            animationLoopId = requestAnimationFrame(randomRotationLoop);
-        }
-        
-        function setRandomAngles() {
-            if (!randomModeActive) return;
-            const newTargetX = targetAngleX + (Math.random() - 0.5) * 180;
-            const newTargetY = targetAngleY + (Math.random() - 0.5) * 220;
-            targetAngleX = Math.min(1400, Math.max(-800, newTargetX));
-            targetAngleY = Math.min(1200, Math.max(-1000, newTargetY));
-            const nextChange = 2500 + Math.random() * 4000;
-            if (changeDirectionTimeout) clearTimeout(changeDirectionTimeout);
-            changeDirectionTimeout = setTimeout(setRandomAngles, nextChange);
-        }
-        
-        function startInfiniteRandomRotation() {
-            if (randomModeActive) return;
-            randomModeActive = true;
-            phase = 3;
-            currentAngleX = 780;
-            currentAngleY = -252;
-            targetAngleX = 780;
-            targetAngleY = -252;
-            applyRotation();
-            if (animationLoopId) cancelAnimationFrame(animationLoopId);
-            animationLoopId = requestAnimationFrame(randomRotationLoop);
-            setTimeout(() => {
-                if (randomModeActive) setRandomAngles();
-            }, 500);
-        }
-        
-        function runInitialSequence(timestamp) {
-            if (!startTime && phase === 0) startTime = timestamp;
+        (function() {
+            // Asegurar que el contenedor del GIF sea completamente transparente y sin redondeos
+            const gifContainer = document.querySelector('.gif-container');
+            const gifImage = document.querySelector('.soda-gif');
             
-            if (phase === 0) {
-                const elapsed = timestamp - startTime;
-                if (elapsed < horizontalFirstDuration) {
-                    const progress = elapsed / horizontalFirstDuration;
-                    const yRot = -progress * 360 * interruptPoint;
-                    if (cubeElement) cubeElement.style.transform = `rotateX(0deg) rotateY(${yRot}deg)`;
-                    requestAnimationFrame(runInitialSequence);
-                } else {
-                    phase = 1;
-                    pauseStartTime = timestamp;
-                    if (cubeElement) cubeElement.style.transform = `rotateX(0deg) rotateY(${-360 * interruptPoint}deg)`;
-                    requestAnimationFrame(runInitialSequence);
-                }
+            if (gifContainer) {
+                // Forzar estilos inline por si algún user-agent los modifica
+                gifContainer.style.background = 'transparent';
+                gifContainer.style.backgroundColor = 'transparent';
+                gifContainer.style.borderRadius = '0px';
+                gifContainer.style.backdropFilter = 'none';
+                gifContainer.style.boxShadow = 'none';
             }
-            else if (phase === 1) {
-                const pauseElapsed = timestamp - pauseStartTime;
-                if (pauseElapsed < 400) {
-                    requestAnimationFrame(runInitialSequence);
-                } else {
-                    phase = 2;
-                    startTime = timestamp;
-                    requestAnimationFrame(runInitialSequence);
-                }
+            
+            if (gifImage) {
+                gifImage.style.background = 'transparent';
+                gifImage.style.borderRadius = '0px';
+                // Añadir un pequeño efecto suave opcional pero manteniendo transparencia
+                gifImage.style.objectFit = 'contain';
             }
-            else if (phase === 2) {
-                const elapsed = timestamp - startTime;
-                if (elapsed < verticalDuration) {
-                    const progress = elapsed / verticalDuration;
-                    const xRot = progress * 780;
-                    if (cubeElement) cubeElement.style.transform = `rotateX(${xRot}deg) rotateY(${-360 * interruptPoint}deg)`;
-                    requestAnimationFrame(runInitialSequence);
-                } else {
-                    if (cubeElement) cubeElement.style.transform = `rotateX(780deg) rotateY(${-360 * interruptPoint}deg)`;
-                    startInfiniteRandomRotation();
+            
+            // Pequeña verificación extra para garantizar que el gif se muestre grande
+            const adjustGifSize = () => {
+                if (window.innerWidth <= 768) {
+                    // ya responsive, pero aseguramos que no haya border-radius inesperado
+                    if (gifContainer) gifContainer.style.borderRadius = '0px';
                 }
-            }
-        }
-        
-        requestAnimationFrame(runInitialSequence);
+            };
+            adjustGifSize();
+            window.addEventListener('resize', adjustGifSize);
+        })();
     </script>
 </body>
 </html>
