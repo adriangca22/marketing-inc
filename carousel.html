@@ -4,8 +4,22 @@
 <!-- AUTO-SCROLL ACTIVO FORZADO DESDE EL INICIO  -->
 <!-- ============================================ -->
 
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <div class="glr-gallery-container">
-    <div class="glr-gallery-logo">GALERIA DE DISEÑOS</div>
+    <div class="glr-gallery-header">
+        <h1 class="glr-main-title">
+            <i class="fa-solid fa-palette glr-title-icon"></i>
+            <span class="glr-title-text">diseño gráfico, branding, logos</span>
+        </h1>
+        <div class="glr-title-divider">
+            <span class="glr-divider-line"></span>
+            <span class="glr-divider-diamond"><i class="fa-solid fa-diamond"></i></span>
+            <span class="glr-divider-line"></span>
+        </div>
+        <p class="glr-subtitle">Clic en cualquier imagen para vista completa</p>
+    </div>
     
     <div class="glr-gallery-track" id="glr-galleryTrack">
         <!-- Las imágenes se generarán con JavaScript -->
@@ -32,11 +46,12 @@
 
 <!-- CSS AISLADO DE LA GALERÍA -->
 <style>
-     * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 /* Reset solo dentro de la galería */
 .glr-gallery-container * {
     margin: 0;
@@ -51,29 +66,208 @@
     min-height: 800px;
     overflow: hidden;
     font-family: 'Lato', 'Segoe UI', sans-serif;
- background: linear-gradient(rgba(5, 10, 16, 0.158), rgba(6, 12, 19, 0)),
-                        url('img/fondo.png') no-repeat center center;
-                         background-size: cover;
-            background-attachment: fixed;
+    background: linear-gradient(135deg, rgba(88, 28, 135, 0.15) 0%, rgba(15, 5, 30, 0.95) 100%),
+                url('img/fondo.png') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
-.glr-gallery-logo {
+/* ============================================ */
+/* HEADER CON TÍTULO CENTRADO Y EFECTOS PRO    */
+/* ============================================ */
+.glr-gallery-header {
     position: absolute;
-    top: 30px;
-    left: 40px;
+    top: 25px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 100;
+    padding: 0 20px;
+    animation: glr-header-entrance 1s ease-out forwards;
+}
+
+@keyframes glr-header-entrance {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.glr-main-title {
     font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: 1.9rem;
     font-weight: 700;
     letter-spacing: 2px;
-    font-size: 0.9rem;
     text-transform: uppercase;
-    z-index: 100;
-    color: #e0e6ed;
-    background: rgba(26, 15, 46, 0.7);
-    backdrop-filter: blur(8px);
-    padding: 6px 16px;
-    border-radius: 40px;
-    border-left: 2px solid #ffffff;
-    pointer-events: none;
+    margin: 0;
+    margin-bottom: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    color: #ffffff; /* Color de respaldo para que nunca desaparezca */
+    position: relative;
+}
+
+/* Icono del título con efectos */
+.glr-title-icon {
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #ff6bb5, #a02078, #d478b0);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px rgba(160, 32, 120, 0.8));
+    animation: glr-icon-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes glr-icon-pulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px rgba(160, 32, 120, 0.8));
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(255, 107, 181, 1)) drop-shadow(0 0 30px rgba(160, 32, 120, 0.6));
+        transform: scale(1.1) rotate(5deg);
+    }
+}
+
+/* Texto del título con efecto de brillo deslizante */
+.glr-title-text {
+    background: linear-gradient(
+        90deg,
+        #ffffff 0%,
+        #ffffff 35%,
+        #f0c0e8 45%,
+        #d478b0 50%,
+        #f0c0e8 55%,
+        #ffffff 65%,
+        #ffffff 100%
+    );
+    background-size: 300% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glr-shine-effect 5s ease-in-out infinite;
+    filter: drop-shadow(0 2px 8px rgba(160, 32, 120, 0.3));
+}
+
+/* Animación de brillo deslizante para el título */
+@keyframes glr-shine-effect {
+    0% {
+        background-position: 300% center;
+    }
+    100% {
+        background-position: -300% center;
+    }
+}
+
+/* Línea decorativa entre título y subtítulo */
+.glr-title-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    animation: glr-divider-appear 1.2s ease-out 0.3s both;
+}
+
+@keyframes glr-divider-appear {
+    0% {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+.glr-divider-line {
+    display: inline-block;
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(160, 32, 120, 0.8), transparent);
+    animation: glr-line-glow 3s ease-in-out infinite;
+}
+
+@keyframes glr-line-glow {
+    0%, 100% {
+        opacity: 0.5;
+        box-shadow: 0 0 5px rgba(160, 32, 120, 0.3);
+    }
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 10px rgba(160, 32, 120, 0.6);
+    }
+}
+
+.glr-divider-diamond {
+    color: #a02078;
+    font-size: 0.6rem;
+    animation: glr-diamond-spin 4s linear infinite;
+    filter: drop-shadow(0 0 5px rgba(160, 32, 120, 0.8));
+}
+
+@keyframes glr-diamond-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.glr-subtitle {
+    font-family: 'Lato', 'Segoe UI', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin: 0;
+    
+    /* Efecto de brillo sutil para el subtítulo */
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.4);
+    
+    animation: glr-subtitle-fade 1s ease-out 0.5s both, glr-subtitle-glow 3s ease-in-out 1.5s infinite;
+}
+
+@keyframes glr-subtitle-fade {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animación de brillo sutil para el subtítulo */
+@keyframes glr-subtitle-glow {
+    0%, 100% {
+        text-shadow: 
+            0 0 10px rgba(255, 255, 255, 0.3),
+            0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+    50% {
+        text-shadow: 
+            0 0 15px rgba(255, 255, 255, 0.5),
+            0 0 20px rgba(160, 32, 120, 0.3),
+            0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* Efecto hover en el título */
+.glr-main-title:hover .glr-title-icon {
+    animation: glr-icon-hover 0.6s ease forwards;
+}
+
+@keyframes glr-icon-hover {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.3) rotate(15deg); }
+    100% { transform: scale(1.1) rotate(0deg); }
 }
 
 .glr-gallery-track {
@@ -119,7 +313,6 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-   
     background: linear-gradient(135deg, #57575700 0%, #0000008e 100%);
 }
 
@@ -141,10 +334,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-  
     border-radius: 12px;
     pointer-events: none;
-  
 }
 
 /* ============================================ */
@@ -267,6 +458,20 @@
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
+    .glr-main-title {
+        font-size: 1.7rem;
+        gap: 12px;
+    }
+    .glr-title-icon {
+        font-size: 1.3rem;
+    }
+    .glr-subtitle {
+        font-size: 0.8rem;
+        letter-spacing: 1.2px;
+    }
+    .glr-divider-line {
+        width: 50px;
+    }
     .glr-gallery-item { width: 360px; height: 340px; }
     .glr-gallery-track { gap: 30px; }
     .glr-arrow-btn { width: 50px; height: 50px; }
@@ -282,13 +487,35 @@
         display: flex;
         flex-direction: column;
     }
-    .glr-gallery-logo {
+    .glr-gallery-header {
         position: fixed;
-        top: 15px;
-        left: 15px;
-        font-size: 0.7rem;
-        padding: 4px 12px;
+        top: 10px;
+        left: 0;
+        right: 0;
         z-index: 200;
+        padding: 0 15px;
+    }
+    .glr-main-title {
+        font-size: 1.3rem;
+        letter-spacing: 1.5px;
+        margin-bottom: 5px;
+        gap: 10px;
+    }
+    .glr-title-icon {
+        font-size: 1.1rem;
+    }
+    .glr-subtitle {
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+    }
+    .glr-divider-line {
+        width: 35px;
+    }
+    .glr-divider-diamond {
+        font-size: 0.5rem;
+    }
+    .glr-title-divider {
+        margin-bottom: 6px;
     }
     .glr-gallery-track {
         flex-direction: column;
@@ -296,6 +523,7 @@
         gap: 15px;
         transform: none !important;
         height: auto;
+        margin-top: 100px;
     }
     .glr-gallery-item {
         width: 90%;
@@ -346,12 +574,39 @@
 }
 
 @media (max-width: 480px) {
+    .glr-main-title {
+        font-size: 1.1rem;
+        gap: 8px;
+    }
+    .glr-title-icon {
+        font-size: 0.9rem;
+    }
+    .glr-subtitle {
+        font-size: 0.65rem;
+        letter-spacing: 1px;
+    }
+    .glr-divider-line {
+        width: 25px;
+    }
     .glr-arrow-btn { width: 42px; height: 42px; }
     .glr-arrow-btn svg { width: 20px; height: 20px; }
     .glr-gallery-item { max-width: 320px; }
 }
 
 @media (min-width: 1400px) {
+    .glr-main-title {
+        font-size: 2.2rem;
+        gap: 18px;
+    }
+    .glr-title-icon {
+        font-size: 1.7rem;
+    }
+    .glr-subtitle {
+        font-size: 0.9rem;
+    }
+    .glr-divider-line {
+        width: 80px;
+    }
     .glr-gallery-item { width: 550px; height: 500px; }
     .glr-gallery-track { gap: 50px; }
     .glr-nav-arrows { padding: 0 60px; }
@@ -367,8 +622,8 @@
     const AUTO_SCROLL_ENABLED = true;
     const AUTO_SCROLL_PAUSE_ON_HOVER = true;
     
-    // 🚀 VELOCIDAD DEL SCROLL CONTINUO (píxeles por frame)
-    const CONTINUOUS_SCROLL_SPEED = 0.65;
+    // 🚀 VELOCIDAD DEL SCROLL CONTINUO (píxeles por frame) - LIGERAMENTE AUMENTADA
+    const CONTINUOUS_SCROLL_SPEED = 0.95;
     
     // DATOS DE LAS OBRAS
     const obras = [
@@ -586,13 +841,12 @@
         });
     }
     
-    // Scroll continuo (ahora más rápido y FORZADO al inicio)
+    // Scroll continuo
     function startContinuousScroll() {
         if (!AUTO_SCROLL_ENABLED) return;
         if (isUserInteracting || isSnapping) return;
         if (window.innerWidth <= 768) return;
         
-        // Detener cualquier animación previa
         if (continuousScrollId) {
             cancelAnimationFrame(continuousScrollId);
             continuousScrollId = null;
@@ -601,7 +855,6 @@
         track.style.transition = 'none';
         
         function animateScroll() {
-            // Verificar condiciones en cada frame
             if (!AUTO_SCROLL_ENABLED || isUserInteracting || isSnapping) {
                 continuousScrollId = null;
                 return;
@@ -609,19 +862,19 @@
             
             currentOffset -= CONTINUOUS_SCROLL_SPEED;
             
-            // Loop infinito suave
             const totalWidth = itemWidth * obras.length;
             if (Math.abs(currentOffset) >= totalWidth) {
                 currentOffset = 0;
+                track.style.transform = `translateX(0px)`;
+                updateVisualState();
+            } else {
+                track.style.transform = `translateX(${currentOffset}px)`;
+                updateVisualState();
             }
-            
-            track.style.transform = `translateX(${currentOffset}px)`;
-            updateVisualState();
             
             continuousScrollId = requestAnimationFrame(animateScroll);
         }
         
-        // Iniciar la animación
         animateScroll();
     }
     
@@ -694,7 +947,7 @@
             if (AUTO_SCROLL_ENABLED && window.innerWidth > 768) {
                 startContinuousScroll();
             }
-        }, 3000);
+        }, 800);
     }
     
     // FUNCIÓN ESPECIAL PARA FORZAR EL AUTO-SCROLL AL INICIO
@@ -702,11 +955,9 @@
         if (!AUTO_SCROLL_ENABLED) return;
         if (window.innerWidth <= 768) return;
         
-        // Asegurar que no hay interacción bloqueando
         isUserInteracting = false;
         isSnapping = false;
         
-        // Iniciar el scroll
         startContinuousScroll();
     }
     
@@ -719,7 +970,6 @@
             centerOnFirstImage();
             isInitialized = true;
             
-            // FORZAR INICIO DEL AUTO-SCROLL (múltiples intentos para asegurar)
             setTimeout(() => {
                 forceStartAutoScroll();
             }, 300);
@@ -766,7 +1016,7 @@
                     if (!isUserInteracting && AUTO_SCROLL_ENABLED && isInitialized) {
                         forceStartAutoScroll();
                     }
-                }, 500);
+                }, 300);
             });
         }
         

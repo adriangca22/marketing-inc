@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Render Fotorealista</title>
+  <title>Render Fotorealista | Carrusel Soda & Laptop</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -194,7 +194,7 @@
       0 10px 25px rgba(255,0,255,.25);
     }
 
-    /* SODA - CONTAINER RELATIVO PARA LA SOMBRA */
+    /* CARRUSEL - CONTAINER */
     .soda-area{
       position:relative;
       z-index:2;
@@ -208,84 +208,107 @@
       margin-right:120px;
     }
 
-    .soda{
-      width:500px;
-
-      transform:rotate(-18deg);
-
-      filter:
-      drop-shadow(0 40px 30px rgba(0,0,0,.8))
-      drop-shadow(0 0 20px rgba(255,0,255,.2));
-
-      animation:float 4s ease-in-out infinite;
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    @keyframes float{
+    .carousel-track {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-      0%,100%{
-        transform:rotate(-18deg) translateY(0px);
+    .carousel-item {
+      position: absolute;
+      width: 100%;
+      opacity: 0;
+      transform: rotate(-18deg) scale(0.85) translateY(30px);
+      transition: opacity 0.5s cubic-bezier(0.3, 0.9, 0.4, 1.1), transform 0.5s cubic-bezier(0.2, 0.85, 0.3, 1);
+      filter: drop-shadow(0 40px 30px rgba(0,0,0,.8)) drop-shadow(0 0 20px rgba(255,0,255,.2));
+      pointer-events: none;
+    }
+
+    .carousel-item.active {
+      opacity: 1;
+      transform: rotate(-18deg) scale(1) translateY(0px);
+      z-index: 20;
+    }
+
+    .soda-gif, .laptop-gif {
+      width: 100%;
+      max-width: 500px;
+      display: block;
+      margin: 0 auto;
+      animation: floatItem 4s ease-in-out infinite;
+    }
+
+    @keyframes floatItem {
+      0%,100% {
+        transform: translateY(0px);
       }
-
-      50%{
-        transform:rotate(-18deg) translateY(-18px);
+      50% {
+        transform: translateY(-18px);
       }
     }
 
-    /* SHADOW - DEBAJO DE LA SODA */
-    .soda-shadow{
-      position:absolute;
-      bottom:-40px;
-      left:60%;
-      transform:translateX(-50%);
-      width:380px;
-      height:35px;
-      background:radial-gradient(ellipse, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 20%);
-      filter:blur(12px);
-      border-radius:50%;
-      pointer-events:none;
-      z-index:1;
+    /* SHADOW - DEBAJO DEL PRODUCTO ACTIVO */
+    .dynamic-shadow {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 380px;
+      height: 35px;
+      background: radial-gradient(ellipse, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 80%);
+      filter: blur(12px);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      transition: width 0.4s ease, opacity 0.3s ease;
     }
 
-    /* INSTAGRAM */
-    .insta{
-      position:absolute;
-
-      bottom:30px;
-      right:40px;
-
-      display:flex;
-      align-items:center;
-      gap:12px;
-
-      padding:10px 18px;
-
-      border-radius:18px;
-
-      background:#140b20;
-
-      border:1px solid rgba(255,255,255,.08);
-
-      color:#fff;
-      text-decoration:none;
-      font-size:.9rem;
-
-      z-index:3;
+    /* INDICADORES */
+    .carousel-indicators {
+      position: absolute;
+      bottom: -70px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 16px;
+      z-index: 25;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      padding: 6px 18px;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 0, 255, 0.3);
     }
 
-    .insta-icon{
-      width:34px;
-      height:34px;
+    .indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-      border-radius:12px;
+    .indicator.active {
+      background: #ff44ff;
+      width: 24px;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #ff44ff;
+    }
 
-      border:2px solid #fff;
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      font-weight:700;
-      font-size:1rem;
+    .indicator:hover {
+      background: #ff88ff;
+      transform: scale(1.2);
     }
 
     @media(max-width:1000px){
@@ -305,21 +328,19 @@
         margin-right:0;
       }
 
-      .soda{
-        width:300px;
+      .carousel-track {
+        width: 300px;
+        height: 300px;
       }
 
-      .soda-shadow{
-        width:240px;
-        height:25px;
-        bottom:20px;
+      .soda-gif, .laptop-gif {
+        max-width: 300px;
       }
 
-      .insta{
-        right:20px;
-        bottom:20px;
-
-        transform:scale(.9);
+      .dynamic-shadow {
+        width: 240px;
+        height: 25px;
+        bottom: -25px;
       }
     }
 
@@ -333,10 +354,19 @@
         font-size:1.4rem;
       }
       
-      .soda-shadow{
-        width:200px;
-        height:20px;
-        bottom:15px;
+      .carousel-track {
+        width: 260px;
+        height: 260px;
+      }
+
+      .soda-gif, .laptop-gif {
+        max-width: 260px;
+      }
+
+      .dynamic-shadow{
+        width: 200px;
+        height: 20px;
+        bottom: -20px;
       }
     }
 
@@ -377,15 +407,168 @@
 
     </div>
 
-    <!-- SODA CON SOMBRA DEBAJO -->
+    <!-- CARRUSEL: SODA.GIF y LAPTOP.GIF -->
     <div class="soda-area">
-      <img src="soda.gif" alt="Soda" class="soda">
-      <div class="soda-shadow"></div>
+      <div class="carousel-container">
+        <div class="carousel-track">
+          <!-- Soda GIF -->
+          <div class="carousel-item" id="item-soda">
+            <img src="soda.gif" alt="Soda" class="soda-gif">
+          </div>
+          <!-- Laptop GIF -->
+          <div class="carousel-item" id="item-laptop">
+            <img src="laptop.gif" alt="Laptop" class="laptop-gif">
+          </div>
+        </div>
+        <div class="dynamic-shadow" id="dynamicShadow"></div>
+      </div>
+
+      <!-- Indicadores -->
+      <div class="carousel-indicators">
+        <div class="indicator" data-index="0" id="indicator-soda"></div>
+        <div class="indicator" data-index="1" id="indicator-laptop"></div>
+      </div>
     </div>
 
-    <!-- INSTAGRAM -->
- 
   </section>
+
+  <script>
+    (function() {
+      const sodaItem = document.getElementById('item-soda');
+      const laptopItem = document.getElementById('item-laptop');
+      const indicatorSoda = document.getElementById('indicator-soda');
+      const indicatorLaptop = document.getElementById('indicator-laptop');
+      const shadowDiv = document.getElementById('dynamicShadow');
+
+      let currentIndex = 0; // 0: soda, 1: laptop
+      let intervalId = null;
+      let isTransitioning = false;
+
+      function setActiveItem(index) {
+        if (isTransitioning) return;
+        if (index === currentIndex) return;
+        
+        isTransitioning = true;
+        
+        // Cambio de clases
+        if (index === 0) {
+          sodaItem.classList.add('active');
+          laptopItem.classList.remove('active');
+          
+          // Ajustar sombra para soda
+          if (shadowDiv) {
+            let width = window.innerWidth <= 1000 ? '240px' : '380px';
+            shadowDiv.style.width = width;
+            shadowDiv.style.background = 'radial-gradient(ellipse, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 80%)';
+          }
+          
+          indicatorSoda.classList.add('active');
+          indicatorLaptop.classList.remove('active');
+          currentIndex = 0;
+        } else {
+          laptopItem.classList.add('active');
+          sodaItem.classList.remove('active');
+          
+          // Ajustar sombra para laptop
+          if (shadowDiv) {
+            let width = window.innerWidth <= 1000 ? '260px' : '400px';
+            shadowDiv.style.width = width;
+            shadowDiv.style.background = 'radial-gradient(ellipse, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.45) 50%, transparent 80%)';
+          }
+          
+          indicatorSoda.classList.remove('active');
+          indicatorLaptop.classList.add('active');
+          currentIndex = 1;
+        }
+        
+        setTimeout(() => {
+          isTransitioning = false;
+        }, 550);
+      }
+
+      function nextSlide() {
+        if (isTransitioning) return;
+        let nextIndex = currentIndex === 0 ? 1 : 0;
+        setActiveItem(nextIndex);
+      }
+
+      function startCarousel() {
+        if (intervalId) clearInterval(intervalId);
+        intervalId = setInterval(() => {
+          nextSlide();
+        }, 4000); // BUCLE CADA 4 SEGUNDOS
+      }
+
+      function stopCarousel() {
+        if (intervalId) {
+          clearInterval(intervalId);
+          intervalId = null;
+        }
+      }
+
+      function resetCarouselTimer() {
+        stopCarousel();
+        startCarousel();
+      }
+
+      // Eventos de los indicadores
+      indicatorSoda.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (currentIndex !== 0 && !isTransitioning) {
+          setActiveItem(0);
+          resetCarouselTimer();
+        }
+      });
+
+      indicatorLaptop.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (currentIndex !== 1 && !isTransitioning) {
+          setActiveItem(1);
+          resetCarouselTimer();
+        }
+      });
+
+      // Pausa al hacer hover sobre el área del carrusel
+      const carouselContainer = document.querySelector('.carousel-container');
+      if (carouselContainer) {
+        carouselContainer.addEventListener('mouseenter', () => {
+          stopCarousel();
+        });
+        carouselContainer.addEventListener('mouseleave', () => {
+          if (!intervalId) startCarousel();
+        });
+      }
+
+      // Ajustar sombra al redimensionar
+      window.addEventListener('resize', () => {
+        if (shadowDiv) {
+          if (window.innerWidth <= 1000) {
+            shadowDiv.style.width = currentIndex === 0 ? '240px' : '260px';
+          } else {
+            shadowDiv.style.width = currentIndex === 0 ? '380px' : '400px';
+          }
+        }
+      });
+
+      // Inicializar (soda activo primero)
+      sodaItem.classList.add('active');
+      laptopItem.classList.remove('active');
+      indicatorSoda.classList.add('active');
+      indicatorLaptop.classList.remove('active');
+      currentIndex = 0;
+      if (shadowDiv) {
+        let initialWidth = window.innerWidth <= 1000 ? '240px' : '380px';
+        shadowDiv.style.width = initialWidth;
+      }
+      
+      startCarousel();
+
+      // Limpiar al salir
+      window.addEventListener('beforeunload', () => {
+        if (intervalId) clearInterval(intervalId);
+      });
+    })();
+  </script>
 
 </body>
 </html>

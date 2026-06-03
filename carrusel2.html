@@ -3,22 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Carrusel Web Images</title>
+<title>Carrusel Web Images - Fondo Premium</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
 /* VARIABLES DE COLOR */
 :root {
-  --primary:#050a10;
+  --primary:#07000d;
   --secondary:#0d1f33;
-  --accent:#800060;
-  --accent-light:#a02078;
-  --accent-glow:rgba(128,0,96,.4);
-  --accent-glow-strong:rgba(160,32,120,.6);
+  --accent:#b700ff;
+  --accent-light:#cc33ff;
+  --accent-glow:rgba(183,0,255,.4);
+  --accent-glow-strong:rgba(204,51,255,.6);
   --text:#ffffff;
   --text-muted:#c5cfd9;
   --white:#fff;
-  --gradient:linear-gradient(135deg,#050a10 0%,#0d1f33 50%,#071424 100%);
-  --accent-gradient:linear-gradient(135deg,#800060,#4d0039);
+  
+  /* Fondo con gradiente radial y grid como solicitaste */
+  --bg-gradient: radial-gradient(circle at center, rgba(183,0,255,.35) 0%, rgba(90,0,120,.25) 30%, rgba(10,0,20,1) 75%);
+  --bg-color: #07000d;
 }
 
 /* RESET Y BASE */
@@ -32,10 +34,37 @@ max-width: 100vw;
 
 body {
 font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-background: var(--gradient);
+background: var(--bg-color);
 min-height: 100vh;
 color: var(--text);
 overflow-x: hidden;
+position: relative;
+}
+
+/* PATRÓN DE GRID COMO SOLICITASTE */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255,0,255,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,0,255,.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* GRADIENTE RADIAL DE FONDO */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(183,0,255,.35) 0%, rgba(90,0,120,.25) 30%, rgba(10,0,20,1) 75%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* CONTENEDOR PRINCIPAL */
@@ -45,6 +74,7 @@ max-width: 1400px;
 margin: 0 auto;
 padding: 1rem 1rem 3rem;
 position: relative;
+z-index: 2;
 overflow: hidden;
 }
 
@@ -53,6 +83,8 @@ overflow: hidden;
 text-align: center;
 margin-bottom: 0.8rem;
 padding: 0 1rem;
+position: relative;
+z-index: 2;
 }
 
 .section-tag {
@@ -70,16 +102,35 @@ font-weight: 600;
 text-shadow: 0 2px 8px var(--accent-glow);
 }
 
+/* ── TÍTULO CON GRADIENTE VIAJERO ── */
 .section-title {
-font-size: clamp(1.5rem, 4vw, 2.2rem);
-font-weight: 800;
-letter-spacing: -0.02em;
-background: linear-gradient(135deg, var(--white), var(--accent-light), var(--white));
--webkit-background-clip: text;
-background-clip: text;
-color: transparent;
-line-height: 1.2;
-margin-bottom: 0.2rem;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 0.2rem;
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ffffff 12%,
+    #cc44ff 26%,
+    #8800cc 36%,
+    #ff44ee 46%,
+    #8800cc 56%,
+    #cc44ff 66%,
+    #ffffff 80%,
+    #ffffff 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradientTravel 2.2s linear infinite;
+}
+
+@keyframes gradientTravel {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -50% 0; }
 }
 
 .section-subtitle {
@@ -102,6 +153,7 @@ margin: 0 auto;
 place-items: center;
 position: relative;
 contain: layout style paint;
+z-index: 2;
 }
 
 .carousel3d {
@@ -136,7 +188,7 @@ backface-visibility: hidden;
 box-shadow: 
   0 30px 60px -20px rgba(0, 0, 0, 0.8),
   0 0 0 1px rgba(255, 255, 255, 0.15) inset,
-  0 0 40px rgba(128, 0, 96, 0.2);
+  0 0 40px rgba(183,0,255,0.2);
 cursor: pointer;
 pointer-events: auto;
 transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
@@ -243,7 +295,7 @@ display: block;
 aspect-ratio: auto;
 }
 
-/* OVERLAY DE DESCRIPCIÓN — SIN LÍNEA NEGRA */
+/* OVERLAY DE DESCRIPCIÓN */
 .image-info-overlay {
 position: absolute;
 bottom: 0;
@@ -287,7 +339,7 @@ opacity: 0.95;
 display: inline-flex;
 align-items: center;
 gap: 0.5rem;
-background: var(--accent-gradient);
+background: linear-gradient(135deg, #b700ff, #6a00a0);
 color: var(--white);
 padding: 0.4rem 1.2rem;
 border-radius: 50px;
@@ -299,7 +351,7 @@ border: none;
 cursor: pointer;
 box-shadow: 
   0 4px 12px rgba(0, 0, 0, 0.4),
-  0 0 20px var(--accent-glow);
+  0 0 20px rgba(183,0,255,.4);
 margin-top: 0.2rem;
 }
 
@@ -307,12 +359,8 @@ margin-top: 0.2rem;
 transform: translateY(-2px);
 box-shadow: 
   0 6px 20px rgba(0, 0, 0, 0.5),
-  0 0 35px var(--accent-glow-strong);
-background: linear-gradient(135deg, var(--accent-light), var(--accent));
-}
-
-.project-info {
-display: none;
+  0 0 35px rgba(183,0,255,.6);
+background: linear-gradient(135deg, #cc33ff, #b700ff);
 }
 
 .nav-btn {
@@ -354,7 +402,7 @@ box-shadow:
 .close-lightbox {
 position: absolute;
 top: 30px; right: 30px;
-background: rgba(128, 0, 96, 0.95);
+background: rgba(183,0,255,0.95);
 backdrop-filter: blur(12px);
 border: 1px solid var(--accent-light);
 width: 48px; height: 48px;
