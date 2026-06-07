@@ -350,7 +350,7 @@
         }
 
         /* ============================================ */
-        /* ESTILOS DEL GIF - SIN BORDES, TRANSPARENTE, MÁS GRANDE */
+        /* GIF WRAPPER — ESFERA DETRÁS, ECO DELANTE     */
         /* ============================================ */
         .gif-wrapper {
             flex: 1;
@@ -360,44 +360,93 @@
             position: relative;
             right: 75px;
         }
-        
-        /* Contenedor completamente transparente, sin fondo, sin border-radius */
+
+        /* Contenedor: position relative para apilar las dos capas */
         .gif-container {
-            width: 860px;      /* Más grande que antes */
-            height: 520px;     /* Tamaño incrementado significativamente */
+            width: 860px;
+            height: 520px;
             position: relative;
             transform: translateY(-15px);
             display: flex;
             justify-content: center;
             align-items: center;
-            background: transparent;   /* Fondo completamente transparente */
-            border-radius: 0px;       /* Sin border radius */
-            box-shadow: none;         /* Sin sombra en el contenedor */
-            backdrop-filter: none;    /* Sin ningún efecto de vidrio */
-            transition: transform 0.3s ease;
+            background: transparent;
+            border-radius: 0px;
+            box-shadow: none;
+            backdrop-filter: none;
+            transition: transform 0.4s ease;
         }
-        
-        /* Eliminamos cualquier efecto de hover que agregue fondo o bordes */
+
         .gif-container:hover {
             transform: translateY(-15px) scale(1.02);
             background: transparent;
             box-shadow: none;
         }
-        
-        /* El GIF en sí: sin bordes, sin fondo, más grande */
+
+        /* CAPA 1 — ESFERA (fondo): centrada, ligeramente más grande que eco
+           para que asome por detrás y se vea la profundidad              */
+        .sphere-gif {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 75%;
+            height: 75%;
+            object-fit: contain;
+            z-index: 1;
+            background: transparent;
+            border-radius: 0;
+            opacity: 0.92;
+            /* Glow magenta coherente con la paleta del sitio */
+            filter: drop-shadow(0 0 32px rgba(128, 0, 96, 0.6))
+                    drop-shadow(0 0 70px rgba(160, 0, 120, 0.25));
+            /* Flotación suave para dar vida sin distraer */
+            animation: sphereFloat 14s ease-in-out infinite;
+            transition: filter 0.4s ease;
+        }
+
+        @keyframes sphereFloat {
+            0%,  100% { transform: translate(-50%, -50%) scale(1)    translateY(0px); }
+            33%        { transform: translate(-50%, -50%) scale(1.03) translateY(-10px); }
+            66%        { transform: translate(-50%, -50%) scale(0.98) translateY(8px); }
+        }
+
+        /* OVERLAY OSCURO — cubre todo el hero, detrás del texto y del eco */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            pointer-events: none;
+            background: linear-gradient(
+                135deg,
+                rgba(0, 0, 0, 0.87) 100%,
+            )
+        }
+
+        /* CAPA 2 — ECO (frente): ocupa el 100% del contenedor */
         .soda-gif {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 100%;
             height: 100%;
-            object-fit: contain;   /* Mantiene proporción sin recortes, visible completo */
+            object-fit: contain;
+            z-index: 2;
             display: block;
             background: transparent;
             border-radius: 0px;
-            filter: drop-shadow(0 8px 24px rgba(128, 0, 96, 0.4)); /* sutíl solo para destacar, no es fondo */
+            filter: drop-shadow(0 8px 24px rgba(128, 0, 96, 0.4));
             transition: filter 0.3s ease;
         }
-        
-        .soda-gif:hover {
-            filter: drop-shadow(0 12px 32px rgba(128, 0, 96, 0.6));
+
+        .gif-container:hover .soda-gif {
+            filter: drop-shadow(0 12px 32px rgba(128, 0, 96, 0.65));
+        }
+
+        .gif-container:hover .sphere-gif {
+            filter: drop-shadow(0 0 44px rgba(128, 0, 96, 0.85))
+                    drop-shadow(0 0 90px rgba(160, 0, 120, 0.4));
         }
 
         /* ========== VERSIÓN MÓVIL ========== */
@@ -423,8 +472,8 @@
                 justify-content: center;
                 margin-top: 0;
                 width: 100%;
+                right: 0;
             }
-            /* Tamaño ajustado para tablet pero más grande que antes */
             .gif-container {
                 width: 380px;
                 height: 380px;
@@ -492,8 +541,8 @@
                 display: flex;
                 justify-content: center;
                 width: 100%;
+                right: 0;
             }
-            /* Más grande en móvil también: 320px */
             .gif-container {
                 width: 320px;
                 height: 320px;
@@ -526,7 +575,6 @@
             .hero-text p {
                 font-size: 13px;
             }
-            /* En móviles pequeños aún grande pero proporcionado */
             .gif-container {
                 width: 280px;
                 height: 280px;
@@ -546,7 +594,6 @@
             }
         }
         
-        /* Landscape mode en móviles: ajuste de tamaño manteniendo la proporción grande */
         @media (max-width: 850px) and (orientation: landscape) {
             .hero {
                 padding: 80px 20px 20px;
@@ -575,7 +622,6 @@
             }
         }
         
-        /* Para pantallas muy grandes, que el gif pueda sentirse todavía con presencia */
         @media (min-width: 1600px) {
             .gif-container {
                 width: 560px;
@@ -646,6 +692,8 @@
     </nav>
 
     <section class="hero">
+        <!-- GRADIENTE OSCURO que cubre todo el hero, detrás del texto y del eco -->
+        <div class="hero-overlay"></div>
         <div class="hero-content">
             <div class="hero-text">
                 <h1>
@@ -669,9 +717,12 @@
                 </div>
             </div>
             
-            <!-- GIF "soda.gif" - SIN BORDES, SIN FONDO, MÁS GRANDE -->
+            <!-- GIFS APILADOS: esfere.gif detrás, eco.gif delante -->
             <div class="gif-wrapper">
                 <div class="gif-container">
+                    <!-- CAPA TRASERA: esfera con glow y flotación -->
+                    <img class="sphere-gif" src="esfera.gif" alt="esfera animada fondo">
+                    <!-- CAPA FRONTAL: eco encima -->
                     <img class="soda-gif" src="eco.gif" alt="soda animación creativa" 
                          onerror="this.onerror=null; this.src='https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzZkZjQxMDVlYzU5YzA4ZGY3YmI4MzU0M2M3MDI5Y2I4YzU5YzY4ZCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/xT9IgGgFb7O6qR5q0/giphy.gif';">
                 </div>
@@ -687,32 +738,32 @@
 
     <script>
         (function() {
-            // Asegurar que el contenedor del GIF sea completamente transparente y sin redondeos
             const gifContainer = document.querySelector('.gif-container');
-            const gifImage = document.querySelector('.soda-gif');
+            const gifImage     = document.querySelector('.soda-gif');
+            const sphereImage  = document.querySelector('.sphere-gif');
             
             if (gifContainer) {
-                // Forzar estilos inline por si algún user-agent los modifica
-                gifContainer.style.background = 'transparent';
+                gifContainer.style.background      = 'transparent';
                 gifContainer.style.backgroundColor = 'transparent';
-                gifContainer.style.borderRadius = '0px';
-                gifContainer.style.backdropFilter = 'none';
-                gifContainer.style.boxShadow = 'none';
+                gifContainer.style.borderRadius    = '0px';
+                gifContainer.style.backdropFilter  = 'none';
+                gifContainer.style.boxShadow       = 'none';
             }
             
             if (gifImage) {
-                gifImage.style.background = 'transparent';
-                gifImage.style.borderRadius = '0px';
-                // Añadir un pequeño efecto suave opcional pero manteniendo transparencia
-                gifImage.style.objectFit = 'contain';
+                gifImage.style.background    = 'transparent';
+                gifImage.style.borderRadius  = '0px';
+                gifImage.style.objectFit     = 'contain';
+            }
+
+            if (sphereImage) {
+                sphereImage.style.background   = 'transparent';
+                sphereImage.style.borderRadius = '0px';
+                sphereImage.style.objectFit    = 'contain';
             }
             
-            // Pequeña verificación extra para garantizar que el gif se muestre grande
             const adjustGifSize = () => {
-                if (window.innerWidth <= 768) {
-                    // ya responsive, pero aseguramos que no haya border-radius inesperado
-                    if (gifContainer) gifContainer.style.borderRadius = '0px';
-                }
+                if (gifContainer) gifContainer.style.borderRadius = '0px';
             };
             adjustGifSize();
             window.addEventListener('resize', adjustGifSize);
